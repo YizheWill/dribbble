@@ -10,7 +10,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { fade, withStyles } from '@material-ui/core/styles';
 import InputBase from '@material-ui/core/InputBase';
 import { FaGoogle } from 'react-icons/fa';
-import { FaTwitter } from 'react-icons/fa';
+// import { FaTwitter } from 'react-icons/fa';
 
 const useStyles = makeStyles((theme) => ({
   root: {
