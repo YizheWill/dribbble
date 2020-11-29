@@ -10,14 +10,14 @@ import Typography from '@material-ui/core/Typography';
 const useStyles = makeStyles((theme) => ({
   border: {
     borderRadius: 10,
-    minWidth: 200,
+    minWidth: 220,
   },
   image: {
     width: '100%',
     borderRadius: 6,
   },
   imgbutton: {
-    marginLeft: theme.spacing(1),
+    display: 'flex',
   },
   cardtext: {
     marginLeft: 10,
@@ -27,9 +27,11 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '1rem',
   },
   grid: {
+    paddingRight: 40,
+    width: '100%',
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'flex-start',
+    justifyContent: 'space-between',
   },
   user: {
     display: 'flex',
@@ -52,7 +54,7 @@ export default function CardUI() {
       </div>
       <div className={`text-dark ${classes.cardtext}`}>
         <Grid container className={classes.grid}>
-          <Grid item xs={9} sm={8} md={7}>
+          <Grid item xs={9} sm={8} md={9}>
             <div className={classes.user}>
               <Avatar
                 className={classes.avatar}
@@ -67,15 +69,15 @@ export default function CardUI() {
               </Typography>
             </div>
           </Grid>
-          <Grid item xs={1} sm={1} md={1} className={classes.imgbutton}>
-            <IconButton style={{ outline: 'none' }} size='small'>
-              <BiHeart />
-            </IconButton>
-          </Grid>
-          <Grid item xs={1} sm={1} md={1} className={classes.imgbutton}>
-            <IconButton style={{ outline: 'none' }} size='small'>
-              <BiMessageRounded />
-            </IconButton>
+          <Grid item item xs={1} sm={1} md={1}>
+            <div className={classes.imgbutton}>
+              <IconButton style={{ outline: 'none' }} size='small'>
+                <BiHeart />
+              </IconButton>
+              <IconButton style={{ outline: 'none' }} size='small'>
+                <BiMessageRounded />
+              </IconButton>
+            </div>
           </Grid>
         </Grid>
       </div>
