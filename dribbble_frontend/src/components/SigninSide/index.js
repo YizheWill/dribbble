@@ -25,8 +25,6 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     margin: theme.spacing(30, 4),
     minWidth: 500,
-    display: 'flex',
-    flexDirection: 'column',
     alignItems: 'left',
     marginLeft: '25%',
   },
@@ -36,7 +34,6 @@ const useStyles = makeStyles((theme) => ({
   },
   form: {
     width: '50%', // Fix IE 11 issue.
-    marginTop: '10px',
   },
   google: {
     height: 32,
@@ -125,31 +122,21 @@ export default function SignInSide() {
           </Button>
           <p style={{ width: '50%', textAlign: 'center', marginTop: '1rem' }}>Or</p>
           <form className={classes.form} noValidate>
-            <label className={classes.label}>
-              <Typography component='h4' variant='p'>
-                Username or Email Address
-              </Typography>
-              <BootstrapInput />
-            </label>
+            <Typography component='h4'>Username or Email Address</Typography>
+            <BootstrapInput className={classes.input} />
 
-            <label className={classes.label}>
-              <Grid container>
-                <Grid item xs>
-                  <Typography component='h4' variant='p'>
-                    Password
-                  </Typography>
-                </Grid>
+            <Grid container>
+              <Grid item xs>
+                <Typography component='h4'>Password</Typography>
+              </Grid>
+              <Grid item>
                 <Grid item>
-                  <Grid item xs>
-                    <Link href='#' variant='body2'>
-                      Forgot password?
-                    </Link>
-                  </Grid>
+                  <Link href='#'>Forgot password?</Link>
                 </Grid>
               </Grid>
+            </Grid>
 
-              <BootstrapInput />
-            </label>
+            <BootstrapInput className={classes.input} />
             <Button variant='contained' color='secondary' className={classes.submit}>
               Sign In
             </Button>

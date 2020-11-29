@@ -10,7 +10,7 @@ import Typography from '@material-ui/core/Typography';
 const useStyles = makeStyles((theme) => ({
   border: {
     borderRadius: 10,
-    minWidth: 220,
+    minWidth: 210,
   },
   image: {
     width: '100%',

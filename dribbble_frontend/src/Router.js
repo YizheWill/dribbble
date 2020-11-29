@@ -2,11 +2,12 @@ import React from 'react';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import Signin from './components/SigninSide';
 import Cards from './components/Card/cards';
+import Home from './components/Home';
 export default function App() {
   return (
     <Router>
       <div>
-        <nav>
+        {/* <nav>
           <ul>
             <li>
               <Link to='/cards'>cards</Link>
@@ -15,8 +16,11 @@ export default function App() {
               <Link to='/signin'>signin</Link>
             </li>
           </ul>
-        </nav>
+        </nav> */}
         <Switch>
+          <Route exact path='/'>
+            <Home />
+          </Route>
           <Route path='/signin'>
             <Signin />
           </Route>
