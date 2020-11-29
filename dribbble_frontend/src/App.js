@@ -1,12 +1,12 @@
 import './App.css';
 import Signin from './components/SigninSide';
-import Card from './components/Card/index';
+import Cards from './components/Card/cards';
 
 function App() {
   return (
     <div className='App'>
       {/* <Signin /> */}
-      <Card />
+      <Cards />
     </div>
   );
 }
