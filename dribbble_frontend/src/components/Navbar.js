@@ -12,6 +12,7 @@ import Avatar from '@material-ui/core/Avatar';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   appbar: {
@@ -146,7 +147,16 @@ export default function PrimarySearchAppBar() {
       >
         <Toolbar>
           <Typography className={classes.title} variant='h6' noWrap>
-            Willwill
+            <Link
+              to='/'
+              style={{
+                color: '#0f0f0f',
+                fontSize: '2rem',
+                fontFamily: 'Grand Hotel, cursive',
+              }}
+            >
+              Willwill
+            </Link>
           </Typography>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
