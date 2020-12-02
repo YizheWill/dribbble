@@ -2,6 +2,7 @@ import React from 'react';
 import LandingImage from '../assets/imgs/landing.png';
 import { makeStyles } from '@material-ui/core';
 import { Grid, Typography, Button } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 const useStyles = makeStyles((theme) => ({
   container: {
     paddingLeft: '10%',
@@ -50,7 +51,9 @@ export default function LandingPage() {
           variant='contained'
           style={{ outline: 'none' }}
         >
-          Sign up
+          <Link to='/signin' style={{ color: '#FFF' }}>
+            Sign up
+          </Link>
         </Button>
       </Grid>
     </Grid>

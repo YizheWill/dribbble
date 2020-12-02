@@ -1,0 +1,35 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  username: MyString
+  email: MyString
+  password_digest: MyString
+  session_token: MyString
+  tier: MyString
+  location: MyString
+  bio: MyString
+  personal_website: MyString
+  portfolio_url: MyString
+  portfolio_password: MyString
+  twitter: MyString
+  facebook: MyString
+  github: MyString
+  work_availability: false
+
+two:
+  name: MyString
+  username: MyString
+  email: MyString
+  password_digest: MyString
+  session_token: MyString
+  tier: MyString
+  location: MyString
+  bio: MyString
+  personal_website: MyString
+  portfolio_url: MyString
+  portfolio_password: MyString
+  twitter: MyString
+  facebook: MyString
+  github: MyString
+  work_availability: false
