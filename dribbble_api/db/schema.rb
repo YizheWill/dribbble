@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_02_070119) do
+ActiveRecord::Schema.define(version: 2020_12_02_073754) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,11 +59,11 @@ ActiveRecord::Schema.define(version: 2020_12_02_070119) do
     t.integer "views_count", default: 0
     t.boolean "allow_comment", default: true
     t.boolean "image_or_video", default: true
-    t.decimal "price", default: "1.0"
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "collection_id"
+    t.decimal "price"
     t.index ["collection_id"], name: "index_shots_on_collection_id"
     t.index ["user_id"], name: "index_shots_on_user_id"
   end
