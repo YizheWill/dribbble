@@ -16,6 +16,9 @@ import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   appbar: {
+    paddingTop: 25,
+    paddingBottom: 25,
+    paddingLeft: '5%',
     borderBottom: '.2px solid #e2e2e2',
     paddingLeft: '5%',
     paddingRight: '5%',

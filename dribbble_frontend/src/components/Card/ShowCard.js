@@ -3,7 +3,7 @@ import { Button, Avatar } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import Cards from './cards';
 import { makeStyles } from '@material-ui/core/styles';
-import FavoriteIcon from '@material-ui/icons/Favorite';
+import { Favorite, Mail } from '@material-ui/icons';
 // TODO remove navbar and put it into router
 import Navbar from '../Navbar';
 const useStyles = makeStyles((theme) => ({
@@ -53,7 +53,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 500,
   },
   logoContainer: {
-    width: 190,
+    width: 150,
     heigth: 50,
     zIndex: 999,
     margin: '0 auto',
@@ -64,8 +64,13 @@ const useStyles = makeStyles((theme) => ({
     // backgroundColor: 'gray',
   },
   logo: {
-    height: '8rem',
-    width: '8rem',
+    height: '5rem',
+    width: '5rem',
+  },
+  studioInfo: {
+    margin: '-30px auto 70px auto',
+    textAlign: 'center',
+    maxWidth: '65%',
   },
 }));
 
@@ -75,6 +80,7 @@ export default function ShowCard() {
   const [intro, setIntro] = useState('this is just a bio, will add some links later');
   const [detail, setDetail] = useState({
     title: 'Hey Dribbblers! ',
+    bio: 'freelance graphic designer and frontend developer',
     body:
       "This crazy pic is just a showcase for the aA fsp, which is full stack projects, this dribbble clone will be a pixel perfect clone of the original website, I don't have much to say now",
     username: 'Will Wang',
@@ -102,11 +108,7 @@ export default function ShowCard() {
               Save
             </Button>
             <Button className={classes.button} variant='contained' disableElevation>
-              <FavoriteIcon
-                color='secondary'
-                fontSize='small'
-                style={{ marginRight: 3 }}
-              />
+              <Favorite color='secondary' fontSize='small' style={{ marginRight: 3 }} />
               Like
             </Button>
           </div>
@@ -128,27 +130,41 @@ export default function ShowCard() {
         <br />
         <Link to={`/user/${detail.userId}`}>by {detail.username}</Link>
       </div>
-      <div className={classes.logoContainer}>
-        <Link to='/user'>
-          <Avatar
-            className={classes.logo}
-            src='https://images.unsplash.com/photo-1490650034439-fd184c3c86a5?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxzZWFyY2h8NHx8Y2F0fGVufDB8MnwwfA%3D%3D&auto=format&fit=crop&w=800&q=60'
-          />
-        </Link>
+      <div>
+        <div className={classes.logoContainer}>
+          <Link to='/user'>
+            <Avatar
+              className={classes.logo}
+              src='https://images.unsplash.com/photo-1490650034439-fd184c3c86a5?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxzZWFyY2h8NHx8Y2F0fGVufDB8MnwwfA%3D%3D&auto=format&fit=crop&w=800&q=60'
+            />
+          </Link>
+        </div>
+        <hr
+          style={{
+            zIndex: -1,
+            width: '70%',
+            position: 'relative',
+            color: '#f0f0f0',
+            backgroundColor: '#f0f0f0',
+            height: 5.0,
+            borderColor: '#f0f0f0',
+            top: '-6.5rem',
+          }}
+        />
       </div>
-      <hr
-        style={{
-          zIndex: -1,
-          width: '70%',
-          position: 'relative',
-          color: '#f0f0f0',
-          backgroundColor: '#f0f0f0',
-          height: 5.0,
-          borderColor: '#f0f0f0',
-          top: '-7.5rem',
-        }}
-      />
+      <div className={classes.studioInfo}>
+        <h3>{detail.username} Studio</h3>
+        <p>{detail.bio}</p>
+        <Button variant='contained' color='secondary'>
+          <Mail style={{ margin: '3px 7px 3px 0px' }} />
+          Hire Us
+        </Button>
+      </div>
+
       <div className={classes.studio}>
+        <h4 style={{ marginLeft: '7%', marginBottom: '-1rem' }}>
+          More by {detail.username}
+        </h4>
         <Cards />
       </div>
     </>
