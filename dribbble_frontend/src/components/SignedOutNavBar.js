@@ -82,9 +82,7 @@ export default function Appbar() {
                 Sign In
               </Link>
             </Button>
-            <Button variant='contained' color='secondary'>
-              Sign up
-            </Button>
+            <Button variant='contained' color='secondary'></Button>
           </div>
         </Toolbar>
       </AppBar>
