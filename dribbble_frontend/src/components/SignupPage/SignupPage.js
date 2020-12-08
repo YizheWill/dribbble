@@ -118,27 +118,29 @@ export default function SignInSide() {
             className={classes.google}
           >
             <FaGoogle style={{ width: '1rem', height: '1rem', marginRight: '1rem' }} />
-            Sign in with Google
+            Sign up with Google
           </Button>
           <p style={{ width: '50%', textAlign: 'center', marginTop: '1rem' }}>Or</p>
           <form className={classes.form} noValidate>
-            <Typography component='h4'>Username or Email Address</Typography>
+            <Typography component='h4'>Username</Typography>
             <BootstrapInput className={classes.input} />
 
+            <Typography component='h4'>email</Typography>
+            <BootstrapInput className={classes.input} />
             <Grid container>
               <Grid item xs>
                 <Typography component='h4'>Password</Typography>
               </Grid>
-              <Grid item>
-                <Grid item>
-                  <Link href='#'>Forgot password?</Link>
-                </Grid>
+            </Grid>
+            <BootstrapInput className={classes.input} />
+            <Grid container>
+              <Grid item xs>
+                <Typography component='h4'>Confirm Password</Typography>
               </Grid>
             </Grid>
-
             <BootstrapInput className={classes.input} />
             <Button variant='contained' color='secondary' className={classes.submit}>
-              Sign In
+              Sign up
             </Button>
           </form>
         </div>
