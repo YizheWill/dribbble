@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import Signin from './components/SigninSide';
+import Signup from './components/SignupPage/SignupPage';
 import Cards from './components/Card/cards';
 import ShowCard from './components/Card/ShowCard';
 import UserProfile from './components/User/UserProfile';
@@ -12,6 +13,9 @@ export default function App() {
         <Switch>
           <Route exact path='/'>
             <Home />
+          </Route>
+          <Route path='/signup'>
+            <Signup />
           </Route>
           <Route path='/signin'>
             <Signin />
