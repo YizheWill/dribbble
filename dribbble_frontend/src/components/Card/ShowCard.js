@@ -53,7 +53,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 500,
   },
   logoContainer: {
-    width: 150,
+    width: 190,
     heigth: 50,
     zIndex: 999,
     margin: '0 auto',
@@ -64,8 +64,8 @@ const useStyles = makeStyles((theme) => ({
     // backgroundColor: 'gray',
   },
   logo: {
-    height: '5rem',
-    width: '5rem',
+    height: '8rem',
+    width: '8rem',
   },
 }));
 
@@ -129,12 +129,25 @@ export default function ShowCard() {
         <Link to={`/user/${detail.userId}`}>by {detail.username}</Link>
       </div>
       <div className={classes.logoContainer}>
-        <Avatar
-          className={classes.logo}
-          src='https://images.unsplash.com/photo-1490650034439-fd184c3c86a5?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxzZWFyY2h8NHx8Y2F0fGVufDB8MnwwfA%3D%3D&auto=format&fit=crop&w=800&q=60'
-        />
+        <Link to='/user'>
+          <Avatar
+            className={classes.logo}
+            src='https://images.unsplash.com/photo-1490650034439-fd184c3c86a5?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxzZWFyY2h8NHx8Y2F0fGVufDB8MnwwfA%3D%3D&auto=format&fit=crop&w=800&q=60'
+          />
+        </Link>
       </div>
-      <hr style={{ zIndex: -1, width: '70%', position: 'relative', top: '-95px' }} />
+      <hr
+        style={{
+          zIndex: -1,
+          width: '70%',
+          position: 'relative',
+          color: '#f0f0f0',
+          backgroundColor: '#f0f0f0',
+          height: 5.0,
+          borderColor: '#f0f0f0',
+          top: '-7.5rem',
+        }}
+      />
       <div className={classes.studio}>
         <Cards />
       </div>
