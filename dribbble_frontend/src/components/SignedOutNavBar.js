@@ -67,8 +67,14 @@ export default function Appbar() {
           <div className={classes.sectionDesktop}></div>
           <div className={classes.buttons}>
             <Button style={{ marginRight: '2rem' }}>
+              <Link to='/user' style={{ textDecoration: 'none', color: 'gray' }}>
+                User Profile
+              </Link>
+            </Button>
+
+            <Button style={{ marginRight: '2rem' }}>
               <Link to='/show' style={{ textDecoration: 'none', color: 'gray' }}>
-                Show
+                Shot
               </Link>
             </Button>
             <Button style={{ marginRight: '2rem' }}>

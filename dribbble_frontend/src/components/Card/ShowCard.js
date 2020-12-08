@@ -53,7 +53,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 500,
   },
   logoContainer: {
-    width: 150,
+    width: 200,
     heigth: 50,
     zIndex: 999,
     margin: '0 auto',
