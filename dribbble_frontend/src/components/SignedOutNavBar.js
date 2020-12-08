@@ -68,7 +68,7 @@ export default function Appbar() {
           <div className={classes.buttons}>
             <Button style={{ marginRight: '2rem' }}>
               <Link to='/user' style={{ textDecoration: 'none', color: 'gray' }}>
-                User Profile
+                User Show
               </Link>
             </Button>
 
