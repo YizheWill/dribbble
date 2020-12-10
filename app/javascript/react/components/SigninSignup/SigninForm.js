@@ -80,7 +80,13 @@ function Form() {
         <Typography className='title' component='h3' variant='h5'>
           Sign in to{' '}
           <Link to='/' style={{ textDecoration: 'none' }}>
-            <span style={{ fontFamily: 'Grand Hotel, cursive', marginLeft: 5 }}>
+            <span
+              style={{
+                color: '#E8467F',
+                fontFamily: 'Grand Hotel, cursive',
+                marginLeft: 5,
+              }}
+            >
               Willwill
             </span>
           </Link>

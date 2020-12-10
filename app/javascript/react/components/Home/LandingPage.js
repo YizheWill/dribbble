@@ -11,7 +11,8 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#f9f8fd',
   },
   image: {
-    maxHeight: '50vh',
+    width: '80%',
+    height: '80%',
     marginTop: '5vh',
   },
   text: {
@@ -30,14 +31,14 @@ export default function LandingPage() {
   const classes = useStyles();
   return (
     <Grid className={classes.container} container>
-      <Grid item xs={1} md={6}>
+      <Grid item md={5}>
         <img
           className={classes.image}
           src={LandingImage}
-          alt='person with umbrella'
+          alt='person exploring the forest'
         ></img>
       </Grid>
-      <Grid item xs={12} sm={12} md={5} className={classes.text}>
+      <Grid item xs={12} sm={12} md={7} className={classes.text}>
         <Typography className={classes.list} component='h1' variant='h3'>
           Discover the world’s top designers & creatives
         </Typography>

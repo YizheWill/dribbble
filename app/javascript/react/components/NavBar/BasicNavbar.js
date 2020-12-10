@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { AppBar, Toolbar, Grid, Typography } from '@material-ui/core';
+import { AppBar, Toolbar, Typography } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
@@ -48,9 +48,10 @@ export default function Appbar({ content }) {
             <Link
               to='/'
               style={{
-                color: '#0f0f0f',
+                color: '#E8467F',
                 fontSize: '2rem',
                 fontFamily: 'Grand Hotel, cursive',
+                textDecoration: 'none',
               }}
             >
               Willwill

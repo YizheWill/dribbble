@@ -1,13 +1,15 @@
 import React from 'react';
+import BottomNavbar from '../NavBar/BottomNavbar';
 import UploadCard from '../Card/UploadCard';
 import BasicNavbar from '../NavBar/BasicNavbar';
 import UploadForm from './UploadForm';
-import { Grid } from '@material-ui/core';
+import { Paper, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles((theme) => ({
   card: {
     minWidth: 500,
-    transform: 'scale(0.8)',
+    marginTop: '-2.5rem',
+    transform: 'scale(0.7)',
   },
 }));
 function Upload() {
@@ -19,8 +21,11 @@ function Upload() {
         <Grid className={classes.card} md={7} item>
           <UploadCard />
         </Grid>
-        <UploadForm />
+        <Grid md={4} sm={12} xs={12} component={Paper} square elevation={0} item>
+          <UploadForm />
+        </Grid>
       </Grid>
+      <BottomNavbar />
     </div>
   );
 }

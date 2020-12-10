@@ -58,9 +58,10 @@ export default function Appbar() {
             <Link
               to='/'
               style={{
-                color: '#0f0f0f',
+                color: '#E8467F',
                 fontSize: '2rem',
                 fontFamily: 'Grand Hotel, cursive',
+                textDecoration: 'none',
               }}
             >
               Willwill
