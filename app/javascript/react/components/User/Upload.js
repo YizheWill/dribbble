@@ -8,8 +8,7 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles((theme) => ({
   card: {
     minWidth: 500,
-    marginTop: '-2.5rem',
-    transform: 'scale(0.7)',
+    transform: 'scale(.9)',
   },
 }));
 function Upload() {

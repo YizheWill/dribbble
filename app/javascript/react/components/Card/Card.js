@@ -46,13 +46,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function CardUI() {
+export default function CardUI({ src }) {
   const classes = useStyles();
   return (
     <Link to='/shot'>
       <Box className={`card text-center ${classes.border}`}>
         <div className='overflow'>
-          <img className={classes.image} src={ShotImage} alt='image 1'></img>
+          <img className={classes.image} src={src || ShotImage} alt='image 1'></img>
         </div>
         <div className={`text-dark ${classes.cardtext}`}>
           <Grid container className={classes.grid}>
