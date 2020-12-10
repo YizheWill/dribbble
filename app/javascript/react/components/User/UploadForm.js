@@ -1,42 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import {
-  makeStyles,
-  Typography,
-  Paper,
-  Grid,
-  fade,
-  withStyles,
-  InputBase,
-} from '@material-ui/core';
+import { makeStyles, Typography, fade, withStyles, InputBase } from '@material-ui/core';
 const useStyles = makeStyles((theme) => ({
   paper: {
-    minWidth: 350,
-    width: '40%',
-    alignItems: 'left',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   form: {
-    width: '100%',
-  },
-  buttons: {
-    marginTop: '1rem',
-    display: 'grid',
-    gridTemplateColumns: '80% 1fr 9fr',
-  },
-  google: {
-    height: 32,
-    fontSize: 10,
-    padding: 4,
-  },
-  twitter: {
-    float: 'right',
-    height: 32,
-    padding: 4,
-  },
-  submit: {
-    marginTop: '1rem',
-    backgroundColor: theme.palette.secondary.main,
-    width: '50%',
+    padding: '5%',
   },
   tags: {
     display: 'flex',
@@ -74,67 +45,69 @@ const BootstrapInput = withStyles((theme) => ({
 function Form() {
   const classes = useStyles();
   return (
-    <Grid md={4} component={Paper} square elevation={0}>
-      <div className={classes.paper}>
-        <form className={classes.form} noValidate>
-          <label>
-            <Typography variant='h6' style={{ fontWeight: 'bold' }}>
-              title
-            </Typography>
-            <BootstrapInput className={classes.input} placeholder='Add a Title' />
+    <div className={classes.paper}>
+      <form className={classes.form} noValidate>
+        <label>
+          <Typography variant='h6' style={{ fontWeight: 'bold' }}>
+            title
+          </Typography>
+          <BootstrapInput className={classes.input} placeholder='Add a Title' />
+        </label>
+        <label>
+          <Typography variant='h6' style={{ fontWeight: 'bold' }}>
+            Tags
+          </Typography>
+          <BootstrapInput className={classes.input} />
+        </label>
 
-            <Typography variant='h6' style={{ fontWeight: 'bold' }}>
-              Tags
-            </Typography>
-            <BootstrapInput className={classes.input} />
-          </label>
-          <label>
-            <Typography variant='h6' style={{ fontWeight: 'bold' }}>
-              description
-            </Typography>
-            <BootstrapInput
-              className={classes.input}
-              multiline
-              rows='3'
-              rowsMax='5'
-              placeholder='Tell us about your process and how you arrived at this design'
-            />
-          </label>
+        <div>
           <Typography variant='body2' style={{ fontWeight: 600, color: '#0a0a0a' }}>
             SUGGESTED TAGS
           </Typography>
           <div className={classes.tags}>
-            <Typography className={classes.tag} color='secondary' variant='body3'>
+            <Typography className={classes.tag} color='secondary' variant='body2'>
               app
             </Typography>
-            <Typography className={classes.tag} color='secondary' variant='body3'>
+            <Typography className={classes.tag} color='secondary' variant='body2'>
               arcana
             </Typography>
-            <Typography className={classes.tag} color='secondary' variant='body3'>
+            <Typography className={classes.tag} color='secondary' variant='body2'>
               buildings
             </Typography>
-            <Typography className={classes.tag} color='secondary' variant='body3'>
+            <Typography className={classes.tag} color='secondary' variant='body2'>
               card
             </Typography>
-            <Typography className={classes.tag} color='secondary' variant='body3'>
+            <Typography className={classes.tag} color='secondary' variant='body2'>
               card illustration
             </Typography>
-            <Typography className={classes.tag} color='secondary' variant='body3'>
+            <Typography className={classes.tag} color='secondary' variant='body2'>
               city
             </Typography>
-            <Typography className={classes.tag} color='secondary' variant='body3'>
+            <Typography className={classes.tag} color='secondary' variant='body2'>
               daycare
             </Typography>
-            <Typography className={classes.tag} color='secondary' variant='body3'>
+            <Typography className={classes.tag} color='secondary' variant='body2'>
               design
             </Typography>
-            <Typography className={classes.tag} color='secondary' variant='body3'>
+            <Typography className={classes.tag} color='secondary' variant='body2'>
               logo
             </Typography>
           </div>
-        </form>
-      </div>
-    </Grid>
+        </div>
+        <label className={classes.description}>
+          <Typography variant='h6' style={{ fontWeight: 'bold' }}>
+            description
+          </Typography>
+          <BootstrapInput
+            className={classes.input}
+            multiline
+            rows='4'
+            rowsMax='7'
+            placeholder='Tell us about your process and how you arrived at this design'
+          />
+        </label>
+      </form>
+    </div>
   );
 }
 
