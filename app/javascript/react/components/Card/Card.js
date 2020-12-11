@@ -9,6 +9,7 @@ import { Grid } from '@material-ui/core';
 import { BiMessageRounded, BiHeart } from 'react-icons/bi';
 import Typography from '@material-ui/core/Typography';
 import VideocamIcon from '@material-ui/icons/Videocam';
+import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
 const useStyles = makeStyles((theme) => ({
   border: {
     borderRadius: 10,
@@ -75,7 +76,12 @@ export default function CardUI({ src }) {
               />
             </div>
           ) : (
-            <img className={classes.image} src={src || ShotImage} alt='image 1'></img>
+            <div style={{ position: 'relative' }}>
+              <img className={classes.image} src={src || ShotImage} alt='image 1'></img>
+              <InsertPhotoIcon
+                style={{ position: 'absolute', right: 10, top: 10, color: 'white' }}
+              />
+            </div>
           )}
         </div>
         <div className={`text-dark ${classes.cardtext}`}>

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Cards from '../Card/Cards';
+import Collections from './Selection/Collections/Collections';
 import Navbar from '../NavBar/Navbar';
 import { Button, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
@@ -36,9 +37,23 @@ const useStyles = makeStyles((theme) => ({
     margin: '0 10px',
   },
 }));
-
+const toRender = (state) => {
+  switch (state) {
+    case 0:
+      return <Cards />;
+    case 1:
+      return <Collections />;
+    case 2:
+      return <Cards likes={1} />;
+    case 3:
+      return <About />;
+    default:
+      return <Collections />;
+  }
+};
 function UserProfile() {
   const classes = useStyles();
+  const [selection, setSelection] = useState(0);
   const [user, setUser] = useState({
     username: 'Will Wang',
     intro: "designer's website",
@@ -77,22 +92,22 @@ function UserProfile() {
       </div>
       <div className={classes.shots}>
         <div className={classes.selection}>
-          <Button>
+          <Button onClick={() => setSelection(0)}>
             <Typography name='shots' className={classes.tags}>
               Shots{user.shotsCount}
             </Typography>
           </Button>
-          <Button>
+          <Button onClick={() => setSelection(1)}>
             <Typography name='collections' className={classes.tags}>
               Collections{user.collectionCount}
             </Typography>
           </Button>
-          <Button>
+          <Button onClick={() => setSelection(2)}>
             <Typography name='likedshots' className={classes.tags}>
               liked Shots {user.likedCount}
             </Typography>
           </Button>
-          <Button>
+          <Button onClick={() => setSelection(3)}>
             <Typography name='about' className={classes.tags}>
               About
             </Typography>
@@ -106,7 +121,7 @@ function UserProfile() {
             width: '87%',
           }}
         ></div>
-        <Cards />
+        {toRender(selection)}
       </div>
     </>
   );
