@@ -8,12 +8,18 @@ const Images = [
 ];
 const useStyles = makeStyles((theme) => ({
   container: {
-    display: 'grid',
-    gridTemplateAreas: "'header header header' 'header header header' 'left mid right'",
+    display: 'flex',
+    flexDirection: 'column',
   },
   topImage: {
     backgroundImage: `${Images[0]}`,
     gridArea: 'header',
+  },
+  bottomImages: {
+    width: '100%',
+    height: '100%',
+    display: 'grid',
+    gridTemplateColumns: '1fr 1fr 1fr',
   },
   left: {
     backgroundImage: `${Images[3]}`,
@@ -36,13 +42,9 @@ function Card() {
       <div className={classes.topImage}>
         <img src={Images[0]} alt='whatever' />
       </div>
-      <div className={classes.left}>
+      <div className={classes.bottomImages}>
         <img src={Images[1]} alt='whatever' />
-      </div>
-      <div className={classes.mid}>
         <img src={Images[2]} alt='whatever' />
-      </div>
-      <div className={classes.right}>
         <img src={Images[3]} alt='whatever' />
       </div>
     </div>

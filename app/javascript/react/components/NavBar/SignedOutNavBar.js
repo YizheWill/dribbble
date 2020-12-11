@@ -81,13 +81,19 @@ export default function Appbar() {
               </Link>
             </Button>
             <Button style={{ marginRight: '2rem' }}>
-              <Link to='/signin' className={classes.links}>
-                Sign In
+              <Link to='/upload' className={classes.links}>
+                upload
               </Link>
             </Button>
             <Button style={{ marginRight: '2rem' }}>
-              <Link to='/upload' className={classes.links}>
-                upload
+              <Link to='/collections' className={classes.links}>
+                collection
+              </Link>
+            </Button>
+
+            <Button style={{ marginRight: '2rem' }}>
+              <Link to='/signin' className={classes.links}>
+                Sign In
               </Link>
             </Button>
             <Button variant='contained' color='secondary'>
