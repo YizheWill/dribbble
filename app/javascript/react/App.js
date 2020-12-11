@@ -7,6 +7,7 @@ import ShowCard from './components/Card/ShowCard';
 import Upload from './components/User/Upload';
 import UserProfile from './components/User/UserProfile';
 import Home from './components/Home/Home';
+import Collections from './components/User/Selection/Collections/CollectionCard';
 const Routes = () => (
   <Router>
     <div>
@@ -31,6 +32,9 @@ const Routes = () => (
         </Route>
         <Route path='/upload'>
           <Upload />
+        </Route>
+        <Route path='/collections'>
+          <Collections />
         </Route>
       </Switch>
     </div>
