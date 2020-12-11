@@ -34,7 +34,7 @@ export default function LandingPage() {
       <Grid item md={5}>
         <video
           className={classes.image}
-          autoPlay='true'
+          autoPlay={true}
           src={
             'https://cdn.dribbble.com/users/1145170/screenshots/13914358/media/63c14016a421b6bbcd1fcaac7742bb45.mp4' ||
             LandingImage
