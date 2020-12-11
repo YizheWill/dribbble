@@ -8,6 +8,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core';
 import { BiMessageRounded, BiHeart } from 'react-icons/bi';
 import Typography from '@material-ui/core/Typography';
+import VideocamIcon from '@material-ui/icons/Videocam';
 const useStyles = makeStyles((theme) => ({
   border: {
     borderRadius: 10,
@@ -48,11 +49,34 @@ const useStyles = makeStyles((theme) => ({
 
 export default function CardUI({ src }) {
   const classes = useStyles();
+  const pauseMovie = (e) => {
+    e.currentTarget.pause();
+  };
+  const playMovie = (e) => {
+    e.currentTarget.play();
+  };
   return (
     <Link to='/shot'>
       <Box className={`card text-center ${classes.border}`}>
         <div className='overflow'>
-          <img className={classes.image} src={src || ShotImage} alt='image 1'></img>
+          {['mp4', 'gif'].includes(src.split('.').slice(-1)[0]) ? (
+            <div style={{ position: 'relative' }}>
+              <video
+                className={classes.image}
+                onMouseOver={playMovie}
+                onMouseOut={pauseMovie}
+                preload='all'
+                src={src}
+                loop
+              />
+              <VideocamIcon
+                style={{ position: 'absolute', right: 10, top: 10 }}
+                color='secondary'
+              />
+            </div>
+          ) : (
+            <img className={classes.image} src={src || ShotImage} alt='image 1'></img>
+          )}
         </div>
         <div className={`text-dark ${classes.cardtext}`}>
           <Grid container className={classes.grid}>
