@@ -8,7 +8,7 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: '10%',
     paddingRight: '2%',
     paddingBottom: '5%',
-    backgroundColor: '#f9f8fd',
+    backgroundColor: '#efe3dc',
   },
   image: {
     width: '80%',
@@ -34,7 +34,10 @@ export default function LandingPage() {
       <Grid item md={5}>
         <img
           className={classes.image}
-          src={LandingImage}
+          src={
+            'https://cdn.dribbble.com/users/1145170/screenshots/13914358/media/63c14016a421b6bbcd1fcaac7742bb45.mp4' ||
+            LandingImage
+          }
           alt='person exploring the forest'
         ></img>
       </Grid>
