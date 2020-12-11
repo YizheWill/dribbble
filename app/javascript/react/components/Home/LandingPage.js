@@ -32,14 +32,15 @@ export default function LandingPage() {
   return (
     <Grid className={classes.container} container>
       <Grid item md={5}>
-        <img
+        <video
           className={classes.image}
+          autoPlay='true'
           src={
             'https://cdn.dribbble.com/users/1145170/screenshots/13914358/media/63c14016a421b6bbcd1fcaac7742bb45.mp4' ||
             LandingImage
           }
           alt='person exploring the forest'
-        ></img>
+        ></video>
       </Grid>
       <Grid item xs={12} sm={12} md={7} className={classes.text}>
         <Typography className={classes.list} component='h1' variant='h3'>
