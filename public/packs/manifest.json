@@ -20,17 +20,17 @@
     },
     "index": {
       "js": [
-        "/packs/js/index-ead8cd4cab6774a39d8d.js"
+        "/packs/js/index-241da26debf114cb3132.js"
       ],
       "js.map": [
-        "/packs/js/index-ead8cd4cab6774a39d8d.js.map"
+        "/packs/js/index-241da26debf114cb3132.js.map"
       ]
     }
   },
   "hello_react.js": "/packs/js/hello_react-098b74c077c61ee7b1d0.js",
   "hello_react.js.map": "/packs/js/hello_react-098b74c077c61ee7b1d0.js.map",
-  "index.js": "/packs/js/index-ead8cd4cab6774a39d8d.js",
-  "index.js.map": "/packs/js/index-ead8cd4cab6774a39d8d.js.map",
+  "index.js": "/packs/js/index-241da26debf114cb3132.js",
+  "index.js.map": "/packs/js/index-241da26debf114cb3132.js.map",
   "media/react/assets/imgs/landing.png": "/packs/media/react/assets/imgs/landing-9d1a6199423979b5a1603e15ffffb36f.png",
   "media/react/assets/imgs/shot.png": "/packs/media/react/assets/imgs/shot-05bc876dec8f0db08284f5d9d9a5eab9.png",
   "media/react/assets/imgs/signin.png": "/packs/media/react/assets/imgs/signin-f2c580a7008ac77e1a0ac3e498699381.png",

@@ -1,5 +1,7 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import { signInUserAction } from '../../Actions/UserActions';
+import { Link, useHistory } from 'react-router-dom';
 import {
   makeStyles,
   Button,
@@ -66,8 +68,17 @@ const BootstrapInput = withStyles((theme) => ({
     },
   },
 }))(InputBase);
-function Form() {
+function Form({ user, signInUser }) {
   const classes = useStyles();
+  const [usernameEmail, setUsernameEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const history = useHistory();
+  const handleSubmit = () => {
+    signInUser({ username: usernameEmail, email: usernameEmail, password });
+    history.push('/');
+    console.log('success', user);
+  };
+
   return (
     <Grid item xs={12} sm={12} md={8} component={Paper} square>
       <div style={{ float: 'right', marginTop: 30, marginRight: 30 }}>
@@ -108,7 +119,11 @@ function Form() {
         </div>
         <form className={classes.form} noValidate>
           <Typography>Username or Email Address</Typography>
-          <BootstrapInput className={classes.input} />
+          <BootstrapInput
+            className={classes.input}
+            onChange={(e) => setUsernameEmail(e.target.value)}
+            value={usernameEmail}
+          />
 
           <Grid container>
             <Grid item xs>
@@ -123,8 +138,18 @@ function Form() {
             </Grid>
           </Grid>
 
-          <BootstrapInput className={classes.input} />
-          <Button variant='contained' color='secondary' className={classes.submit}>
+          <BootstrapInput
+            className={classes.input}
+            type='password'
+            onChange={(e) => setPassword(e.target.value)}
+            value={password}
+          />
+          <Button
+            onClick={handleSubmit}
+            variant='contained'
+            color='secondary'
+            className={classes.submit}
+          >
             Sign In
           </Button>
         </form>
@@ -133,4 +158,9 @@ function Form() {
   );
 }
 
-export default Form;
+export default connect(
+  (state) => ({ user: state.user }),
+  (dispatch) => ({
+    signInUser: (user) => dispatch(signInUserAction(user)),
+  })
+)(Form);

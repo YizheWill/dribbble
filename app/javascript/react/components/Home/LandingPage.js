@@ -40,6 +40,7 @@ export default function LandingPage() {
             LandingImage
           }
           alt='person exploring the forest'
+          loop
         ></video>
       </Grid>
       <Grid item xs={12} sm={12} md={7} className={classes.text}>

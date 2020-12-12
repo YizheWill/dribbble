@@ -70,41 +70,31 @@ export default function Appbar() {
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}></div>
           <div className={classes.buttons}>
-            <Button style={{ marginRight: '2rem' }}>
-              <Link to='/user' className={classes.links}>
-                user
-              </Link>
-            </Button>
-            <Button style={{ marginRight: '2rem' }}>
-              <Link to='/shot' className={classes.links}>
-                Shot
-              </Link>
-            </Button>
-            <Button style={{ marginRight: '2rem' }}>
-              <Link to='/upload' className={classes.links}>
-                upload
-              </Link>
-            </Button>
-            <Button style={{ marginRight: '2rem' }}>
-              <Link to='/collections' className={classes.links}>
-                collection
-              </Link>
-            </Button>
+            <Link to='/user' className={classes.links}>
+              <Button style={{ marginRight: '2rem' }}>user</Button>
+            </Link>
+            <Link to='/shot' className={classes.links}>
+              <Button style={{ marginRight: '2rem' }}>Shot</Button>
+            </Link>
+            <Link to='/upload' className={classes.links}>
+              <Button style={{ marginRight: '2rem' }}>upload</Button>
+            </Link>
+            <Link to='/collections' className={classes.links}>
+              <Button style={{ marginRight: '2rem' }}>collection</Button>
+            </Link>
 
-            <Button style={{ marginRight: '2rem' }}>
-              <Link to='/signin' className={classes.links}>
-                Sign In
-              </Link>
-            </Button>
-            <Button variant='contained' color='secondary'>
-              <Link
-                to='/signup'
-                className={classes.links}
-                style={{ color: 'white', textDecoration: 'none' }}
-              >
+            <Link to='/signin' className={classes.links}>
+              <Button style={{ marginRight: '2rem' }}>Sign In</Button>
+            </Link>
+            <Link
+              to='/signup'
+              className={classes.links}
+              style={{ color: 'white', textDecoration: 'none' }}
+            >
+              <Button variant='contained' color='secondary'>
                 Sign up
-              </Link>
-            </Button>
+              </Button>
+            </Link>
           </div>
         </Toolbar>
       </AppBar>

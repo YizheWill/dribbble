@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import { Divider } from '@material-ui/core';
 import AppBar from '@material-ui/core/AppBar';
@@ -13,6 +14,11 @@ import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+import SignedOutNavBar from './SignedOutNavBar';
+
+import { signOut, isSignedIn } from '../User/signInSignOut';
+import { signOutUserAction } from '../../Actions/UserActions';
 
 const useStyles = makeStyles((theme) => ({
   appbar: {
@@ -36,6 +42,8 @@ const useStyles = makeStyles((theme) => ({
     display: 'none',
     [theme.breakpoints.up('md')]: {
       display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
     },
   },
   sectionMobile: {
@@ -46,7 +54,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Appbar() {
+function Appbar({ user, signOutUser }) {
+  const history = useHistory();
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -71,6 +80,16 @@ export default function Appbar() {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
+  const handleSignOut = () => {
+    signOut();
+    signOutUser();
+    handleMobileMenuClose();
+    history.push('/');
+  };
+  const editUser = () => {
+    history.push('/user');
+  };
+
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
     <Menu
@@ -87,11 +106,15 @@ export default function Appbar() {
       </MenuItem>
       <Divider />
 
-      <MenuItem onClick={handleMenuClose}>Edit Profile</MenuItem>
+      <MenuItem onClick={editUser}>Edit Profile</MenuItem>
       <MenuItem onClick={handleMenuClose}>Edit Work Availability</MenuItem>
       <Divider />
       <MenuItem onClick={handleMenuClose}>Popular</MenuItem>
       <MenuItem onClick={handleMenuClose}>Followed</MenuItem>
+      <Divider />
+      <MenuItem onClick={() => handleSignOut()}>
+        <Typography color='secondary'>Sign Out</Typography>
+      </MenuItem>
     </Menu>
   );
 
@@ -106,14 +129,14 @@ export default function Appbar() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem>
+      {/* <MenuItem>
         <IconButton aria-label='show 4 new mails' color='inherit'>
           <Badge badgeContent={4} color='secondary'>
             <MailIcon />
           </Badge>
         </IconButton>
         <p>Messages</p>
-      </MenuItem>
+      </MenuItem> */}
       <MenuItem>
         <IconButton aria-label='show 11 new notifications' color='inherit'>
           <Badge badgeContent={11} color='secondary'>
@@ -132,10 +155,18 @@ export default function Appbar() {
           <Avatar
             className={classes.avatar}
             style={{ outline: 'none' }}
-            src='https://images.unsplash.com/photo-1490650034439-fd184c3c86a5?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxzZWFyY2h8NHx8Y2F0fGVufDB8MnwwfA%3D%3D&auto=format&fit=crop&w=800&q=60'
+            src={
+              user.avatarUrl ||
+              'https://images.unsplash.com/photo-1490650034439-fd184c3c86a5?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxzZWFyY2h8NHx8Y2F0fGVufDB8MnwwfA%3D%3D&auto=format&fit=crop&w=800&q=60'
+            }
           />
         </IconButton>
         <p>Profile</p>
+      </MenuItem>
+      <MenuItem onClick={handleSignOut}>
+        <div style={{ paddingLeft: '30%', textAlign: 'center' }}>
+          <p>Sign Out</p>
+        </div>
       </MenuItem>
     </Menu>
   );
@@ -164,7 +195,7 @@ export default function Appbar() {
           </Typography>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
-            <IconButton
+            {/* <IconButton
               aria-label='show 4 new mails'
               color='inherit'
               style={{ outline: 'none', backgroundColor: 'transparent' }}
@@ -172,7 +203,7 @@ export default function Appbar() {
               <Badge badgeContent={10} color='secondary'>
                 <MailIcon />
               </Badge>
-            </IconButton>
+            </IconButton> */}
             <IconButton
               aria-label='show 17 new notifications'
               color='inherit'
@@ -188,12 +219,15 @@ export default function Appbar() {
               aria-controls={menuId}
               aria-haspopup='true'
               color='inherit'
-              style={{ outline: 'none', marginLeft: 20 }}
+              style={{ outline: 'none', margin: 'auto 0 auto 20px' }}
               onClick={handleProfileMenuOpen}
             >
               <Avatar
                 className={classes.avatar}
-                src='https://images.unsplash.com/photo-1490650034439-fd184c3c86a5?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxzZWFyY2h8NHx8Y2F0fGVufDB8MnwwfA%3D%3D&auto=format&fit=crop&w=800&q=60'
+                src={
+                  user.avatarUrl ||
+                  'https://images.unsplash.com/photo-1490650034439-fd184c3c86a5?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxzZWFyY2h8NHx8Y2F0fGVufDB8MnwwfA%3D%3D&auto=format&fit=crop&w=800&q=60'
+                }
               />
             </IconButton>
           </div>
@@ -216,3 +250,8 @@ export default function Appbar() {
     </div>
   );
 }
+
+export default connect(
+  (state) => ({ user: state.user }),
+  (dispatch) => ({ signOutUser: () => dispatch(signOutUserAction()) })
+)(Appbar);
