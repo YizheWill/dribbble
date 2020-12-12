@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { signInUserAction } from '../../Actions/UserActions';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import {
   makeStyles,
   Button,
@@ -72,8 +72,10 @@ function Form({ user, signInUser }) {
   const classes = useStyles();
   const [usernameEmail, setUsernameEmail] = useState('');
   const [password, setPassword] = useState('');
+  const history = useHistory();
   const handleSubmit = () => {
     signInUser({ username: usernameEmail, email: usernameEmail, password });
+    history.push('/');
     console.log('success', user);
   };
 
@@ -138,6 +140,7 @@ function Form({ user, signInUser }) {
 
           <BootstrapInput
             className={classes.input}
+            type='password'
             onChange={(e) => setPassword(e.target.value)}
             value={password}
           />

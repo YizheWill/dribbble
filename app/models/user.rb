@@ -8,18 +8,9 @@ class User < ApplicationRecord
   validates :session_token, presence: true, uniqueness: true
   validates :password, length: { minimum: 6, allow_nil: true }
   # has_many :posts
-  def self.find_by_credentials(username, email, password, session_token)
-    p 'username'
-    p username
-    p 'email'
-    p email
-    p 'password'
-    p password
-    p 'session token'
-    p session_token
-    if session_token
-      p session_token
-      return User.find_by(session_token: session_token)
+  def self.find_by_credentials(username, email, password, word)
+    if word
+      return User.find_by(session_token: word)
     end
     user = User.find_by(username: username) || User.find_by(email: email)
     user&.is_password?(password) ? user : nil

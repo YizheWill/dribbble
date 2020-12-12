@@ -75,11 +75,9 @@ export default function Appbar() {
                 user
               </Link>
             </Button>
-            <Button style={{ marginRight: '2rem' }}>
-              <Link to='/shot' className={classes.links}>
-                Shot
-              </Link>
-            </Button>
+            <Link to='/show' className={classes.links}>
+              <Button style={{ marginRight: '2rem' }}>Shot</Button>
+            </Link>
             <Button style={{ marginRight: '2rem' }}>
               <Link to='/upload' className={classes.links}>
                 upload

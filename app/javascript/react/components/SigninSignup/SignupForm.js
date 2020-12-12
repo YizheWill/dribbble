@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import {
   makeStyles,
@@ -12,6 +13,7 @@ import {
 } from '@material-ui/core';
 import { FaGoogle } from 'react-icons/fa';
 import { FaTwitter } from 'react-icons/fa';
+import { signUpUserAction } from '../../Actions/UserActions';
 const useStyles = makeStyles((theme) => ({
   paper: {
     margin: '170px auto 0 auto',
@@ -70,8 +72,16 @@ const BootstrapInput = withStyles((theme) => ({
     },
   },
 }))(InputBase);
-function Form() {
+function Form({ signUpUser }) {
   const classes = useStyles();
+  const [name, setName] = useState('');
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const handleSubmit = () => {
+    signUpUser({ name, username, email, password });
+    console.log('success');
+  };
   return (
     <Grid item xs={12} sm={12} md={8} component={Paper} square>
       <div style={{ float: 'right', marginTop: 30, marginRight: 30 }}>
@@ -114,19 +124,41 @@ function Form() {
           <div className={classes.namebox}>
             <div>
               <Typography>Name</Typography>
-              <BootstrapInput className={classes.input} />
+              <BootstrapInput
+                className={classes.input}
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
             </div>
             <div></div>
             <div>
               <Typography>Username</Typography>
-              <BootstrapInput className={classes.input} />
+              <BootstrapInput
+                className={classes.input}
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+              />
             </div>
           </div>
           <Typography>Email</Typography>
-          <BootstrapInput className={classes.input} />
+          <BootstrapInput
+            className={classes.input}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
           <Typography>Password</Typography>
-          <BootstrapInput className={classes.input} type='password' />
-          <Button variant='contained' color='secondary' className={classes.submit}>
+          <BootstrapInput
+            className={classes.input}
+            type='password'
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <Button
+            onClick={handleSubmit}
+            variant='contained'
+            color='secondary'
+            className={classes.submit}
+          >
             <Typography variant='body2'>Create Account</Typography>
           </Button>
         </form>
@@ -135,4 +167,8 @@ function Form() {
   );
 }
 
-export default Form;
+export default connect(null, (dispatch) => {
+  return {
+    signUpUser: (user) => dispatch(signUpUserAction(user)),
+  };
+})(Form);

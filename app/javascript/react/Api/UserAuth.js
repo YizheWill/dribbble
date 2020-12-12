@@ -1,8 +1,12 @@
 import { serialize } from 'object-to-formdata';
-export const BackendSignUpUser = ({ name, username, email, password }) => {
+export const BackendSignUpUser = (user) => {
+  let formData = serialize({ user });
   const fetchRequestOption = {
     method: 'POST',
-    body: JSON.stringify({ name, username, email, password }),
+    header: {
+      'Content-Type': 'application/json',
+    },
+    body: formData,
   };
   return fetch('/api/v1/users', fetchRequestOption).then((response) => response.json());
 };

@@ -13,9 +13,11 @@ const Home = ({ user, fetchAndSetUser }) => {
       fetchAndSetUser(isSignedIn());
     }
   }, []);
+  console.log('user', user);
   return (
     <div>
-      {user === {} ? <Navbar /> : <SignedOutNavBar />}
+      {/* {user.id ? <Navbar /> : <SignedOutNavBar />} */}
+      <SignedOutNavBar />
       <LandingPage />
       <Cards />
     </div>
