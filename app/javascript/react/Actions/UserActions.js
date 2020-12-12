@@ -1,7 +1,9 @@
+import { signIn } from '../components/User/signInSignOut';
 import {
   BackendSignInUser,
   BackendSignUpUser,
   BackendGetUserInfo,
+  BackendGetCurrentUserInfo,
 } from '../Api/UserAuth';
 export const RECEIVE_USER = 'RECEIVE_USER';
 export const RECEIVE_CURRENT_USER = 'RECEIVE_CURRENT_USER';
@@ -17,16 +19,29 @@ export const receiveCurrentUser = (user) => ({
     user,
   },
 });
+export const receiveErrors = (error) => ({});
 export const signUpUserAction = (usr) => (dispatch) => {
   BackendSignUpUser(usr).then((user) => dispatch(receiveUser(user)));
 };
 
 export const signInUserAction = (usr) => (dispatch) => {
-  BackendSignInUser(usr).then((user) => dispatch(receiveUser(user)));
+  BackendSignInUser(usr).then(
+    (user) => {
+      signIn(user.sessionToken);
+      dispatch(receiveUser(user));
+    },
+    (err) => {
+      dispatch(receiveErrors(err));
+    }
+  );
 };
 
 export const getCurrentUserInfo = (sessionToken) => (dispatch) => {
-  BackendGetUserInfo(sessionToken).then((user) => dispatch(receiveCurrentUser(user)));
+  console.log(sessionToken);
+  BackendGetCurrentUserInfo(sessionToken).then((user) => {
+    console.log(user);
+    dispatch(receiveCurrentUser(user));
+  });
 };
 
 export const getUserInfo = (id) => (dispatch) => {

@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import { signInUserAction } from '../../Actions/UserActions';
 import { Link } from 'react-router-dom';
 import {
   makeStyles,
@@ -66,11 +68,14 @@ const BootstrapInput = withStyles((theme) => ({
     },
   },
 }))(InputBase);
-function Form() {
+function Form({ user, signInUser }) {
   const classes = useStyles();
   const [usernameEmail, setUsernameEmail] = useState('');
   const [password, setPassword] = useState('');
-  const handleSubmit = () => {};
+  const handleSubmit = () => {
+    signInUser({ username: usernameEmail, email: usernameEmail, password });
+    console.log('success', user);
+  };
 
   return (
     <Grid item xs={12} sm={12} md={8} component={Paper} square>
@@ -150,4 +155,9 @@ function Form() {
   );
 }
 
-export default Form;
+export default connect(
+  (state) => ({ user: state.user }),
+  (dispatch) => ({
+    signInUser: (user) => dispatch(signInUserAction(user)),
+  })
+)(Form);

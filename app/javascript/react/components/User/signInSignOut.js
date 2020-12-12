@@ -1,5 +1,5 @@
 export const isSignedIn = () => {
-  return !!window.localStorage.getItem('sessionToken');
+  return window.localStorage.getItem('sessionToken');
 };
 
 export const signIn = (sessionToken) => {

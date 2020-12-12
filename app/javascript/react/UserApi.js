@@ -13,6 +13,7 @@ function UserApi({ usr, getUser }) {
 
   const to_render = () => {
     let lis = [];
+    lis.push(<Avatar src={usr.avatarUrl} />);
     for (const key in usr) {
       lis.push(
         <li key={key}>
