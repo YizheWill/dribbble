@@ -8,36 +8,42 @@ import Upload from './components/User/Upload';
 import UserProfile from './components/User/UserProfile';
 import Home from './components/Home/Home';
 import Collections from './components/User/Selection/Collections/Collections';
+import UserApi from './UserApi';
+import UsersApi from './UsersApi';
 const Routes = () => (
   <Router>
-    <div>
-      <Switch>
-        <Route exact path='/'>
-          <Home />
-        </Route>
-        <Route path='/signup'>
-          <Signup />
-        </Route>
-        <Route path='/signin'>
-          <Signin />
-        </Route>
-        <Route path='/cards'>
-          <Cards />
-        </Route>
-        <Route path='/shot'>
-          <ShowCard />
-        </Route>
-        <Route path='/user'>
-          <UserProfile />
-        </Route>
-        <Route path='/upload'>
-          <Upload />
-        </Route>
-        <Route path='/collections'>
-          <Collections />
-        </Route>
-      </Switch>
-    </div>
+    <Switch>
+      <Route exact path='/'>
+        <Home />
+      </Route>
+      <Route path='/signup'>
+        <Signup />
+      </Route>
+      <Route path='/signin'>
+        <Signin />
+      </Route>
+      <Route path='/cards'>
+        <Cards />
+      </Route>
+      <Route path='/shot'>
+        <ShowCard />
+      </Route>
+      <Route exact path='/user'>
+        <UserProfile />
+      </Route>
+      <Route path='/upload'>
+        <Upload />
+      </Route>
+      <Route path='/collections'>
+        <Collections />
+      </Route>
+      <Route path='/usersapi'>
+        <UsersApi />
+      </Route>
+      <Route path='/userapi/:userId'>
+        <UserApi />
+      </Route>
+    </Switch>
   </Router>
 );
 function App() {

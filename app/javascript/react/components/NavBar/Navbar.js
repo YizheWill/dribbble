@@ -13,6 +13,9 @@ import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+
+import { signOut } from '../User/signInSignOut';
 
 const useStyles = makeStyles((theme) => ({
   appbar: {
@@ -47,6 +50,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Appbar() {
+  const history = useHistory();
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -69,6 +73,12 @@ export default function Appbar() {
 
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
+  };
+
+  const signOutUser = () => {
+    signOut();
+    handleMobileMenuClose();
+    history.push('/');
   };
 
   const menuId = 'primary-search-account-menu';
@@ -136,6 +146,11 @@ export default function Appbar() {
           />
         </IconButton>
         <p>Profile</p>
+      </MenuItem>
+      <MenuItem onClick={signOutUser}>
+        <div style={{ paddingLeft: '30%', textAlign: 'center' }}>
+          <p>Sign Out</p>
+        </div>
       </MenuItem>
     </Menu>
   );

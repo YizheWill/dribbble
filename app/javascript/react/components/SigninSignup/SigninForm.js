@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   makeStyles,
@@ -68,6 +68,10 @@ const BootstrapInput = withStyles((theme) => ({
 }))(InputBase);
 function Form() {
   const classes = useStyles();
+  const [usernameEmail, setUsernameEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const handleSubmit = () => {};
+
   return (
     <Grid item xs={12} sm={12} md={8} component={Paper} square>
       <div style={{ float: 'right', marginTop: 30, marginRight: 30 }}>
@@ -108,7 +112,11 @@ function Form() {
         </div>
         <form className={classes.form} noValidate>
           <Typography>Username or Email Address</Typography>
-          <BootstrapInput className={classes.input} />
+          <BootstrapInput
+            className={classes.input}
+            onChange={(e) => setUsernameEmail(e.target.value)}
+            value={usernameEmail}
+          />
 
           <Grid container>
             <Grid item xs>
@@ -123,8 +131,17 @@ function Form() {
             </Grid>
           </Grid>
 
-          <BootstrapInput className={classes.input} />
-          <Button variant='contained' color='secondary' className={classes.submit}>
+          <BootstrapInput
+            className={classes.input}
+            onChange={(e) => setPassword(e.target.value)}
+            value={password}
+          />
+          <Button
+            onClick={handleSubmit}
+            variant='contained'
+            color='secondary'
+            className={classes.submit}
+          >
             Sign In
           </Button>
         </form>
