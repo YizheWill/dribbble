@@ -15,8 +15,9 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
+import SignedOutNavBar from './SignedOutNavBar';
 
-import { signOut } from '../User/signInSignOut';
+import { signOut, isSignedIn } from '../User/signInSignOut';
 import { signOutUserAction } from '../../Actions/UserActions';
 
 const useStyles = makeStyles((theme) => ({
@@ -85,6 +86,9 @@ function Appbar({ user, signOutUser }) {
     handleMobileMenuClose();
     history.push('/');
   };
+  const editUser = () => {
+    history.push('/user');
+  };
 
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
@@ -102,13 +106,13 @@ function Appbar({ user, signOutUser }) {
       </MenuItem>
       <Divider />
 
-      <MenuItem onClick={history.push('/user')}>Edit Profile</MenuItem>
+      <MenuItem onClick={editUser}>Edit Profile</MenuItem>
       <MenuItem onClick={handleMenuClose}>Edit Work Availability</MenuItem>
       <Divider />
       <MenuItem onClick={handleMenuClose}>Popular</MenuItem>
       <MenuItem onClick={handleMenuClose}>Followed</MenuItem>
       <Divider />
-      <MenuItem onClick={signOutUser} onClick={handleSignOut}>
+      <MenuItem onClick={() => handleSignOut()}>
         <Typography color='secondary'>Sign Out</Typography>
       </MenuItem>
     </Menu>

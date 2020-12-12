@@ -5,7 +5,7 @@ import Cards from './Cards';
 import { makeStyles } from '@material-ui/core/styles';
 import { Favorite, Mail } from '@material-ui/icons';
 // TODO remove navbar and put it into router
-// import Navbar from '../NavBar/Navbar';
+import Navbar from '../NavBar/Navbar';
 const useStyles = makeStyles((theme) => ({
   showMain: {
     margin: '0 auto',
@@ -90,7 +90,7 @@ export default function ShowCard() {
   });
   return (
     <>
-      {/* <Navbar /> */}
+      <Navbar />
       <div className={classes.showMain}>
         <div className={classes.showHeader}>
           <div className={classes.info}>

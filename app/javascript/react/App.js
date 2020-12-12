@@ -10,7 +10,7 @@ import Home from './components/Home/Home';
 import Collections from './components/User/Selection/Collections/Collections';
 import UserApi from './UserApi';
 import UsersApi from './UsersApi';
-// import ProtectedRoute from './PrivateRoute';
+import ProtectedRoute from './PrivateRoute';
 const Routes = () => (
   <Router>
     <Switch>
@@ -23,11 +23,11 @@ const Routes = () => (
       <Route path='/signin'>
         <Signin />
       </Route>
-      <Route exact path='/shot' component={Shot} />
-      {/* <Route path='/cards'>
+      {/* <Route exact path='/shot' component={Shot} />
+      <Route path='/cards'>
         <Cards />
       </Route>
-      <Route path='/user'>
+      <Route exact path='/user'>
         <UserProfile />
       </Route>
       <Route path='/upload'>
@@ -35,10 +35,17 @@ const Routes = () => (
       </Route>
       <Route path='/collections'>
         <Collections />
-      </Route> */}
-      {/* <Route path='/userapi'>
+      </Route>
+      <Route path='/userapi/:userId'>
         <UserApi />
       </Route> */}
+      <ProtectedRoute path='/cards' component={Cards}></ProtectedRoute>
+      <ProtectedRoute path='/shot' component={Shot}></ProtectedRoute>
+      <ProtectedRoute path='/user' component={UserProfile}></ProtectedRoute>
+      <ProtectedRoute path='/upload' component={Upload}></ProtectedRoute>
+      <ProtectedRoute path='/collections' component={Collections}></ProtectedRoute>
+      <ProtectedRoute path='/usersapi' component={UsersApi}></ProtectedRoute>
+      <ProtectedRoute path='/userapi/:userId' component={UserApi}></ProtectedRoute>
     </Switch>
   </Router>
 );

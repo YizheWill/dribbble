@@ -5,6 +5,7 @@ import { getUserInfo } from './Actions/UserActions';
 import { Avatar } from '@material-ui/core';
 function UserApi({ usr, getUser }) {
   const params = useParams();
+  console.log(params);
   const [user, setUser] = useState(null);
   useEffect(() => {
     console.log('here');

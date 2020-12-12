@@ -16,8 +16,7 @@ const Home = ({ user, fetchAndSetUser }) => {
   console.log('user', user);
   return (
     <div>
-      {/* {user.id ? <Navbar /> : <SignedOutNavBar />} */}
-      <SignedOutNavBar />
+      {user.id ? <Navbar /> : <SignedOutNavBar />}
       <LandingPage />
       <Cards />
     </div>
