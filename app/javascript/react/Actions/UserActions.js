@@ -23,7 +23,12 @@ export const receiveCurrentUser = (user) => ({
 export const removeUser = () => ({
   type: REMOVE_USER,
 });
-export const receiveErrors = (error) => ({});
+export const receiveErrors = (errors) => ({
+  type: RECEIVE_ERRORS,
+  payload: {
+    errors,
+  },
+});
 
 export const signInUserAction = (usr) => (dispatch) => {
   BackendSignInUser(usr).then(
