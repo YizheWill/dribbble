@@ -10,10 +10,34 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_11_214950) do
+ActiveRecord::Schema.define(version: 2020_12_13_174956) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "collections", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "title", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_collections_on_user_id"
+  end
+
+  create_table "shots", force: :cascade do |t|
+    t.string "title", null: false
+    t.string "description", default: ""
+    t.string "image_url", default: "https://cdn.dribbble.com/users/33073/screenshots/14751019/media/46c066bf824f49258ab7f3ae5025f3a6.png?compress=1&resize=1600x1200"
+    t.integer "view_count", default: 0
+    t.boolean "allow_comment", default: true
+    t.boolean "image_or_video", default: true
+    t.decimal "price", default: "0.0"
+    t.bigint "user_id", null: false
+    t.bigint "collection_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["collection_id"], name: "index_shots_on_collection_id"
+    t.index ["user_id"], name: "index_shots_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "name", null: false
@@ -39,4 +63,7 @@ ActiveRecord::Schema.define(version: 2020_12_11_214950) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
+  add_foreign_key "collections", "users"
+  add_foreign_key "shots", "collections"
+  add_foreign_key "shots", "users"
 end

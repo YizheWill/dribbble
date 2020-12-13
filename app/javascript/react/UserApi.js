@@ -14,7 +14,20 @@ function UserApi({ usr, getUser }) {
 
   const to_render = () => {
     let lis = [];
-    lis.push(<Avatar key={1} src={usr.avatarUrl} />);
+    lis.push(<Avatar key={1} src={usr?.avatarUrl} />);
+    lis.push(<li key={2}>username: {usr?.username}</li>);
+    const { shots } = usr;
+    console.log('shots', shots);
+    shots?.forEach((shot) => {
+      // console.log(shot.title);
+      // console.log(shot.imageUrl);
+      lis.push(
+        <li key={shot[1]}>
+          <h5>{shot[0]}</h5>
+          {shot[2] ? <img src={shot[1]} /> : <video src={shot[1]} />}
+        </li>
+      );
+    });
     for (const key in usr) {
       lis.push(
         <li key={key}>

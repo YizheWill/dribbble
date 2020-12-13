@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
 import { removeErrors } from '../../Actions/UserActions';
@@ -87,10 +87,10 @@ function Form({ signUpUser, errors, user }) {
   const history = useHistory();
   const handleSubmit = () => {
     signUpUser({ name, username, email, password });
-    if (user.username) {
-      history.push('/');
-    }
   };
+  useEffect(() => {
+    if (user.username) history.push('/');
+  }, [user]);
   const renderErrors = () => {
     if (typeof errors === 'object') {
       const res = [];
@@ -196,6 +196,7 @@ function Form({ signUpUser, errors, user }) {
 
 export default connect(
   (state) => ({
+    user: state.user,
     errors: state.errors,
   }),
   (dispatch) => {

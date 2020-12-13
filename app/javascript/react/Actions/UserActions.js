@@ -1,4 +1,4 @@
-import { signIn } from '../components/User/signInSignOut';
+import { signIn, signOut } from '../components/User/signInSignOut';
 import {
   BackendSignInUser,
   BackendSignUpUser,
@@ -36,6 +36,8 @@ export const receiveErrors = (errors) => ({
 export const signInUserAction = (usr) => (dispatch) => {
   BackendSignInUser(usr).then((res) => {
     if (res.error) {
+      window.localStorage.clear();
+      console.log('cleaned storage');
       return dispatch(receiveErrors(res.error));
     } else {
       signIn(res.sessionToken);
@@ -61,9 +63,13 @@ export const signUpUserAction = (user) => (dispatch) => {
 
 export const getCurrentUserInfo = (sessionToken) => (dispatch) => {
   console.log(sessionToken);
-  BackendGetCurrentUserInfo(sessionToken).then((user) => {
-    console.log(user);
-    dispatch(receiveCurrentUser(user));
+  BackendGetCurrentUserInfo(sessionToken).then((res) => {
+    if (res.error) {
+      console.log('signing out');
+      signOut();
+    } else {
+      dispatch(receiveCurrentUser(res));
+    }
   });
 };
 

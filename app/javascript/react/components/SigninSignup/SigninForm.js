@@ -82,10 +82,12 @@ function Form({ errors, user, signInUser, formRemoveErrors }) {
   const [password, setPassword] = useState('');
   const history = useHistory();
   const handleSubmit = () => {
-    signInUser({ username: usernameEmail, email: usernameEmail, password }).then((res) =>
-      console.log('res', res)
-    );
+    signInUser({ username: usernameEmail, email: usernameEmail, password });
+    console.log(window.localStorage.getItem('sessionToken'));
   };
+  useEffect(() => {
+    if (user.sessionToken) history.push('/');
+  }, [user]);
   useEffect(() => {
     if (typeof errors === 'string') setErr(errors);
   }, [errors]);

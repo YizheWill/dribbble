@@ -7,7 +7,7 @@ class User < ApplicationRecord
   validates :password_digest, presence: true
   validates :session_token, presence: true, uniqueness: true
   validates :password, length: { minimum: 6, allow_nil: true }
-  # has_many :posts
+  has_many :shots
   def self.find_by_credentials(username, email, password, word)
     if word
       return User.find_by(session_token: word)

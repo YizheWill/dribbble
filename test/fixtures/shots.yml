@@ -1,0 +1,23 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  description: MyString
+  image_url: MyString
+  view_count: 1
+  allow_comment: false
+  image_or_video: false
+  price: 9.99
+  user: one
+  collection: one
+
+two:
+  title: MyString
+  description: MyString
+  image_url: MyString
+  view_count: 1
+  allow_comment: false
+  image_or_video: false
+  price: 9.99
+  user: two
+  collection: two

@@ -38,11 +38,11 @@ const Routes = () => (
       </Route> */}
       <ProtectedRoute path='/cards' component={Cards}></ProtectedRoute>
       <ProtectedRoute path='/shot' component={Shot}></ProtectedRoute>
-      <ProtectedRoute path='/user' component={UserProfile}></ProtectedRoute>
+      <ProtectedRoute path='/user/:userId' component={UserProfile}></ProtectedRoute>
       <ProtectedRoute path='/upload' component={Upload}></ProtectedRoute>
       <ProtectedRoute path='/collections' component={Collections}></ProtectedRoute>
       <ProtectedRoute path='/usersapi' component={UsersApi}></ProtectedRoute>
-      <ProtectedRoute path='/userapi/:userId' component={UserApi}></ProtectedRoute>
+      <Route path='/userapi/:userId' component={UserApi}></Route>
     </Switch>
   </Router>
 );

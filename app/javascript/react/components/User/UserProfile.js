@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { connect, useHistory, useParams } from 'react-redux';
 import Cards from '../Card/Cards';
 import Collections from './Selection/Collections/Collections';
 import Navbar from '../NavBar/Navbar';
@@ -51,14 +52,14 @@ const toRender = (state) => {
       return <Collections />;
   }
 };
-function UserProfile() {
+function UserProfile({ userApi, shotsApi }) {
   const classes = useStyles();
   const [selection, setSelection] = useState(0);
-  const [user, setUser] = useState({
-    username: 'Will Wang',
-    intro: "designer's website",
-    tags: ['Brand, ', 'Graphic Design, Illustration, UI ', 'Visual Design'],
-  });
+  // const [user, setUser] = useState({
+  // username: 'Will Wang',
+  // intro: "designer's website",
+  // tags: ['Brand, ', 'Graphic Design, Illustration, UI ', 'Visual Design'],
+  // });
   return (
     <>
       <Navbar />
@@ -66,14 +67,17 @@ function UserProfile() {
         <div className={classes.userInfo}>
           <Avatar
             className={classes.avatar}
-            src='https://images.unsplash.com/photo-1490650034439-fd184c3c86a5?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxzZWFyY2h8NHx8Y2F0fGVufDB8MnwwfA%3D%3D&auto=format&fit=crop&w=800&q=60'
+            src={
+              userApi?.avatar_url ||
+              'https://images.unsplash.com/photo-1490650034439-fd184c3c86a5?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxzZWFyY2h8NHx8Y2F0fGVufDB8MnwwfA%3D%3D&auto=format&fit=crop&w=800&q=60'
+            }
           />
           <div className={classes.username}>
             <Typography variant='h3' style={{ fontWeight: 700 }}>
-              {user.username}
+              {userApi?.username}
             </Typography>
-            <Typography variant='h5'>{user.intro}</Typography>
-            <Typography style={{ color: 'light-gray' }}>{user.tags}</Typography>
+            <Typography variant='h5'>{userApi?.bio}</Typography>
+            <Typography style={{ color: 'light-gray' }}>{userApi?.bio}</Typography>
             <div className={classes.buttons}>
               <Button
                 variant='contained'
@@ -94,17 +98,17 @@ function UserProfile() {
         <div className={classes.selection}>
           <Button onClick={() => setSelection(0)}>
             <Typography name='shots' className={classes.tags}>
-              Shots{user.shotsCount}
+              Shots{shotsApi?.length}
             </Typography>
           </Button>
           <Button onClick={() => setSelection(1)}>
-            <Typography name='collections' className={classes.tags}>
-              Collections{user.collectionCount}
+            <Typography name='collections' className={userApi.bio}>
+              Collections{userApi?.bio}
             </Typography>
           </Button>
           <Button onClick={() => setSelection(2)}>
             <Typography name='likedshots' className={classes.tags}>
-              liked Shots {user.likedCount}
+              liked Shots {userApi?.bio}
             </Typography>
           </Button>
           <Button onClick={() => setSelection(3)}>
@@ -126,5 +130,10 @@ function UserProfile() {
     </>
   );
 }
-
-export default UserProfile;
+export default connect(
+  (state) => ({
+    userApi: state.user,
+    shotsApi: state.user.shots,
+  }),
+  (dispatch) => ({})
+)(UserProfile);

@@ -101,8 +101,8 @@ function Appbar({ user, signOutUser }) {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose} style={{ marginBottom: 10 }}>
-        Profile
+      <MenuItem onClick={() => history.push(`/user/${1}`)} style={{ marginBottom: 10 }}>
+        Profil
       </MenuItem>
       <Divider />
 
