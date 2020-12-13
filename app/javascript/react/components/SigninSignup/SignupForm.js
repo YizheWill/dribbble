@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { removeErrors } from '../../Actions/UserActions';
 import {
   makeStyles,
@@ -78,14 +78,18 @@ const BootstrapInput = withStyles((theme) => ({
     },
   },
 }))(InputBase);
-function Form({ signUpUser, errors, formRemoveErrors }) {
+function Form({ signUpUser, errors, user }) {
   const classes = useStyles();
   const [name, setName] = useState('');
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const history = useHistory();
   const handleSubmit = () => {
     signUpUser({ name, username, email, password });
+    if (user.username) {
+      history.push('/');
+    }
   };
   const renderErrors = () => {
     if (typeof errors === 'object') {

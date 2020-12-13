@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { signInUserAction } from '../../Actions/UserActions';
 import { Link, useHistory } from 'react-router-dom';
 import { removeErrors } from '../../Actions/UserActions';
+import { isSignedIn } from '../User/signInSignOut';
 import {
   makeStyles,
   Button,
@@ -79,37 +80,24 @@ function Form({ errors, user, signInUser, formRemoveErrors }) {
   const [err, setErr] = useState('');
   const [usernameEmail, setUsernameEmail] = useState('');
   const [password, setPassword] = useState('');
+  const history = useHistory();
   const handleSubmit = () => {
-    signInUser({ username: usernameEmail, email: usernameEmail, password });
+    signInUser({ username: usernameEmail, email: usernameEmail, password }).then((res) =>
+      console.log('res', res)
+    );
   };
   useEffect(() => {
-    if (typeof errors === 'string') {
-      setErr(errors);
-    } else setErr('');
+    if (typeof errors === 'string') setErr(errors);
   }, [errors]);
   useEffect(() => {
     return () => {
       formRemoveErrors();
     };
   }, []);
+
   // work as component will unmount
   const renderErrors = () => {
-    if (typeof errors === 'object') {
-      const res = [];
-      for (const key in errors) {
-        res.push(errors[key]);
-        delete errors[key];
-      }
-      console.log('removing errors');
-      return res.map((e, i) => (
-        <li key={i} className={classes.errorMessage}>
-          {e}
-        </li>
-      ));
-    }
-
     console.log('downhere');
-    // formRemoveErrors();
     return <li className={classes.errorMessage}>{err}</li>;
   };
 

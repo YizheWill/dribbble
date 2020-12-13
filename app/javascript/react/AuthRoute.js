@@ -1,10 +1,9 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
 import { isSignedIn } from './components/User/signInSignOut';
-import Home from './components/Home/Home';
 
 function AuthRoute({ component: Component, ...rest }) {
-  return <Route {...rest}>{isSignedIn() ? <Home /> : <Component />}</Route>;
+  return <Route {...rest}>{isSignedIn() ? <Redirect to='/' /> : <Component />}</Route>;
 }
 
 export default AuthRoute;

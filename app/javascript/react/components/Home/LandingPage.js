@@ -3,6 +3,7 @@ import LandingImage from '../../assets/imgs/landing.png';
 import { makeStyles } from '@material-ui/core';
 import { Grid, Typography, Button } from '@material-ui/core';
 import { Link } from 'react-router-dom';
+import { isSignedIn } from '../User/signInSignOut';
 const useStyles = makeStyles((theme) => ({
   container: {
     paddingLeft: '10%',
@@ -51,16 +52,20 @@ export default function LandingPage() {
           Willwill is the leading destination to find & showcase creative work and home to
           the world's best desin professionals.
         </Typography>
-        <Button
-          className={classes.list}
-          color='secondary'
-          variant='contained'
-          style={{ outline: 'none' }}
-        >
-          <Link to='/signin' style={{ color: '#FFF' }}>
-            Sign up
-          </Link>
-        </Button>
+        {isSignedIn() ? (
+          ''
+        ) : (
+          <Button
+            className={classes.list}
+            color='secondary'
+            variant='contained'
+            style={{ outline: 'none' }}
+          >
+            <Link to='/signup' style={{ color: '#FFF' }}>
+              Sign up
+            </Link>
+          </Button>
+        )}
       </Grid>
     </Grid>
   );
