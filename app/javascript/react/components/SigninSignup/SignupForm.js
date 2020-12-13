@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { removeErrors } from '../../Actions/UserActions';
 import {
   makeStyles,
   Button,
@@ -48,6 +49,11 @@ const useStyles = makeStyles((theme) => ({
     display: 'grid',
     gridTemplateColumns: '5fr 0.3fr 5fr',
   },
+  errorMessage: {
+    listStyle: 'none',
+    color: 'red',
+    marginTop: '1rem',
+  },
 }));
 const BootstrapInput = withStyles((theme) => ({
   root: {
@@ -72,7 +78,7 @@ const BootstrapInput = withStyles((theme) => ({
     },
   },
 }))(InputBase);
-function Form({ signUpUser }) {
+function Form({ signUpUser, errors, formRemoveErrors }) {
   const classes = useStyles();
   const [name, setName] = useState('');
   const [username, setUsername] = useState('');
@@ -80,7 +86,23 @@ function Form({ signUpUser }) {
   const [password, setPassword] = useState('');
   const handleSubmit = () => {
     signUpUser({ name, username, email, password });
-    console.log('success');
+  };
+  const renderErrors = () => {
+    if (typeof errors === 'object') {
+      const res = [];
+      for (const key in errors) {
+        res.push(errors[key]);
+        delete errors[key];
+      }
+      console.log('removing errors');
+      return res.map((e, i) => (
+        <li key={i} className={classes.errorMessage}>
+          {e}
+        </li>
+      ));
+    }
+    console.log('downhere');
+    return <li className={classes.errorMessage}>{errors}</li>;
   };
   return (
     <Grid item xs={12} sm={12} md={8} component={Paper} square>
@@ -162,13 +184,20 @@ function Form({ signUpUser }) {
             <Typography variant='body2'>Create Account</Typography>
           </Button>
         </form>
+        {errors[0] ? renderErrors() : ''}
       </div>
     </Grid>
   );
 }
 
-export default connect(null, (dispatch) => {
-  return {
-    signUpUser: (user) => dispatch(signUpUserAction(user)),
-  };
-})(Form);
+export default connect(
+  (state) => ({
+    errors: state.errors,
+  }),
+  (dispatch) => {
+    return {
+      signUpUser: (user) => dispatch(signUpUserAction(user)),
+      formRemoveErrors: () => dispatch(removeErrors()),
+    };
+  }
+)(Form);

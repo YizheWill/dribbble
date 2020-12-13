@@ -11,18 +11,15 @@ import Collections from './components/User/Selection/Collections/Collections';
 import UserApi from './UserApi';
 import UsersApi from './UsersApi';
 import ProtectedRoute from './PrivateRoute';
+import AuthRoute from './AuthRoute';
 const Routes = () => (
   <Router>
     <Switch>
       <Route exact path='/'>
         <Home />
       </Route>
-      <Route path='/signup'>
-        <Signup />
-      </Route>
-      <Route path='/signin'>
-        <Signin />
-      </Route>
+      <AuthRoute path='/signin' component={Signin} />
+      <AuthRoute path='/signup' component={Signup} />
       {/* <Route exact path='/shot' component={Shot} />
       <Route path='/cards'>
         <Cards />

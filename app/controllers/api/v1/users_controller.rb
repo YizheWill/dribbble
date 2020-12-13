@@ -14,7 +14,7 @@ class Api::V1::UsersController < ApplicationController
     if @user.save
       render :show
     else
-      render json: @user.errors.full_messages, status: 422
+      render json: { error: @user.errors.full_messages }.to_json, status: 422
     end
   end
 

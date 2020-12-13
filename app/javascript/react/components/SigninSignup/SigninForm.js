@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { signInUserAction } from '../../Actions/UserActions';
 import { Link, useHistory } from 'react-router-dom';
+import { removeErrors } from '../../Actions/UserActions';
 import {
   makeStyles,
   Button,
@@ -44,6 +45,11 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.secondary.main,
     width: '50%',
   },
+  errorMessage: {
+    listStyle: 'none',
+    color: 'red',
+    marginTop: '1rem',
+  },
 }));
 const BootstrapInput = withStyles((theme) => ({
   root: {
@@ -68,15 +74,43 @@ const BootstrapInput = withStyles((theme) => ({
     },
   },
 }))(InputBase);
-function Form({ user, signInUser }) {
+function Form({ errors, user, signInUser, formRemoveErrors }) {
   const classes = useStyles();
+  const [err, setErr] = useState('');
   const [usernameEmail, setUsernameEmail] = useState('');
   const [password, setPassword] = useState('');
-  const history = useHistory();
   const handleSubmit = () => {
     signInUser({ username: usernameEmail, email: usernameEmail, password });
-    history.push('/');
-    console.log('success', user);
+  };
+  useEffect(() => {
+    if (typeof errors === 'string') {
+      setErr(errors);
+    } else setErr('');
+  }, [errors]);
+  useEffect(() => {
+    return () => {
+      formRemoveErrors();
+    };
+  }, []);
+  // work as component will unmount
+  const renderErrors = () => {
+    if (typeof errors === 'object') {
+      const res = [];
+      for (const key in errors) {
+        res.push(errors[key]);
+        delete errors[key];
+      }
+      console.log('removing errors');
+      return res.map((e, i) => (
+        <li key={i} className={classes.errorMessage}>
+          {e}
+        </li>
+      ));
+    }
+
+    console.log('downhere');
+    // formRemoveErrors();
+    return <li className={classes.errorMessage}>{err}</li>;
   };
 
   return (
@@ -153,14 +187,16 @@ function Form({ user, signInUser }) {
             Sign In
           </Button>
         </form>
+        {errors[0] ? renderErrors() : ''}
       </div>
     </Grid>
   );
 }
 
 export default connect(
-  (state) => ({ user: state.user }),
+  (state) => ({ user: state.user, errors: state.errors }),
   (dispatch) => ({
     signInUser: (user) => dispatch(signInUserAction(user)),
+    formRemoveErrors: () => dispatch(removeErrors()),
   })
 )(Form);

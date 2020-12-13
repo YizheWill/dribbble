@@ -8,6 +8,9 @@ import {
 export const RECEIVE_USER = 'RECEIVE_USER';
 export const RECEIVE_CURRENT_USER = 'RECEIVE_CURRENT_USER';
 export const REMOVE_USER = 'REMOVE_USER';
+export const RECEIVE_ERRORS = 'RECEIVE_ERRORS';
+export const REMOVE_ERRORS = 'REMOVE_ERRORS';
+
 export const receiveUser = (user) => ({
   type: RECEIVE_USER,
   payload: {
@@ -31,15 +34,14 @@ export const receiveErrors = (errors) => ({
 });
 
 export const signInUserAction = (usr) => (dispatch) => {
-  BackendSignInUser(usr).then(
-    (user) => {
-      signIn(user.sessionToken);
-      dispatch(receiveCurrentUser(user));
-    },
-    (err) => {
-      dispatch(receiveErrors(err));
+  BackendSignInUser(usr).then((res) => {
+    if (res.error) {
+      return dispatch(receiveErrors(res.error));
+    } else {
+      signIn(res.sessionToken);
+      return dispatch(receiveUser(res));
     }
-  );
+  });
 };
 
 export const signOutUserAction = () => (dispatch) => {
@@ -47,10 +49,13 @@ export const signOutUserAction = () => (dispatch) => {
 };
 
 export const signUpUserAction = (user) => (dispatch) => {
-  BackendSignUpUser(user).then((user) => {
-    console.log('backend here', user);
-    signIn(user.sessionToken);
-    dispatch(receiveCurrentUser(user));
+  BackendSignUpUser(user).then((res) => {
+    if (res.error) {
+      return dispatch(receiveErrors(res.error));
+    } else {
+      signIn(res.sessionToken);
+      return dispatch(receiveCurrentUser(res));
+    }
   });
 };
 
@@ -68,4 +73,11 @@ export const getUserInfo = (id) => (dispatch) => {
     console.log('backend user', user);
     dispatch(receiveUser(user));
   });
+};
+
+export const removeErrors = () => {
+  console.log('here removing errors');
+  return {
+    type: REMOVE_ERRORS,
+  };
 };
