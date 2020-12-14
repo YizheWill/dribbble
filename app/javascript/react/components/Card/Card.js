@@ -49,6 +49,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function CardUI({ src }) {
+  const { username, shot, avatarUrl } = src;
   const classes = useStyles();
   const pauseMovie = (e) => {
     e.currentTarget.pause();
@@ -56,48 +57,63 @@ export default function CardUI({ src }) {
   const playMovie = (e) => {
     e.currentTarget.play();
   };
+  console.log('src', src);
+  console.log('shot', shot);
+  console.log('aurl', avatarUrl);
+  console.log('uname', username);
+  console.log('irul', shot?.imageUrl);
+  // debugger;
   return (
-    <Link to='/shot'>
-      <Box className={`card text-center ${classes.border}`}>
-        <div className='overflow'>
-          {['mp4', 'gif'].includes(src.split('.').slice(-1)[0]) ? (
-            <div style={{ position: 'relative' }}>
-              <video
-                className={classes.image}
-                onMouseOver={playMovie}
-                onMouseOut={pauseMovie}
-                preload='all'
-                src={src}
-                loop
-              />
-              <VideocamIcon
-                style={{ position: 'absolute', right: 10, top: 10 }}
-                color='secondary'
-              />
-            </div>
-          ) : (
-            <div style={{ position: 'relative' }}>
-              <img className={classes.image} src={src || ShotImage} alt='image 1'></img>
-              <InsertPhotoIcon
-                style={{ position: 'absolute', right: 10, top: 10, color: 'white' }}
-              />
-            </div>
-          )}
-        </div>
+    <div>
+      <Link to='/shot'>
+        <Box className={`card text-center ${classes.border}`}>
+          <div className='overflow'>
+            {['mp4'].includes(shot?.imageUrl?.split('.')?.slice(-1)[0]) ? (
+              <div style={{ position: 'relative' }}>
+                <video
+                  className={classes.image}
+                  onMouseOver={playMovie}
+                  onMouseOut={pauseMovie}
+                  preload='all'
+                  src={shot.imageUrl}
+                  loop
+                />
+                <VideocamIcon
+                  style={{ position: 'absolute', right: 10, top: 10 }}
+                  color='secondary'
+                />
+              </div>
+            ) : (
+              <div style={{ position: 'relative' }}>
+                <img
+                  className={classes.image}
+                  src={shot?.imageUrl || ShotImage}
+                  alt='image 1'
+                ></img>
+                <InsertPhotoIcon
+                  style={{ position: 'absolute', right: 10, top: 10, color: 'white' }}
+                />
+              </div>
+            )}
+          </div>
+        </Box>
         <div className={`text-dark ${classes.cardtext}`}>
           <Grid container className={classes.grid}>
             <Grid item xs={9} sm={8} md={9}>
               <div className={classes.user}>
                 <Avatar
                   className={classes.avatar}
-                  src='https://images.unsplash.com/photo-1490650034439-fd184c3c86a5?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxzZWFyY2h8NHx8Y2F0fGVufDB8MnwwfA%3D%3D&auto=format&fit=crop&w=800&q=60'
+                  src={
+                    avatarUrl ||
+                    'https://images.unsplash.com/photo-1490650034439-fd184c3c86a5?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxzZWFyY2h8NHx8Y2F0fGVufDB8MnwwfA%3D%3D&auto=format&fit=crop&w=800&q=60'
+                  }
                 />
                 <Typography
                   className={`card-title ${classes.cardtitle}`}
                   component='h6'
                   variant='h6'
                 >
-                  Will Wang
+                  {username.split(' ')[0]}
                 </Typography>
               </div>
             </Grid>
@@ -113,7 +129,7 @@ export default function CardUI({ src }) {
             </Grid>
           </Grid>
         </div>
-      </Box>
-    </Link>
+      </Link>
+    </div>
   );
 }

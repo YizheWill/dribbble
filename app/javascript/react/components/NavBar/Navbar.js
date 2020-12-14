@@ -219,7 +219,11 @@ function Appbar({ user, signOutUser }) {
               aria-controls={menuId}
               aria-haspopup='true'
               color='inherit'
-              style={{ outline: 'none', margin: 'auto 0 auto 20px' }}
+              style={{
+                borderRadius: 999,
+                border: '1px solid #eaeaea',
+                margin: 'auto 0 auto 20px',
+              }}
               onClick={handleProfileMenuOpen}
             >
               <Avatar

@@ -13,11 +13,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Cards() {
+export default function Cards({ urls }) {
   const classes = useStyles();
+  console.log('urls', urls);
   return (
     <Grid container className={classes.container}>
-      <Grid className={classes.shots} item xs={12} sm={6} md={3}>
+      {/* <Grid className={classes.shots} item xs={12} sm={6} md={3}>
         <Card src='https://cdn.dribbble.com/users/1821723/screenshots/7436097/media/ace865e3971369f929cef4da0eb8c49c.png?compress=1&resize=1600x1200' />
       </Grid>
       <Grid className={classes.shots} item xs={12} sm={6} md={3}>
@@ -41,9 +42,14 @@ export default function Cards() {
       <Grid className={classes.shots} item xs={12} sm={6} md={3}>
         <Card src='https://cdn.dribbble.com/users/1821723/screenshots/6671754/learning_a_new_style_4x.png?compress=1&resize=1600x1200' />
       </Grid>
-      <Grid className={classes.shots} item xs={12} sm={3} md={3}>
+      <Grid className={classes.shots} item xs={12} sm={6} md={3}>
         <Card src='https://cdn.dribbble.com/users/1821723/screenshots/4937888/asset_2.png?compress=1&resize=800x600' />
-      </Grid>
+      </Grid> */}
+      {urls?.map((url) => (
+        <Grid className={classes.shots} item xs={12} sm={6} md={3}>
+          <Card src={url} />
+        </Grid>
+      ))}
     </Grid>
   );
 }

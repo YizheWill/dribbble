@@ -5,5 +5,5 @@ end
 # json.favorite_benches user.favorite_benches.pluck(:id)
 json.user do
   json.userId shot.user.id
-  json.userName shot.user.username
+  json.userName shot.user.name
 end

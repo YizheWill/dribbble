@@ -38,40 +38,50 @@ const useStyles = makeStyles((theme) => ({
     margin: '0 10px',
   },
 }));
-const toRender = (state) => {
-  switch (state) {
-    case 0:
-      return <Cards />;
-    case 1:
-      return <Collections />;
-    case 2:
-      return <Cards likes={1} />;
-    case 3:
-      return <About />;
-    default:
-      return <Collections />;
-  }
-};
+
 function UserProfile({ userApi, shotsApi }) {
   const classes = useStyles();
+  const [user, setUser] = useState({});
+  const [shots, setShots] = useState([]);
   const [selection, setSelection] = useState(0);
   // const [user, setUser] = useState({
   // username: 'Will Wang',
   // intro: "designer's website",
   // tags: ['Brand, ', 'Graphic Design, Illustration, UI ', 'Visual Design'],
   // });
+
+  useEffect(() => {
+    setUser(userApi);
+    // console.log('user', user);
+    // console.log('shots', shots);
+  }, []);
+  // useEffect(() => {
+  //   console.log(user);
+  //   user !== {} && setShots(user?.shots.map((e) => e[1]));
+  // }, [user]);
+
+  console.log(user);
+  const toRender = (state) => {
+    switch (state) {
+      case 0:
+        console.log('shots here', user.shots);
+        return shots ? <Cards urls={user?.shots?.map((e) => e[1])} /> : '';
+      case 1:
+        return <Collections />;
+      case 2:
+        return <Cards likes={1} />;
+      case 3:
+        return <About />;
+      default:
+        return <Collections />;
+    }
+  };
   return (
     <>
       <Navbar />
       <div className={classes.profile}>
         <div className={classes.userInfo}>
-          <Avatar
-            className={classes.avatar}
-            src={
-              userApi?.avatar_url ||
-              'https://images.unsplash.com/photo-1490650034439-fd184c3c86a5?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxzZWFyY2h8NHx8Y2F0fGVufDB8MnwwfA%3D%3D&auto=format&fit=crop&w=800&q=60'
-            }
-          />
+          <Avatar className={classes.avatar} src={userApi?.avatarUrl} />
           <div className={classes.username}>
             <Typography variant='h3' style={{ fontWeight: 700 }}>
               {userApi?.username}
@@ -130,10 +140,7 @@ function UserProfile({ userApi, shotsApi }) {
     </>
   );
 }
-export default connect(
-  (state) => ({
-    userApi: state.user,
-    shotsApi: state.user.shots,
-  }),
-  (dispatch) => ({})
-)(UserProfile);
+export default connect((state) => ({
+  userApi: state.user,
+  shotsApi: state.user.shots?.map((shot) => shot[1]),
+}))(UserProfile);

@@ -2,6 +2,10 @@ class Api::V1::ShotsController < ApplicationController
   skip_before_action :verify_authenticity_token
   before_action :set_shot, only: %i(show update destroy)
 
+  def index
+    @shots = Shot.all
+  end
+
   def show
   end
 
