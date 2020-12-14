@@ -12,9 +12,6 @@ const Home = ({ user, fetchAndSetUser, fetchShots, shots }) => {
   const [urls, setUrls] = useState(null);
   useEffect(() => {
     fetchShots();
-    //   debugger;
-    //   console.log('urls', user);
-    //   console.log('shots', shots);
     if (isSignedIn()) {
       fetchAndSetUser(isSignedIn());
     }

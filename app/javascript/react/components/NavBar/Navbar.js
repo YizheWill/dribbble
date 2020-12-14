@@ -1,16 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
-import { Divider } from '@material-ui/core';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import Badge from '@material-ui/core/Badge';
-import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
-import Avatar from '@material-ui/core/Avatar';
-import MailIcon from '@material-ui/icons/Mail';
+import {
+  Button,
+  Divider,
+  AppBar,
+  Toolbar,
+  IconButton,
+  Typography,
+  Badge,
+  MenuItem,
+  Menu,
+  Avatar,
+} from '@material-ui/core';
+
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import { Link } from 'react-router-dom';
@@ -101,15 +104,18 @@ function Appbar({ user, signOutUser }) {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={() => history.push(`/user/${1}`)} style={{ marginBottom: 10 }}>
-        Profil
+      <MenuItem
+        onClick={() => history.push(`/users/${user.id}`)}
+        style={{ marginBottom: 10 }}
+      >
+        User Profile
       </MenuItem>
       <Divider />
 
-      <MenuItem onClick={editUser}>Edit Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>Edit Work Availability</MenuItem>
+      <MenuItem onClick={() => history.push(`/shots/1`)}>User Shot</MenuItem>
+      <MenuItem onClick={() => history.push('/collections')}>Collections</MenuItem>
       <Divider />
-      <MenuItem onClick={handleMenuClose}>Popular</MenuItem>
+      <MenuItem onClick={() => history.push('/upload')}>Upload</MenuItem>
       <MenuItem onClick={handleMenuClose}>Followed</MenuItem>
       <Divider />
       <MenuItem onClick={() => handleSignOut()}>
@@ -234,6 +240,14 @@ function Appbar({ user, signOutUser }) {
                 }
               />
             </IconButton>
+            <Link
+              to='/upload'
+              style={{ textDecoration: 'none', marginLeft: '3rem', marginRight: '-2rem' }}
+            >
+              <Button color='secondary' variant='contained'>
+                UPLOAD
+              </Button>
+            </Link>
           </div>
           <div className={classes.sectionMobile}>
             <IconButton

@@ -24,6 +24,6 @@ end
 
 shots_url.each do |e|
   surf = e.split('.').last
-  image_or_video = !(surf == 'mp4' || surf == 'gif')
+  image_or_video = !(surf == 'mp4')
   Shot.create!({ title: Faker::Books::CultureSeries.book, description: Faker::Movies::StarWars.quote, image_url: e, image_or_video: image_or_video, user_id: [1, 2, 3].sample, collection_id: [1, 2, 3, 4, 5, 6].sample })
 end
