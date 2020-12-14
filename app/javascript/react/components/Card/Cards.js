@@ -46,7 +46,7 @@ export default function Cards({ urls }) {
         <Card src='https://cdn.dribbble.com/users/1821723/screenshots/4937888/asset_2.png?compress=1&resize=800x600' />
       </Grid> */}
       {urls?.map((url) => (
-        <Grid className={classes.shots} item xs={12} sm={6} md={3}>
+        <Grid className={classes.shots} item xs={12} sm={6} md={3} key={url.id}>
           <Card src={url} />
         </Grid>
       ))}

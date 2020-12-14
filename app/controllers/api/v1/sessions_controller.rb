@@ -7,6 +7,7 @@ class Api::V1::SessionsController < ApplicationController
     @user = User.find_by_credentials(params[:user][:username], params[:user][:email], params[:user][:password], word)
     if @user
       login!(@user)
+      # TODO change the way rendering the current user, too much info rendered back to current user
       render '/api/v1/users/show'
     else
       render json: { error: 'invalid username/email or password' }, status: 401

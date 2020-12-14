@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
-import user from './UserReducer';
+import artist from './ArtistReducer';
 import shots from './ShotsReducer';
 
 export default combineReducers({
   shots,
-  user,
+  artist,
 });

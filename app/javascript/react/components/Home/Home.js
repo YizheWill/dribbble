@@ -15,9 +15,9 @@ const Home = ({ user, fetchAndSetUser, fetchShots, shots }) => {
     //   debugger;
     //   console.log('urls', user);
     //   console.log('shots', shots);
-    //   if (isSignedIn()) {
-    //     fetchAndSetUser(isSignedIn());
-    //   }
+    if (isSignedIn()) {
+      fetchAndSetUser(isSignedIn());
+    }
   }, []);
   useEffect(() => {
     setUrls(shots);

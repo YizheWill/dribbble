@@ -49,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function CardUI({ src }) {
-  const { username, shot, avatarUrl } = src;
+  const { artistName, imageUrl, avatarUrl } = src;
   const classes = useStyles();
   const pauseMovie = (e) => {
     e.currentTarget.pause();
@@ -57,25 +57,19 @@ export default function CardUI({ src }) {
   const playMovie = (e) => {
     e.currentTarget.play();
   };
-  console.log('src', src);
-  console.log('shot', shot);
-  console.log('aurl', avatarUrl);
-  console.log('uname', username);
-  console.log('irul', shot?.imageUrl);
-  // debugger;
   return (
     <div>
       <Link to='/shot'>
         <Box className={`card text-center ${classes.border}`}>
           <div className='overflow'>
-            {['mp4'].includes(shot?.imageUrl?.split('.')?.slice(-1)[0]) ? (
+            {['mp4'].includes(imageUrl?.split('.')?.slice(-1)[0]) ? (
               <div style={{ position: 'relative' }}>
                 <video
                   className={classes.image}
                   onMouseOver={playMovie}
                   onMouseOut={pauseMovie}
                   preload='all'
-                  src={shot.imageUrl}
+                  src={imageUrl}
                   loop
                 />
                 <VideocamIcon
@@ -87,7 +81,7 @@ export default function CardUI({ src }) {
               <div style={{ position: 'relative' }}>
                 <img
                   className={classes.image}
-                  src={shot?.imageUrl || ShotImage}
+                  src={imageUrl || ShotImage}
                   alt='image 1'
                 ></img>
                 <InsertPhotoIcon
@@ -113,7 +107,7 @@ export default function CardUI({ src }) {
                   component='h6'
                   variant='h6'
                 >
-                  {username.split(' ')[0]}
+                  {artistName.split(' ')[0]}
                 </Typography>
               </div>
             </Grid>

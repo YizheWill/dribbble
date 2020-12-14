@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { connect, useHistory, useParams } from 'react-redux';
+
+import { fetchArtist } from '../../Actions/ArtistActions';
+
+import { connect } from 'react-redux';
+import { useHistory, useParams } from 'react-router-dom';
 import Cards from '../Card/Cards';
 import Collections from './Selection/Collections/Collections';
 import Navbar from '../NavBar/Navbar';
@@ -39,37 +43,24 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function UserProfile({ userApi, shotsApi }) {
+function UserProfile({ artist, shots, collections, getArtist }) {
   const classes = useStyles();
-  const [user, setUser] = useState({});
-  const [shots, setShots] = useState([]);
   const [selection, setSelection] = useState(0);
-  // const [user, setUser] = useState({
-  // username: 'Will Wang',
-  // intro: "designer's website",
-  // tags: ['Brand, ', 'Graphic Design, Illustration, UI ', 'Visual Design'],
-  // });
-
+  const { artistId } = useParams();
+  console.log('userid', artistId);
   useEffect(() => {
-    setUser(userApi);
-    // console.log('user', user);
-    // console.log('shots', shots);
+    getArtist(artistId);
   }, []);
-  // useEffect(() => {
-  //   console.log(user);
-  //   user !== {} && setShots(user?.shots.map((e) => e[1]));
-  // }, [user]);
 
-  console.log(user);
   const toRender = (state) => {
     switch (state) {
       case 0:
-        console.log('shots here', user.shots);
-        return shots ? <Cards urls={user?.shots?.map((e) => e[1])} /> : '';
+        console.log('shots here', shots);
+        return <Cards urls={shots} />;
       case 1:
-        return <Collections />;
+        return <Collections collections={collections} />;
       case 2:
-        return <Cards likes={1} />;
+        return <Cards urls={shots} />;
       case 3:
         return <About />;
       default:
@@ -81,13 +72,13 @@ function UserProfile({ userApi, shotsApi }) {
       <Navbar />
       <div className={classes.profile}>
         <div className={classes.userInfo}>
-          <Avatar className={classes.avatar} src={userApi?.avatarUrl} />
+          <Avatar className={classes.avatar} src={artist?.avatarUrl} />
           <div className={classes.username}>
             <Typography variant='h3' style={{ fontWeight: 700 }}>
-              {userApi?.username}
+              {artist?.name?.split(' ')[0]}
             </Typography>
-            <Typography variant='h5'>{userApi?.bio}</Typography>
-            <Typography style={{ color: 'light-gray' }}>{userApi?.bio}</Typography>
+            <Typography variant='h5'>{artist?.bio?.slice(0, 20)}</Typography>
+            <Typography style={{ color: 'light-gray' }}>{artist?.bio}</Typography>
             <div className={classes.buttons}>
               <Button
                 variant='contained'
@@ -108,17 +99,17 @@ function UserProfile({ userApi, shotsApi }) {
         <div className={classes.selection}>
           <Button onClick={() => setSelection(0)}>
             <Typography name='shots' className={classes.tags}>
-              Shots{shotsApi?.length}
+              Shots
             </Typography>
           </Button>
           <Button onClick={() => setSelection(1)}>
-            <Typography name='collections' className={userApi.bio}>
-              Collections{userApi?.bio}
+            <Typography name='collections' className={artist.bio}>
+              Collections
             </Typography>
           </Button>
           <Button onClick={() => setSelection(2)}>
             <Typography name='likedshots' className={classes.tags}>
-              liked Shots {userApi?.bio}
+              liked Shots
             </Typography>
           </Button>
           <Button onClick={() => setSelection(3)}>
@@ -140,7 +131,13 @@ function UserProfile({ userApi, shotsApi }) {
     </>
   );
 }
-export default connect((state) => ({
-  userApi: state.user,
-  shotsApi: state.user.shots?.map((shot) => shot[1]),
-}))(UserProfile);
+export default connect(
+  (state) => ({
+    artist: state.entities.artist,
+    shots: state.entities.artist.shots,
+    collections: state.entities.artist.collections,
+  }),
+  (dispatch) => ({
+    getArtist: (id) => dispatch(fetchArtist(id)),
+  })
+)(UserProfile);
