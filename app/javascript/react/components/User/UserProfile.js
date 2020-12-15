@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import { fetchArtist } from '../../Actions/ArtistActions';
 import { fetchUserCollections } from '../../Actions/CollectionActions';
+import About from '../User/About';
 
 import { connect } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
@@ -60,13 +61,14 @@ function UserProfile({ artist, shots, collections, getArtist, getCollections }) 
         console.log('shots here', shots);
         return <Cards urls={shots} />;
       case 1:
+        debugger;
         return <Collections collections={Object.values(collections)} />;
       case 2:
         return <Cards urls={shots} />;
       case 3:
-        return <About />;
+        return <About user={artist} />;
       default:
-        return <Collections />;
+        return <Cards urls={shots} />;
     }
   };
   return (
@@ -128,8 +130,8 @@ function UserProfile({ artist, shots, collections, getArtist, getCollections }) 
             width: '87%',
           }}
         ></div>
-        {toRender(selection)}
       </div>
+      {toRender(selection)}
     </>
   );
 }

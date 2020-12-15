@@ -1,4 +1,4 @@
-json.extract! user, :id, :username, :session_token, :name, :bio, :avatar_url, :email, :personal_url, :portfolio_url, :portfolio_password, :twitter, :facebook, :github, :available
+json.extract! user, :id, :username, :session_token, :name, :bio, :avatar_url, :email, :personal_url, :portfolio_url, :portfolio_password, :twitter, :facebook, :github, :available, :location, :created_at, :tier
 
 json.shots user.shots do |shot|
   json.id shot.id

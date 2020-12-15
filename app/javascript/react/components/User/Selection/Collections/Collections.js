@@ -22,29 +22,8 @@ function Collections({ collections }) {
           <CollectionCard collection={collection} />
         </Grid>
       ))}
-
-      {/* <Grid className={classes.item} item xs={6} sm={4} md={3}>
-        <CollectionCard />
-      </Grid>
-      <Grid className={classes.item} item xs={6} sm={4} md={3}>
-        <CollectionCard />
-      </Grid>
-      <Grid className={classes.item} item xs={6} sm={4} md={3}>
-        <CollectionCard />
-      </Grid>
-      <Grid className={classes.item} item xs={6} sm={4} md={3}>
-        <CollectionCard />
-      </Grid>
-      <Grid className={classes.item} item xs={6} sm={4} md={3}>
-        <CollectionCard />
-      </Grid>
-      <Grid className={classes.item} item xs={6} sm={4} md={3}>
-        <CollectionCard />
-      </Grid>
-      <Grid className={classes.item} item xs={6} sm={4} md={3}>
-        <CollectionCard />
-      </Grid> */}
     </Grid>
+
   );
 }
 

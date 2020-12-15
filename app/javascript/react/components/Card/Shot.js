@@ -124,9 +124,20 @@ function Shot({
               />
             </Link>
             <div className={classes.username}>
-              {artist?.artistName}
-              <br />
-              {artist?.bio}
+              <Link
+                to={`/users/${artist?.artistId}`}
+                style={{ textDecoration: 'none', color: 'black' }}
+              >
+                <Typography variant='subtitle2' style={{ fontWeight: 'bold' }}>
+                  {artist?.artistName}
+                </Typography>
+                <Typography
+                  variant='body2'
+                  style={{ fontWeight: 'light', lineHeight: '2rem' }}
+                >
+                  {artist?.bio}
+                </Typography>
+              </Link>
             </div>
           </div>
           <div className={classes.buttons}>

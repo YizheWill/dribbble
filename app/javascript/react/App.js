@@ -8,10 +8,12 @@ import Upload from './components/User/Upload';
 import UserProfile from './components/User/UserProfile';
 import Home from './components/Home/Home';
 import Collections from './components/User/Selection/Collections/Collections';
+import Collection from './components/User/Selection/Collections/Collection';
 import UserApi from './UserApi';
 import UsersApi from './UsersApi';
 import ProtectedRoute from './PrivateRoute';
 import AuthRoute from './AuthRoute';
+import About from './components/User/About';
 const Routes = () => (
   <Router>
     <Switch>
@@ -24,9 +26,14 @@ const Routes = () => (
       <ProtectedRoute path='/shots/:shotId' component={Shot}></ProtectedRoute>
       <ProtectedRoute path='/users/:artistId' component={UserProfile}></ProtectedRoute>
       <ProtectedRoute path='/upload' component={Upload}></ProtectedRoute>
-      <ProtectedRoute path='/collections' component={Collections}></ProtectedRoute>
+      <ProtectedRoute exact path='/collections' component={Collections}></ProtectedRoute>
       {/* <ProtectedRoute path='/usersapi' component={UsersApi}></ProtectedRoute> */}
       {/* <Route path='/userapi/:userId' component={UserApi}></Route> */}
+      <ProtectedRoute path='/about' component={About}></ProtectedRoute>
+      <ProtectedRoute
+        path='/collections/:collectionId'
+        component={Collection}
+      ></ProtectedRoute>
     </Switch>
   </Router>
 );
