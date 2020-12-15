@@ -13,32 +13,33 @@ import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
 const useStyles = makeStyles((theme) => ({
   border: {
     borderRadius: 10,
-    minWidth: 210,
+    minWidth: 200,
+    height: '100%',
   },
   image: {
+    height: '100%',
     width: '100%',
     borderRadius: 6,
   },
   imgbutton: {
     display: 'flex',
+    justifyContent: 'flex-end',
   },
-  cardtext: {
-    marginLeft: 10,
-  },
+  cardtext: {},
   cardtitle: {
     textAlign: 'left',
     fontSize: '1rem',
   },
   grid: {
-    paddingRight: 40,
-    width: '100%',
+    // paddingRight: 40,
+    // width: '100%',
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    // justifyContent: 'space-between',
   },
   user: {
     display: 'flex',
-    flexDirection: 'col',
+    // flexDirection: 'col',
     alignItems: 'center',
   },
   avatar: {
@@ -49,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function CardUI({ src }) {
-  const { artistName, imageUrl, avatarUrl, id } = src;
+  const { artistName, imageUrl, avatarUrl, id, artistId } = src;
   const classes = useStyles();
   const pauseMovie = (e) => {
     e.currentTarget.pause();
@@ -58,12 +59,20 @@ export default function CardUI({ src }) {
     e.currentTarget.play();
   };
   return (
-    <div>
-      <Link to={`/shots/${id}`}>
-        <Box className={`card text-center ${classes.border}`}>
-          <div className='overflow'>
-            {['mp4'].includes(imageUrl?.split('.')?.slice(-1)[0]) ? (
-              <div style={{ position: 'relative' }}>
+    <div style={{ height: '100%' }}>
+      <Box className={`card text-center ${classes.border}`} style={{}}>
+        <div
+          className='overflow'
+          style={{
+            height: '100%',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          {['mp4'].includes(imageUrl?.split('.')?.slice(-1)[0]) ? (
+            <div style={{ position: 'relative' }}>
+              <Link to={`/shots/${id}`}>
                 <video
                   className={classes.image}
                   onMouseOver={playMovie}
@@ -76,9 +85,11 @@ export default function CardUI({ src }) {
                   style={{ position: 'absolute', right: 10, top: 10 }}
                   color='secondary'
                 />
-              </div>
-            ) : (
-              <div style={{ position: 'relative' }}>
+              </Link>
+            </div>
+          ) : (
+            <div style={{ position: 'relative' }}>
+              <Link to={`/shots/${id}`}>
                 <img
                   className={classes.image}
                   src={imageUrl || ShotImage}
@@ -87,15 +98,24 @@ export default function CardUI({ src }) {
                 <InsertPhotoIcon
                   style={{ position: 'absolute', right: 10, top: 10, color: 'white' }}
                 />
-              </div>
-            )}
-          </div>
-        </Box>
-        <div className={`text-dark ${classes.cardtext}`}>
-          <Grid container className={classes.grid}>
-            <Grid item xs={9} sm={8} md={9}>
-              <div className={classes.user}>
+              </Link>
+            </div>
+          )}
+        </div>
+      </Box>
+      <div className={`text-dark ${classes.cardtext}`} style={{ marginTop: '-1rem' }}>
+        <Grid container className={classes.grid}>
+          <Grid item xs={11} sm={11} md={11}>
+            <Link
+              to={`/users/${artistId}`}
+              style={{ textDecoration: 'none', color: '#0e0e0e' }}
+            >
+              <div
+                className={classes.user}
+                onClick={() => history.push(`/users/${artistId}`)}
+              >
                 <Avatar
+                  style={{ border: '1px solid pink' }}
                   className={classes.avatar}
                   src={
                     avatarUrl ||
@@ -110,20 +130,20 @@ export default function CardUI({ src }) {
                   {artistName.split(' ')[0]}
                 </Typography>
               </div>
-            </Grid>
-            <Grid item item xs={1} sm={1} md={1}>
-              <div className={classes.imgbutton}>
-                <IconButton style={{ outline: 'none' }} size='small'>
-                  <BiHeart />
-                </IconButton>
-                <IconButton style={{ outline: 'none' }} size='small'>
-                  <BiMessageRounded />
-                </IconButton>
-              </div>
-            </Grid>
+            </Link>
           </Grid>
-        </div>
-      </Link>
+          <Grid item xs={1} sm={1} md={1} style={{ justifyItems: 'end' }}>
+            <div className={classes.imgbutton}>
+              <IconButton style={{ outline: 'none' }} size='small'>
+                <BiHeart />
+              </IconButton>
+              <IconButton style={{ outline: 'none' }} size='small'>
+                <BiMessageRounded />
+              </IconButton>
+            </div>
+          </Grid>
+        </Grid>
+      </div>
     </div>
   );
 }

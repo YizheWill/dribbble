@@ -39,6 +39,6 @@ class Api::V1::ShotsController < ApplicationController
   end
 
   def shot_params
-    params.require(:shot).permit(:title, :description, :image_url, :view_count, :allow_comment, :image_or_video, :price)
+    params.require(:shot).permit(:title, :description, :image_url, :view_count, :allow_comment, :image_or_video, :price, :user_id, :tag)
   end
 end

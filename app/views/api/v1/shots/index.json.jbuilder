@@ -4,5 +4,6 @@
     json.imageUrl shot.image_url
     json.artistName shot.user.name
     json.avatarUrl shot.user.avatar_url
+    json.artistId shot.user.id
   end
 end

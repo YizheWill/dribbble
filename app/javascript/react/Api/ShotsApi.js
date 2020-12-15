@@ -43,5 +43,5 @@ export const BackendCreateShot = (shot) => {
     },
     body: formData,
   };
-  return fetch(url, fetchRequestOption).then((res) => res.json);
+  return fetch(url, fetchRequestOption).then((res) => res.json());
 };

@@ -47,7 +47,7 @@ export default function Cards({ urls }) {
       </Grid> */}
       {urls?.map((url) => (
         <Grid className={classes.shots} item xs={12} sm={6} md={3} key={url.id}>
-          <Card src={url} />
+          <Card src={url} style={{ height: '100%' }} />
         </Grid>
       ))}
     </Grid>

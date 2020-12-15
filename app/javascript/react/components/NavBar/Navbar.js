@@ -59,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Appbar({ user, signOutUser, getCurrentUserInfo }) {
+function Appbar({ user, signOutUser, getCurrentUserInfo, content }) {
   useEffect(() => {
     console.log('getting the data from backend');
     getCurrentUserInfo(localStorage.getItem('sessionToken'));
@@ -197,7 +197,11 @@ function Appbar({ user, signOutUser, getCurrentUserInfo }) {
               Willwill
             </Link>
           </Typography>
-          <div className={classes.grow} />
+          <div className={classes.grow} style={{ textAlign: 'center' }}>
+            <Typography color='secondary' variant='h5' style={{ fontWeight: 800 }}>
+              {content}
+            </Typography>
+          </div>
           <div className={classes.sectionDesktop}>
             {/* <IconButton
               aria-label='show 4 new mails'
