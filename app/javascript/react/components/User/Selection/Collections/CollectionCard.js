@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from 'react-router-dom';
 import { Typography } from '@material-ui/core';
@@ -18,6 +18,7 @@ const useStyles = makeStyles((theme) => ({
     cursor: 'pointer',
   },
   topImage: {
+    width: '100%',
     borderTopLeftRadius: '1rem',
     borderTopRightRadius: '1rem',
   },
@@ -44,39 +45,104 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Card() {
+export default function Collection({ collection }) {
+  const { id, userId, shots, title, artistCount } = collection;
   const classes = useStyles();
   const history = useHistory();
-  const [shotscount, setShotscount] = useState(0);
-  const [designerscount, setDesignerscount] = useState(0);
+  const shotscount = shots?.length;
+  console.log('id', id);
+  console.log('userId', userId);
+  console.log('shots', shots);
+  console.log('title', title);
+  console.log('artistCount', artistCount);
+  const pauseMovie = (e) => {
+    e.currentTarget.pause();
+  };
+  const playMovie = (e) => {
+    e.currentTarget.play();
+  };
   const handleClick = () => {
-    history.push('/');
+    history.push(`/collections/${id}`);
   };
   return (
     <div onClick={handleClick} style={{ cursor: 'pointer' }}>
       <div className={classes.container}>
-        <img
-          className={classes.topImage}
-          style={{ width: '100%', height: '100%' }}
-          src={Images[0]}
-          alt='whatever'
-        />
+        {shots && shots[0] && shots[0].split('.').slice(-1)[0] === 'mp4' ? (
+          <video
+            onMouseOver={playMovie}
+            onMouseOut={pauseMovie}
+            preload='all'
+            loop
+            src={shots[0]}
+            className={classes.topImage}
+          />
+        ) : (
+          <img
+            className={classes.topImage}
+            src={(shots && shots[0]) || Images[0]}
+            alt='whatever'
+          />
+        )}
+
         <div className={classes.bottomImages}>
-          <img className={classes.bottomLeft} src={Images[1]} alt='whatever' />
-          <img className={classes.bottomImage} src={Images[2]} alt='whatever' />
-          <img className={classes.bottomRight} src={Images[3]} alt='whatever' />
+          {shots && shots[1] && shots[1].split('.').slice(-1)[0] === 'mp4' ? (
+            <video
+              onMouseOver={playMovie}
+              onMouseOut={pauseMovie}
+              preload='all'
+              loop
+              src={shots[1]}
+              className={classes.bottomLeft}
+            />
+          ) : (
+            <img
+              className={classes.bottomLeft}
+              src={(shots && shots[1]) || Images[1]}
+              alt='whatever'
+            />
+          )}
+          {shots && shots[2] && shots[2].split('.').slice(-1)[0] === 'mp4' ? (
+            <video
+              onMouseOver={playMovie}
+              onMouseOut={pauseMovie}
+              preload='all'
+              loop
+              src={shots[2]}
+              className={classes.bottomImage}
+            />
+          ) : (
+            <img
+              className={classes.bottomImage}
+              src={(shots && shots[2]) || Images[0]}
+              alt='whatever'
+            />
+          )}
+          {shots && shots[3] && shots[3].split('.').slice(-1)[0] === 'mp4' ? (
+            <video
+              onMouseOver={playMovie}
+              onMouseOut={pauseMovie}
+              preload='all'
+              loop
+              src={shots[3]}
+              className={classes.bottomRight}
+            />
+          ) : (
+            <img
+              className={classes.bottomRight}
+              src={(shots && shots[3]) || Images[3]}
+              alt='whatever'
+            />
+          )}
         </div>
       </div>
       <div style={{ textAlign: 'center', marginTop: 15 }}>
         <Typography variant='subtitle1' style={{ fontWeight: 'bold' }}>
-          Logo and Branding
+          {title}
         </Typography>
         <Typography variant='body2' style={{ fontWeight: 'light' }}>
-          {shotscount} Shots | {designerscount} Designer
+          {shotscount} Shots | {artistCount} Designer
         </Typography>
       </div>
     </div>
   );
 }
-
-export default Card;

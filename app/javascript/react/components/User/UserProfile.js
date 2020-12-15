@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import { fetchArtist } from '../../Actions/ArtistActions';
+import { fetchUserCollections } from '../../Actions/CollectionActions';
 
 import { connect } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
@@ -43,13 +44,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function UserProfile({ artist, shots, collections, getArtist }) {
+function UserProfile({ artist, shots, collections, getArtist, getCollections }) {
   const classes = useStyles();
   const [selection, setSelection] = useState(0);
   const { artistId } = useParams();
   console.log('userid', artistId);
   useEffect(() => {
     getArtist(artistId);
+    getCollections(artistId);
   }, []);
 
   const toRender = (state) => {
@@ -58,7 +60,7 @@ function UserProfile({ artist, shots, collections, getArtist }) {
         console.log('shots here', shots);
         return <Cards urls={shots} />;
       case 1:
-        return <Collections collections={collections} />;
+        return <Collections collections={Object.values(collections)} />;
       case 2:
         return <Cards urls={shots} />;
       case 3:
@@ -135,9 +137,10 @@ export default connect(
   (state) => ({
     artist: state.entities.artist,
     shots: state.entities.artist.shots,
-    collections: state.entities.artist.collections,
+    collections: state.entities.collections,
   }),
   (dispatch) => ({
     getArtist: (id) => dispatch(fetchArtist(id)),
+    getCollections: (userId) => dispatch(fetchUserCollections(userId)),
   })
 )(UserProfile);

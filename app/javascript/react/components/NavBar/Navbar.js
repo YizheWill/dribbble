@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import {
@@ -22,6 +22,8 @@ import SignedOutNavBar from './SignedOutNavBar';
 
 import { signOut, isSignedIn } from '../User/signInSignOut';
 import { signOutUserAction } from '../../Actions/UserActions';
+
+import { getCurrentUserInfo } from '../../Actions/UserActions';
 
 const useStyles = makeStyles((theme) => ({
   appbar: {
@@ -57,7 +59,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Appbar({ user, signOutUser }) {
+function Appbar({ user, signOutUser, getCurrentUserInfo }) {
+  useEffect(() => {
+    console.log('getting the data from backend');
+    getCurrentUserInfo(localStorage.getItem('sessionToken'));
+  }, []);
   const history = useHistory();
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -135,14 +141,6 @@ function Appbar({ user, signOutUser }) {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      {/* <MenuItem>
-        <IconButton aria-label='show 4 new mails' color='inherit'>
-          <Badge badgeContent={4} color='secondary'>
-            <MailIcon />
-          </Badge>
-        </IconButton>
-        <p>Messages</p>
-      </MenuItem> */}
       <MenuItem>
         <IconButton aria-label='show 11 new notifications' color='inherit'>
           <Badge badgeContent={11} color='secondary'>
@@ -271,5 +269,8 @@ function Appbar({ user, signOutUser }) {
 
 export default connect(
   (state) => ({ user: state.user }),
-  (dispatch) => ({ signOutUser: () => dispatch(signOutUserAction()) })
+  (dispatch) => ({
+    signOutUser: () => dispatch(signOutUserAction()),
+    getCurrentUserInfo: (session) => dispatch(getCurrentUserInfo(session)),
+  })
 )(Appbar);

@@ -11,11 +11,19 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Collections() {
+function Collections({ collections }) {
+  console.log('collections', collections);
   const classes = useStyles();
   return (
     <Grid container className={classes.root}>
-      <Grid className={classes.item} item xs={6} sm={4} md={3}>
+      {collections.map((collection) => (
+        <Grid key={collection.id} className={classes.item} item xs={6} sm={4} md={3}>
+          {console.log('collection in grid', collection)}
+          <CollectionCard collection={collection} />
+        </Grid>
+      ))}
+
+      {/* <Grid className={classes.item} item xs={6} sm={4} md={3}>
         <CollectionCard />
       </Grid>
       <Grid className={classes.item} item xs={6} sm={4} md={3}>
@@ -35,7 +43,7 @@ function Collections() {
       </Grid>
       <Grid className={classes.item} item xs={6} sm={4} md={3}>
         <CollectionCard />
-      </Grid>
+      </Grid> */}
     </Grid>
   );
 }

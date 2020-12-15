@@ -15,12 +15,13 @@ const useStyles = makeStyles((theme) => ({
     margin: '0 auto',
     paddingTop: 30,
     // backgroundColor: 'gray',
-    maxWidth: '70%',
+    maxWidth: '60%',
   },
   image: {
+    borderRadius: '1rem',
     paddingTop: '1%',
     margin: '0 auto',
-    width: '70%',
+    width: '100%',
   },
   showHeader: {
     display: 'flex',
@@ -78,13 +79,6 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: '65%',
   },
 }));
-// shot: state.entities.shot,
-// artist: state.entities.shot.artist,
-// description: state.entities.shot.description,
-// imageUrl: state.entities.shot.imageUrl,
-// viewCount: state.entities.shot.viewCount,
-// allowComment: state.entities.shot.allowComment,
-// price: state.entities.shot.price,
 
 function Shot({
   shot,
@@ -101,11 +95,6 @@ function Shot({
   const { shotId } = useParams();
   const [user, setUser] = useState({});
   useEffect(() => {
-    console.log('shot', shot);
-    console.log('artist', artist);
-    console.log('title', title);
-    console.log('description', description);
-    console.log('imageUrl', imageUrl);
     fetchShot(shotId);
   }, []);
   useEffect(() => {
@@ -114,6 +103,7 @@ function Shot({
     console.log('title', title);
     console.log('description', description);
     console.log('imageUrl', imageUrl);
+    console.log('aritst shots', artist?.artistShots);
     setUser(shot.artist);
   }, [shot]);
 
@@ -124,13 +114,15 @@ function Shot({
       <div className={classes.showMain}>
         <div className={classes.showHeader}>
           <div className={classes.info}>
-            <Avatar
-              className={classes.avatar}
-              src={
-                artist?.avatarUrl ||
-                'https://images.unsplash.com/photo-1490650034439-fd184c3c86a5?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxzZWFyY2h8NHx8Y2F0fGVufDB8MnwwfA%3D%3D&auto=format&fit=crop&w=800&q=60'
-              }
-            />
+            <Link to={`/users/${artist?.artistId}`}>
+              <Avatar
+                className={classes.avatar}
+                src={
+                  artist?.avatarUrl ||
+                  'https://images.unsplash.com/photo-1490650034439-fd184c3c86a5?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxzZWFyY2h8NHx8Y2F0fGVufDB8MnwwfA%3D%3D&auto=format&fit=crop&w=800&q=60'
+                }
+              />
+            </Link>
             <div className={classes.username}>
               {artist?.artistName}
               <br />
@@ -200,7 +192,7 @@ function Shot({
         <Typography variant='h6' style={{ marginLeft: '7%', marginBottom: '-1rem' }}>
           More by {artist?.artistName}
         </Typography>
-        <Cards />
+        <Cards urls={artist?.artistShots} />
       </div>
     </>
   );

@@ -5,7 +5,12 @@ json.shot do
     json.artistName shot.user.name
     json.avatarUrl shot.user.avatar_url
     json.bio shot.user.bio
-    json.artistShots shot.user.shots.pluck(:id, :image_url)
+    json.artistShots shot.user.shots do |s|
+      json.imageUrl s.image_url
+      json.id s.id
+      json.avatarUrl s.user.avatar_url
+      json.artistName s.user.name
+    end
   end
 end
 

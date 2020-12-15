@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useCallback } from 'react';
 import { Typography } from '@material-ui/core';
 import { useDropzone } from 'react-dropzone';
 import CloudUploadTwoToneIcon from '@material-ui/icons/CloudUploadTwoTone';
@@ -29,13 +29,16 @@ const rejectStyle = {
 };
 
 function StyledDropzone(props) {
+  const onDrop = useCallback((acceptedFiles) => {
+    console.log(acceptedFiles);
+  }, []);
   const {
     getRootProps,
     getInputProps,
     isDragActive,
     isDragAccept,
     isDragReject,
-  } = useDropzone({ accept: 'image/*' });
+  } = useDropzone({ onDrop, accept: 'image/*' });
 
   const style = useMemo(
     () => ({

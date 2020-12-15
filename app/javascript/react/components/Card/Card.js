@@ -49,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function CardUI({ src }) {
-  const { artistName, imageUrl, avatarUrl } = src;
+  const { artistName, imageUrl, avatarUrl, id } = src;
   const classes = useStyles();
   const pauseMovie = (e) => {
     e.currentTarget.pause();
@@ -59,7 +59,7 @@ export default function CardUI({ src }) {
   };
   return (
     <div>
-      <Link to='/shot'>
+      <Link to={`/shots/${id}`}>
         <Box className={`card text-center ${classes.border}`}>
           <div className='overflow'>
             {['mp4'].includes(imageUrl?.split('.')?.slice(-1)[0]) ? (
