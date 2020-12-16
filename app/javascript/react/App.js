@@ -9,6 +9,7 @@ import UserProfile from './components/User/UserProfile';
 import Home from './components/Home/Home';
 import Collections from './components/User/Selection/Collections/Collections';
 import Collection from './components/User/Selection/Collections/Collection';
+import EditUserForm from './components/User/EditUserForm';
 import UserApi from './UserApi';
 import UsersApi from './UsersApi';
 import ProtectedRoute from './PrivateRoute';
@@ -34,6 +35,7 @@ const Routes = () => (
         path='/collections/:collectionId'
         component={Collection}
       ></ProtectedRoute>
+      <ProtectedRoute path='/edit' component={EditUserForm} />
     </Switch>
   </Router>
 );

@@ -9,7 +9,7 @@ class Api::V1::CollectionsController < ApplicationController
   def create
     @collection = Shot.new(collection_params)
     if @collection.save
-      @user = @collection.user
+      @artist_count = @collection.artists&.length
       render :show
     else
       render json: { error: @collection.errors.full_messages }.to_json, status: 422

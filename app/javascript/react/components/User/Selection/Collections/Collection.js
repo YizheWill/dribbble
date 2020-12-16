@@ -56,7 +56,7 @@ function Collection({ collection, fetchCollection }) {
   const classes = useStyles();
   return (
     <div>
-      {/* <Navbar />
+      <Navbar />
       <Grid className={classes.top} container>
         <Grid className={classes.topLeft} item>
           <Typography className={classes.topLeftItem} variant='h4' fontWeight={900}>
@@ -67,11 +67,11 @@ function Collection({ collection, fetchCollection }) {
             variant='body2'
             style={{ fontWeight: 100 }}
           >
-            {collection?.shotCount} Shots | {collection?.artistCount} Designers
+            {collection?.shots?.length} Shots | {collection?.artistCount} Designers
           </Typography>
           <Link
             style={{ textDecoration: 'none', color: '#4f4f4f' }}
-            to={`/users/${collection?.user?.id}`}
+            to={`/users/${collection?.userId}`}
             className={classes.topLeftItem}
           >
             <div className={classes.user}>
@@ -79,7 +79,7 @@ function Collection({ collection, fetchCollection }) {
                 style={{ marginRight: 10, width: 30, height: 30 }}
                 src='https://s3-us-west-2.amazonaws.com/aa-progress-tracker/students/avatars/000/005/525/medium/Yizhe_Wang.jpg?1602196612'
               />
-              <Typography variant='subtitle1'>{collection?.user.name}</Typography>
+              <Typography variant='subtitle1'>{collection?.username}</Typography>
             </div>
           </Link>
         </Grid>
@@ -103,7 +103,7 @@ function Collection({ collection, fetchCollection }) {
           </a>
         </Grid>
       </Grid>
-      <Cards urls={shots} /> */}
+      <Cards urls={collection?.shots} />
     </div>
   );
 }
