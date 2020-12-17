@@ -10,7 +10,7 @@ export default (preState = _initState, action) => {
     case RECEIVE_SHOT_COMMENT:
       const newState = {
         ...preState,
-        [action.payload.comment.commentId]: action.payload.comment,
+        [action.payload.comment.id]: action.payload.comment,
       };
       return newState;
     default:
