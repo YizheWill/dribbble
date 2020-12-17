@@ -229,12 +229,12 @@ function Appbar({ user, signOutUser, getCurrentUserInfo, content }) {
               color='inherit'
               style={{
                 borderRadius: 999,
-                border: '1px solid #eaeaea',
-                margin: 'auto 0 auto 20px',
+                marginLeft: 20,
               }}
               onClick={handleProfileMenuOpen}
             >
               <Avatar
+                border={1}
                 className={classes.avatar}
                 src={
                   user.avatarUrl ||

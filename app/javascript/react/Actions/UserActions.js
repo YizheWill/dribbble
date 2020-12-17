@@ -4,21 +4,16 @@ import {
   BackendSignUpUser,
   BackendGetUserInfo,
   BackendGetCurrentUserInfo,
+  BackendEditUser,
 } from '../Api/UserAuth';
+import { receiveUpdateUserError } from '../Actions/ErrorsActions';
 export const RECEIVE_USER = 'RECEIVE_USER';
-export const RECEIVE_CURRENT_USER = 'RECEIVE_CURRENT_USER';
 export const REMOVE_USER = 'REMOVE_USER';
 export const RECEIVE_ERRORS = 'RECEIVE_ERRORS';
 export const REMOVE_ERRORS = 'REMOVE_ERRORS';
 
 export const receiveUser = (user) => ({
   type: RECEIVE_USER,
-  payload: {
-    user,
-  },
-});
-export const receiveCurrentUser = (user) => ({
-  type: RECEIVE_CURRENT_USER,
   payload: {
     user,
   },
@@ -50,13 +45,23 @@ export const signOutUserAction = () => (dispatch) => {
   dispatch(removeUser());
 };
 
+export const editUserAction = (user) => (dispatch) => {
+  BackendEditUser(user).then((res) => {
+    if (res.error) {
+      return dispatch(receiveUpdateUserError(res.error));
+    } else {
+      return dispatch(receiveUser(res));
+    }
+  });
+};
+
 export const signUpUserAction = (user) => (dispatch) => {
   BackendSignUpUser(user).then((res) => {
     if (res.error) {
       return dispatch(receiveErrors(res.error));
     } else {
       signIn(res.sessionToken);
-      return dispatch(receiveCurrentUser(res));
+      return dispatch(receiveUser(res));
     }
   });
 };
@@ -68,7 +73,7 @@ export const getCurrentUserInfo = (sessionToken) => (dispatch) => {
       console.log('signing out');
       signOut();
     } else {
-      dispatch(receiveCurrentUser(res));
+      dispatch(receiveUser(res));
     }
   });
 };

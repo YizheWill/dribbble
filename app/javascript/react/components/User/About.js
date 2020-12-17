@@ -124,13 +124,15 @@ function About({ user }) {
       container
       style={{ position: 'relative', marginTop: '3rem' }}
     >
-      <Button
-        variant='contained'
-        color='secondary'
-        style={{ display: edit, position: 'absolute', top: '-1.6rem', right: '-10%' }}
-      >
-        EDIT PROFILE
-      </Button>
+      <Link to='/edit'>
+        <Button
+          variant='contained'
+          color='secondary'
+          style={{ display: edit, position: 'absolute', top: '-1.6rem', right: '-10%' }}
+        >
+          EDIT PROFILE
+        </Button>
+      </Link>
       <Grid className={classes.leftPanel} item md={8} sm={6} xs={12}>
         <div className={classes.leftSub}>
           <Typography variant='subtitle1' fontWeight={700}>

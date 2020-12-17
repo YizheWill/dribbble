@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useLayoutEffect } from 'react';
 import Navbar from '../NavBar/Navbar';
-import { getCurrentUserInfo } from '../../Actions/UserActions';
+import { getCurrentUserInfo, editUserAction } from '../../Actions/UserActions';
 import { Public, AccountCircle } from '@material-ui/icons';
 import {
   List,
@@ -19,29 +19,8 @@ import {
   InputBase,
 } from '@material-ui/core';
 import { connect } from 'react-redux';
-const BootstrapInput = withStyles((theme) => ({
-  root: {
-    width: '100%',
-    'label + &': {
-      marginTop: theme.spacing(3),
-    },
-  },
-  input: {
-    borderRadius: 4,
-    backgroundColor: '#f1f1f1',
-    border: '1px solid #ced4da',
-    fontSize: 16,
-    fontWeight: 100,
-    height: '2rempx',
-    padding: '10px 12px',
-    marginTop: 20,
-    transition: theme.transitions.create(['border-color', 'box-shadow']),
-    '&:focus': {
-      boxShadow: `${fade(theme.palette.secondary.main, 0.25)} 0 0 0 0.2rem`,
-      borderColor: theme.palette.secondary.main,
-    },
-  },
-}))(InputBase);
+import { useHistory } from 'react-router-dom';
+
 const useStyles = makeStyles((theme) => ({
   root: {
     padding: '3rem',
@@ -117,13 +96,31 @@ const useStyles = makeStyles((theme) => ({
       display: 'block',
     },
   },
+  baseInput: {
+    width: '100%',
+    'label + &': {
+      marginTop: theme.spacing(3),
+    },
+    '& > input': {
+      borderRadius: 4,
+      backgroundColor: '#f1f1f1',
+      border: '1px solid #ced4da',
+      fontSize: 16,
+      fontWeight: 100,
+      height: '2rempx',
+      padding: '10px 12px',
+      marginTop: 20,
+      transition: theme.transitions.create(['border-color', 'box-shadow']),
+      '&:focus': {
+        boxShadow: `${fade(theme.palette.secondary.main, 0.25)} 0 0 0 0.2rem`,
+        borderColor: theme.palette.secondary.main,
+      },
+    },
+  },
 }));
 
-function EditUserForm({ user, fetchUser }) {
-  useEffect(() => {
-    fetchUser(localStorage.getItem('sessionToken'));
-  }, []);
-  const [selectedIndex, setSelectedIndex] = React.useState(0);
+function EditUserForm({ user, fetchUser, updateUser, state }) {
+  const [selectedIndex, setSelectedIndex] = useState(0);
   const [name, setName] = useState('');
   const [username, setUsername] = useState('');
   const [location, setLocation] = useState('');
@@ -139,6 +136,9 @@ function EditUserForm({ user, fetchUser }) {
   const [twitter, setTwitter] = useState('');
   const [facebook, setFacebook] = useState('');
   const [github, setGithub] = useState('');
+  useEffect(() => {
+    fetchUser(localStorage.getItem('sessionToken'));
+  }, []);
   useEffect(() => {
     setName(user.name);
     setUsername(user.username);
@@ -192,16 +192,30 @@ function EditUserForm({ user, fetchUser }) {
     <div>
       <label className={classes.labels}>
         <Typography>User Name</Typography>
-        <BootstrapInput value={username} onChange={(e) => setUsername(e.target.value)} />
+        {/* TODO why it's showing the use name? */}
+        <InputBase
+          className={classes.baseInput}
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+        />
       </label>
       <label className={classes.labels}>
         <Typography>Email</Typography>
 
-        <BootstrapInput value={email} onChange={(e) => setEmail(e.target.value)} />
+        <InputBase
+          className={classes.baseInput}
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
       </label>
       <label className={classes.labels}>
         <Typography>Password</Typography>
-        <BootstrapInput type='password' onChange={(e) => setPassword(e.target.value)} />
+        <InputBase
+          className={classes.baseInput}
+          type='password'
+          value={password || ''}
+          onChange={(e) => setPassword(e.target.value)}
+        />
       </label>
     </div>
   );
@@ -212,21 +226,30 @@ function EditUserForm({ user, fetchUser }) {
         <Typography>
           Name<span style={{ color: 'red' }}>*</span>
         </Typography>
-        <BootstrapInput value={name} onChange={(e) => setName(e.target.value)} />
+        <InputBase
+          className={classes.baseInput}
+          value={name || ''}
+          onChange={(e) => setName(e.target.value)}
+        />
       </label>
       <label className={classes.labels}>
         <Typography>Location</Typography>
 
-        <BootstrapInput value={location} onChange={(e) => setLocation(e.target.value)} />
+        <InputBase
+          className={classes.baseInput}
+          value={location || ''}
+          onChange={(e) => setLocation(e.target.value)}
+        />
       </label>
       <label className={classes.labels}>
         <Typography>Bio</Typography>
-        <BootstrapInput
-          value={bio}
+        <InputBase
+          className={classes.baseInput}
+          value={bio || ''}
           onChange={(e) => setBio(e.target.value)}
-          multiline
-          rows='3'
-          rowsMax='5'
+          // multiline
+          // rows='3'
+          // rowsMax='5'
         />
       </label>
       <Typography className={classes.endnote}>
@@ -237,8 +260,9 @@ function EditUserForm({ user, fetchUser }) {
         <hr />
         <label className={classes.labels}>
           <Typography>Personal website</Typography>
-          <BootstrapInput
-            value={personalUrl}
+          <InputBase
+            className={classes.baseInput}
+            value={personalUrl || ''}
             onChange={(e) => setPersonalUrl(e.target.value)}
           />
         </label>
@@ -249,8 +273,9 @@ function EditUserForm({ user, fetchUser }) {
           <div className={classes.portfolio}>
             <label className={classes.labels}>
               <Typography>Portfolio URL</Typography>
-              <BootstrapInput
-                value={portfolioUrl}
+              <InputBase
+                className={classes.baseInput}
+                value={portfolioUrl || ''}
                 onChange={(e) => setPortfolioUrl(e.target.value)}
               />
             </label>
@@ -261,9 +286,9 @@ function EditUserForm({ user, fetchUser }) {
           <div className={classes.portfolio}>
             <label className={classes.labels}>
               <Typography>Portfolio password</Typography>
-              <BootstrapInput
-                type='password'
-                value={portfolioPassword}
+              <InputBase
+                className={classes.baseInput}
+                value={portfolioPassword || ''}
                 onChange={(e) => setPortfolioPassword(e.target.value)}
               />
             </label>
@@ -280,32 +305,93 @@ function EditUserForm({ user, fetchUser }) {
         ''
       ) : (
         <div className={classes.uploadAvatar}>
-          <Avatar className={classes.avatar} src={user?.avatarUrl} />
-          <Button className={classes.buttons} variant='contained' color='secondary'>
+          <Avatar className={classes.avatar} src={avatarUrl || ''} />
+          <Button
+            className={classes.buttons}
+            variant='contained'
+            color='secondary'
+            component='label'
+          >
             Upload new picture
+            <input type='file' hidden onChange={(e) => handleAvatar(e.target.files[0])} />
           </Button>
-          <Button className={classes.buttons} variant='contained' color='secondary'>
+          <Button
+            className={classes.buttons}
+            onClick={(e) => setAvatarUrl('')}
+            variant='contained'
+            color='secondary'
+          >
             Delete
           </Button>
         </div>
       )}
       <div className={classes.info}>
         {selectedIndex ? accountForm : pubForm}
-        <Button variant='contained' color='secondary' style={{ marginTop: '2rem' }}>
+        <Button
+          onClick={() => handleSubmit()}
+          variant='contained'
+          color='secondary'
+          style={{ marginTop: '2rem' }}
+        >
           <Typography>Save Profile</Typography>
         </Button>
       </div>
     </Grid>
   );
+  const handleAvatar = (image) => {
+    const data = new FormData();
+    data.append('file', image);
+    data.append('upload_preset', 'dribbble');
+    data.append('cloud_name', 'willwang');
+    fetch('https://api.cloudinary.com/v1_1/willwang/image/upload', {
+      method: 'POST',
+      body: data,
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setAvatarUrl(data.url);
+        console.log('data', data.url);
+      })
+      .catch((err) => console.log('error', err));
+  };
+  // }
+  const history = useHistory();
+
+  const handleSubmit = () => {
+    console.log('user', bio);
+    console.log('portfolioUrl', portfolioUrl);
+    const userinfo = {
+      id: user.id,
+      name,
+      username,
+      location,
+      email,
+      password,
+      avatar_url: avatarUrl,
+      bio,
+      portfolio_url: portfolioUrl,
+      portfolio_password: portfolioPassword,
+      available,
+      personal_url: personalUrl,
+      tier,
+      twitter,
+      facebook,
+      github,
+    };
+    updateUser(userinfo);
+    history.push(`/users/${user.id}`);
+  };
+
   return (
     <div>
       <Navbar />
+      {/* {errors} */}
       <div className={classes.root}>
         <div className={classes.title}>
           <Avatar src={avatarUrl} style={{ marginRight: 10, width: 100, height: 100 }} />
           <div className={classes.wordTitle}>
             <Typography variant='h4' style={{ marginBottom: '1rem' }}>
-              {name} / Edit Profile
+              {user?.name} / Edit Profile
             </Typography>
             <Typography style={{ fontWeight: 400 }}>
               Set up your Dribbble presence and hiring needs
@@ -324,8 +410,9 @@ function EditUserForm({ user, fetchUser }) {
 }
 
 export default connect(
-  (state) => ({ user: state.user }),
+  (state) => ({ user: state.user, state }),
   (dispatch) => ({
     fetchUser: (sessionToken) => dispatch(getCurrentUserInfo(sessionToken)),
+    updateUser: (user) => dispatch(editUserAction(user)),
   })
 )(EditUserForm);

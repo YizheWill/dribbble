@@ -7,8 +7,13 @@ class User < ApplicationRecord
   validates :password_digest, presence: true
   validates :session_token, presence: true, uniqueness: true
   validates :password, length: { minimum: 6, allow_nil: true }
-  has_many :shots
-  has_many :collections
+
+  has_many :shots, dependent: :destroy
+  has_many :collections, dependent: :destroy
+  has_many :comments, dependent: :destroy
+  has_many :shot_comments, through: :shots, source: :comments
+  has_many :comment_commenters, through: :comments, source: :user
+
   def self.find_by_credentials(username, email, password, word)
     if word
       return User.find_by(session_token: word)

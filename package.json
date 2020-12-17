@@ -17,6 +17,8 @@
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
     "bootstrap": "^4.5.3",
     "clsx": "^1.1.1",
+    "email-validator": "^2.0.4",
+    "ityped": "^1.0.3",
     "material-ui-dropzone": "^3.5.0",
     "object-to-formdata": "^4.1.0",
     "prop-types": "^15.7.2",
@@ -26,6 +28,7 @@
     "react-icons": "^4.1.0",
     "react-redux": "^7.2.2",
     "react-router-dom": "^5.2.0",
+    "react-timeago": "^5.2.0",
     "redux": "^4.0.5",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0"

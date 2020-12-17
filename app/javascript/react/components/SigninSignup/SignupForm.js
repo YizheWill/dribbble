@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { validate } from 'email-validator';
 import { connect } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
 import { removeErrors } from '../../Actions/UserActions';
@@ -85,9 +86,38 @@ function Form({ signUpUser, errors, user }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const history = useHistory();
-  const handleSubmit = () => {
+  const [usernameError, setUsernameError] = useState('');
+  const [nameError, setNameError] = useState('');
+  const [emailErrors, setEmailErrors] = useState('');
+  const [passwordErrors, setPasswordErrors] = useState('');
+  const signup = () => {
     signUpUser({ name, username, email, password });
   };
+  const handleSubmit = (signup) => {
+    setNameError('');
+    setUsernameError('');
+    setEmailErrors('');
+    setPasswordErrors('');
+    let hasError = false;
+    if (!validate(email)) {
+      setEmailErrors('invalid email address');
+      hasError = true;
+    }
+    if (password.length < 6) {
+      setPasswordErrors('password too short at least 6 characters');
+      hasError = true;
+    }
+    if (username.length < 6) {
+      setUsernameError('username must be longer than 6');
+      hasError = true;
+    }
+    if (name.length < 1) {
+      setNameError('name must be longer than 1 character');
+      hasError = true;
+    }
+    if (!hasError) signup();
+  };
+
   useEffect(() => {
     if (user.username) history.push('/');
   }, [user]);
@@ -155,6 +185,9 @@ function Form({ signUpUser, errors, user }) {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               />
+              <Typography color='secondary' style={{ fontSize: 10, fontWeight: 100 }}>
+                {nameError}
+              </Typography>
             </div>
             <div></div>
             <div>
@@ -164,6 +197,9 @@ function Form({ signUpUser, errors, user }) {
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
               />
+              <Typography color='secondary' style={{ fontSize: 10, fontWeight: 100 }}>
+                {usernameError}
+              </Typography>
             </div>
           </div>
           <Typography>Email</Typography>
@@ -172,6 +208,9 @@ function Form({ signUpUser, errors, user }) {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
+          <Typography color='secondary' style={{ fontSize: 10, fontWeight: 100 }}>
+            {emailErrors}
+          </Typography>
           <Typography>Password</Typography>
           <BootstrapInput
             className={classes.input}
@@ -179,8 +218,11 @@ function Form({ signUpUser, errors, user }) {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
+          <Typography color='secondary' style={{ fontSize: 10, fontWeight: 100 }}>
+            {passwordErrors}
+          </Typography>
           <Button
-            onClick={handleSubmit}
+            onClick={() => handleSubmit(signup)}
             variant='contained'
             color='secondary'
             className={classes.submit}

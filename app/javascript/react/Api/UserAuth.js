@@ -11,6 +11,20 @@ export const BackendSignUpUser = (user) => {
   return fetch('/api/v1/users', fetchRequestOption).then((response) => response.json());
 };
 
+export const BackendEditUser = (user) => {
+  let formData = serialize({ user });
+  const fetchRequestOption = {
+    method: 'PATCH',
+    header: {
+      'Content-Type': 'application/json',
+    },
+    body: formData,
+  };
+  return fetch(`/api/v1/users/${user.id}`, fetchRequestOption).then((response) =>
+    response.json()
+  );
+};
+
 export const BackendSignInUser = (user) => {
   console.log('user', user);
   // const csrfToken = document.querySelector("[name='csrf-token']").content;

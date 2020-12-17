@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Avatar, Typography } from '@material-ui/core';
+import { Button, Avatar, Typography, Grid, Paper, Drawer } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { Link, useParams, useHistory } from 'react-router-dom';
 import Cards from './Cards';
 import { makeStyles } from '@material-ui/core/styles';
-import { Favorite, Mail } from '@material-ui/icons';
+import { Favorite, Mail, Sms } from '@material-ui/icons';
+import Feedback from '../Card/Feedback';
 // TODO remove navbar and put it into router
 import Navbar from '../NavBar/Navbar';
 
@@ -107,10 +108,54 @@ function Shot({
     setUser(shot.artist);
   }, [shot]);
 
+  const [fb, setFb] = useState({ right: false });
   const classes = useStyles();
+  const toggleDrawer = (bool) => (event) => {
+    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+      return;
+    }
+    setFb({ right: bool });
+  };
+
   return (
-    <>
+    <div>
       <Navbar />
+      <React.Fragment key={'right'}>
+        <div
+          style={{
+            position: 'fixed',
+            right: 20,
+            top: 200,
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <div style={{ backgroundColor: 'pink', height: 20, width: 1 }}></div>
+          <Button
+            onClick={toggleDrawer(true)}
+            style={{
+              height: 40,
+              width: 40,
+              border: '1px solid pink',
+              borderRadius: 999,
+              color: 'pink',
+            }}
+          >
+            <Sms />
+          </Button>
+          <div style={{ backgroundColor: 'pink', height: 100, width: 1 }}></div>
+        </div>
+        <Drawer
+          className={classes.drawer}
+          anchor={'right'}
+          open={fb.right}
+          onClose={toggleDrawer(false)}
+        >
+          <Feedback />
+        </Drawer>
+      </React.Fragment>
       <div className={classes.showMain}>
         <div className={classes.showHeader}>
           <div className={classes.info}>
@@ -135,7 +180,7 @@ function Shot({
                   variant='body2'
                   style={{ fontWeight: 'light', lineHeight: '2rem' }}
                 >
-                  {artist?.bio}
+                  {artist?.bio.slice(0, 45)}
                 </Typography>
               </Link>
             </div>
@@ -205,7 +250,7 @@ function Shot({
         </Typography>
         <Cards urls={artist?.artistShots} />
       </div>
-    </>
+    </div>
   );
 }
 export default connect(

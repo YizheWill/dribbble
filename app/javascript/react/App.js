@@ -10,6 +10,7 @@ import Home from './components/Home/Home';
 import Collections from './components/User/Selection/Collections/Collections';
 import Collection from './components/User/Selection/Collections/Collection';
 import EditUserForm from './components/User/EditUserForm';
+import Feedback from './components/Card/Feedback';
 import UserApi from './UserApi';
 import UsersApi from './UsersApi';
 import ProtectedRoute from './PrivateRoute';
@@ -24,8 +25,13 @@ const Routes = () => (
       <AuthRoute path='/signin' component={Signin} />
       <AuthRoute path='/signup' component={Signup} />
       <ProtectedRoute path='/cards' component={Cards}></ProtectedRoute>
-      <ProtectedRoute path='/shots/:shotId' component={Shot}></ProtectedRoute>
-      <ProtectedRoute path='/users/:artistId' component={UserProfile}></ProtectedRoute>
+      <ProtectedRoute exact path='/shots/:shotId' component={Shot}></ProtectedRoute>
+      <ProtectedRoute
+        exact
+        path='/users/:artistId'
+        component={UserProfile}
+      ></ProtectedRoute>
+      <ProtectedRoute path='/shots/:shotId/feedback' component={Feedback} />
       <ProtectedRoute path='/upload' component={Upload}></ProtectedRoute>
       <ProtectedRoute exact path='/collections' component={Collections}></ProtectedRoute>
       {/* <ProtectedRoute path='/usersapi' component={UsersApi}></ProtectedRoute> */}
