@@ -5,8 +5,8 @@ json.shotComments user.shot_comments do |c|
   json.id c.id
   json.shotId c.shot.id
   json.imageUrl c.shot.image_url
-  json.avatarUrl c.shot.user.avatar_url
-  json.artistName c.shot.user.name
+  json.avatarUrl c.user.avatar_url
+  json.artistName c.user.name
   json.createdAt c.created_at
   json.body c.body
   json.shotTitle c.shot.title
