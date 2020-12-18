@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { serialize } from 'object-to-formdata';
 
 import { fetchArtist } from '../../Actions/ArtistActions';
 import { fetchUserCollections } from '../../Actions/CollectionActions';
@@ -45,7 +46,47 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function UserProfile({ artist, shots, collections, getArtist, getCollections }) {
+function UserProfile({
+  artist,
+  shots,
+  collections,
+  getArtist,
+  getCollections,
+  likedShots,
+  userId,
+}) {
+  const [followable, setFollowable] = useState(null);
+  useEffect(() => {
+    setFollowable(artist.followers?.includes(userId));
+  }, [artist]);
+  const toggleFollow = () => {
+    let id = artist.followers.indexOf(userId);
+    if (id >= 0) {
+      artist.followers.splice(id, 1);
+      BackendToggleFollow(false);
+    } else {
+      artist.followers.push(userId);
+      BackendToggleFollow(true);
+    }
+    setFollowable(!followable);
+  };
+  const BackendToggleFollow = (followable) => {
+    const url = '/api/v1/follows';
+    const formData = serialize({
+      follow: { follower_id: userId, following_id: artistId },
+    });
+    fetch(url, {
+      method: followable ? 'POST' : 'DELETE',
+      header: {
+        'Content-Type': 'application/json',
+      },
+      body: formData,
+    })
+      .then((res) => res.json())
+      .then((data) => console.log('data', data));
+  };
+
+  const isMe = () => artist.sessionToken === localStorage.getItem('sessionToken');
   const classes = useStyles();
   const [selection, setSelection] = useState(0);
   const { artistId } = useParams();
@@ -53,7 +94,7 @@ function UserProfile({ artist, shots, collections, getArtist, getCollections }) 
   useEffect(() => {
     getArtist(artistId);
     getCollections(artistId);
-  }, []);
+  }, [artistId]);
 
   const toRender = (state) => {
     switch (state) {
@@ -61,10 +102,9 @@ function UserProfile({ artist, shots, collections, getArtist, getCollections }) 
         console.log('shots here', shots);
         return <Cards urls={shots} />;
       case 1:
-        debugger;
         return <Collections collections={Object.values(collections)} />;
       case 2:
-        return <Cards urls={shots} />;
+        return <Cards urls={likedShots} />;
       case 3:
         return <About user={artist} />;
       default:
@@ -81,16 +121,31 @@ function UserProfile({ artist, shots, collections, getArtist, getCollections }) 
             <Typography variant='h3' style={{ fontWeight: 700 }}>
               {artist?.name?.split(' ')[0]}
             </Typography>
-            <Typography variant='h5'>{artist?.bio?.slice(0, 20)}</Typography>
-            <Typography style={{ color: 'light-gray' }}>{artist?.bio}</Typography>
+
+            <Typography
+              variant='h5'
+              style={{ color: 'light-gray', marginTop: '1rem', fontWeight: 100 }}
+            >
+              {artist?.bio}
+            </Typography>
             <div className={classes.buttons}>
               <Button
                 variant='contained'
                 disableElevation
-                style={{ height: '3rem', marginRight: '1rem' }}
+                style={{
+                  height: '3rem',
+                  marginRight: '1rem',
+                  display: isMe() ? 'none' : '',
+                }}
+                onClick={toggleFollow}
               >
-                <Add style={{ paddingRight: 4 }} />
-                Follow
+                {artist.followers?.includes(userId) ? (
+                  'Followed'
+                ) : (
+                  <div style={{ display: 'flex', alignItems: 'center' }}>
+                    <Typography>Follow</Typography> <Add style={{ paddingRight: 4 }} />
+                  </div>
+                )}
               </Button>
               <Button variant='outlined' disableElevation style={{ height: '3rem' }}>
                 <MoreHoriz style={{ paddingRight: 4 }} />
@@ -140,6 +195,8 @@ export default connect(
     artist: state.entities.artist,
     shots: state.entities.artist.shots,
     collections: state.entities.collections,
+    likedShots: state.entities.artist.likedShots,
+    userId: state.user.id,
   }),
   (dispatch) => ({
     getArtist: (id) => dispatch(fetchArtist(id)),

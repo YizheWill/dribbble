@@ -17,10 +17,11 @@ const useStyles = makeStyles((theme) => ({
     marginTop: '2rem',
     margin: '0 auto',
     width: '65%',
+    marginBottom: '10rem',
   },
   leftPanel: {
     height: '100%',
-    padding: '2rem 2rem 0 0',
+    padding: '2rem 7rem 0 0',
   },
   rightPanel: {
     marginTop: '1rem',
@@ -30,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-around',
   },
   leftSub: {
-    margin: '1rem auto',
+    margin: '1rem auto 3rem auto',
   },
   leftBottom: {
     display: 'flex',
@@ -41,11 +42,15 @@ const useStyles = makeStyles((theme) => ({
     margin: '0 .5rem',
   },
   rightSub: {
-    margin: '1rem 0 0 1rem',
+    margin: '1rem 0 4rem 1rem',
   },
   button: {
     fontSize: 10,
     margin: '1rem 0.4rem 0 0',
+    boxShadow: theme.shadows[0],
+    '&:hover': {
+      boxShadow: theme.shadows[0],
+    },
   },
   links: {
     display: 'flex',
@@ -67,7 +72,7 @@ const useStyles = makeStyles((theme) => ({
     margin: '0.5rem 0',
   },
   icons: {
-    marginRight: '0.5rem',
+    marginRight: '0.7rem',
   },
   infodiv: {
     minWidth: 220,
@@ -75,9 +80,10 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-around',
-    backgroundColor: '#e2e2e2',
+    backgroundColor: '#f2f2f2',
     padding: '2rem',
     borderRadius: '1rem',
+    marginBottom: '2rem',
   },
 }));
 
@@ -138,9 +144,15 @@ function About({ user }) {
           <Typography variant='subtitle1' fontWeight={700}>
             Biography
           </Typography>
-          <Typography style={{ fontSize: '0.9rem', fontWeight: 300 }}>{bio}</Typography>
+
+          <Typography style={{ marginTop: '1rem', fontSize: '0.9rem', fontWeight: 300 }}>
+            {bio}
+          </Typography>
         </div>
-        <div className={classes.leftSub}>
+        <div
+          className={classes.leftSub}
+          style={{ paddingBottom: '5rem', borderBottom: '0.3px solid #e2e2e2' }}
+        >
           <Typography variant='subtitle1' fontWeight={700}>
             Skills
           </Typography>
@@ -152,7 +164,6 @@ function About({ user }) {
             ))}
           </div>
         </div>
-        <hr></hr>
         <div className={classes.leftBottom}>
           <div className={classes.leftBottomItem}>{followerCount} followers</div>
           <div className={classes.leftBottomItem}>{followingCount} following</div>
@@ -182,10 +193,10 @@ function About({ user }) {
           </div>
         </div>
         <div className={classes.rightSub}>
-          <Typography variant='subtitle1' fontWeight={700}>
+          <Typography variant='subtitle1' fontWeight={700} style={{ marginBottom: 20 }}>
             Members
           </Typography>
-          <Avatar />
+          <Avatar src={user.avatarUrl} style={{ height: 70, width: 70 }} />
         </div>
 
         <div className={classes.rightSub}>

@@ -23,7 +23,7 @@ const Home = ({ user, fetchAndSetUser, fetchShots, shots }) => {
   console.log('shots', shots);
   return (
     <div>
-      {user.id ? <Navbar /> : <SignedOutNavBar />}
+      {user.id ? <Navbar withSearch={true} /> : <SignedOutNavBar withSearch={true} />}
       <LandingPage />
       <Cards urls={urls ? urls : []} />
     </div>

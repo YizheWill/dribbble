@@ -1,15 +1,18 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { serialize } from 'object-to-formdata';
+import { connect } from 'react-redux';
+import { Link, useHistory } from 'react-router-dom';
 import Box from '@material-ui/core/Box';
 import ShotImage from '../../assets/imgs/shot.png';
 import IconButton from '@material-ui/core/IconButton';
 import Avatar from '@material-ui/core/Avatar';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core';
-import { BiMessageRounded, BiHeart } from 'react-icons/bi';
+import { ModeComment, Favorite } from '@material-ui/icons';
 import Typography from '@material-ui/core/Typography';
 import VideocamIcon from '@material-ui/icons/Videocam';
 import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
+import { isSignedIn } from '../../components/User/signInSignOut';
 const useStyles = makeStyles((theme) => ({
   border: {
     borderRadius: 10,
@@ -49,8 +52,40 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function CardUI({ src }) {
-  const { artistName, imageUrl, avatarUrl, id, artistId } = src;
+function CardUI({ src, currentUserId }) {
+  const history = useHistory();
+  const {
+    artistName,
+    imageUrl,
+    avatarUrl,
+    id,
+    artistId,
+    commentCount,
+    likeCount,
+    likers,
+  } = src;
+  const likable = likers?.includes(currentUserId);
+  const BackendLikeShot = () => {
+    let formData = serialize({ shotlike: { user_id: currentUserId, shot_id: id } });
+    fetch('/api/v1/shotlikes', {
+      method: 'POST',
+      header: {
+        'Content-Type': 'application/json',
+      },
+      body: formData,
+    })
+      .then((res) => res.json())
+      .then((data) => console.log('data', data));
+  };
+  console.log('likable', likable);
+  const likeShot = () => {
+    if (isSignedIn) {
+      BackendLikeShot();
+      history.push(`/shots/${id}`);
+    } else {
+      // history.push('/signin');
+    }
+  };
   const classes = useStyles();
   const pauseMovie = (e) => {
     e.currentTarget.pause();
@@ -134,11 +169,28 @@ export default function CardUI({ src }) {
           </Grid>
           <Grid item xs={1} sm={1} md={1} style={{ justifyItems: 'end' }}>
             <div className={classes.imgbutton}>
-              <IconButton style={{ outline: 'none' }} size='small'>
-                <BiHeart />
+              <Typography style={{ marginLeft: 4, color: 'gray' }}>
+                {likeCount}{' '}
+              </Typography>
+              <IconButton
+                onClick={likable ? () => {} : likeShot}
+                style={{ outline: 'none' }}
+                size='small'
+              >
+                <Favorite
+                  color={likable ? 'secondary' : 'inherit'}
+                  style={{ width: 20, height: 20 }}
+                />
               </IconButton>
-              <IconButton style={{ outline: 'none' }} size='small'>
-                <BiMessageRounded />
+              <Typography style={{ marginLeft: 4, color: 'gray' }}>
+                {commentCount}{' '}
+              </Typography>
+              <IconButton
+                onClick={() => history.push(`/shots/${id}`)}
+                style={{ outline: 'none' }}
+                size='small'
+              >
+                <ModeComment style={{ width: 20, height: 20 }} />
               </IconButton>
             </div>
           </Grid>
@@ -147,3 +199,5 @@ export default function CardUI({ src }) {
     </div>
   );
 }
+
+export default connect((state) => ({ currentUserId: state.user.id }))(CardUI);

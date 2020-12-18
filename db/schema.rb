@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_17_000251) do
+ActiveRecord::Schema.define(version: 2020_12_18_054543) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,15 @@ ActiveRecord::Schema.define(version: 2020_12_17_000251) do
     t.index ["user_id"], name: "index_collections_on_user_id"
   end
 
+  create_table "commentlikes", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "comment_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["comment_id"], name: "index_commentlikes_on_comment_id"
+    t.index ["user_id"], name: "index_commentlikes_on_user_id"
+  end
+
   create_table "comments", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "body", null: false
@@ -31,6 +40,25 @@ ActiveRecord::Schema.define(version: 2020_12_17_000251) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["shot_id"], name: "index_comments_on_shot_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "follows", force: :cascade do |t|
+    t.bigint "following_id", null: false
+    t.bigint "follower_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["follower_id"], name: "index_follows_on_follower_id"
+    t.index ["following_id", "follower_id"], name: "index_follows_on_following_id_and_follower_id", unique: true
+    t.index ["following_id"], name: "index_follows_on_following_id"
+  end
+
+  create_table "shotlikes", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "shot_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["shot_id"], name: "index_shotlikes_on_shot_id"
+    t.index ["user_id"], name: "index_shotlikes_on_user_id"
   end
 
   create_table "shots", force: :cascade do |t|
@@ -74,7 +102,11 @@ ActiveRecord::Schema.define(version: 2020_12_17_000251) do
   end
 
   add_foreign_key "collections", "users"
+  add_foreign_key "commentlikes", "comments"
+  add_foreign_key "commentlikes", "users"
   add_foreign_key "comments", "shots"
   add_foreign_key "comments", "users"
+  add_foreign_key "shotlikes", "shots"
+  add_foreign_key "shotlikes", "users"
   add_foreign_key "shots", "users"
 end

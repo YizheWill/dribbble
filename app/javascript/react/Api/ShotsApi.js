@@ -45,3 +45,14 @@ export const BackendCreateShot = (shot) => {
   };
   return fetch(url, fetchRequestOption).then((res) => res.json());
 };
+
+export const BackendFetchKeywordShots = (keyword) => {
+  const url = `/api/v1/shots?key_word=${keyword}`;
+  const fetchRequestOption = {
+    method: 'GET',
+    header: {
+      'Content-Type': 'application/json',
+    },
+  };
+  return fetch(url, fetchRequestOption).then((res) => res.json());
+};

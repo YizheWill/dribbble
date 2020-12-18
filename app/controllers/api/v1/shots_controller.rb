@@ -3,7 +3,12 @@ class Api::V1::ShotsController < ApplicationController
   before_action :set_shot, only: %i(show update destroy)
 
   def index
-    @shots = Shot.all
+    if (params[:key_word])
+      to_search = "#{params[:key_word]}"
+      @shots = Shot.where("title LIKE '%#{to_search}%'").or(Shot.where("description LIKE '%#{to_search}%'"))
+    else
+      @shots = Shot.all
+    end
   end
 
   def show

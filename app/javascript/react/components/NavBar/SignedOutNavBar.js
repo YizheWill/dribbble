@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Button } from '@material-ui/core';
+import { Button, InputBase } from '@material-ui/core';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { fetchShotsWithKeywordAction } from '../../Actions/ShotsActions';
 
 const useStyles = makeStyles((theme) => ({
   appbar: {
@@ -38,10 +40,30 @@ const useStyles = makeStyles((theme) => ({
   links: {
     textDecoration: 'none',
   },
+  inputRoot: {
+    border: '1px solid red',
+    borderRadius: 999,
+    color: 'pink',
+    marginRight: '1rem',
+  },
+  inputInput: {
+    padding: theme.spacing(1, 1, 1, 0),
+    // vertical padding + font size from searchIcon
+    paddingLeft: `calc(1em + ${theme.spacing(1)}px)`,
+    transition: theme.transitions.create('width'),
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
+      width: '12ch',
+      '&:focus': {
+        width: '20ch',
+      },
+    },
+  },
 }));
 
-export default function Appbar() {
+function SignoutBar({ getShots, withSearch }) {
   const classes = useStyles();
+  const [keyword, setKeyword] = useState('');
 
   const menuId = 'primary-search-account-menu';
 
@@ -68,21 +90,27 @@ export default function Appbar() {
             </Link>
           </Typography>
           <div className={classes.grow} />
-          <div className={classes.sectionDesktop}></div>
+          <div className={classes.sectionDesktop}>
+            <InputBase
+              style={{ display: withSearch ? '' : 'none' }}
+              placeholder='Search…'
+              classes={{
+                root: classes.inputRoot,
+                input: classes.inputInput,
+              }}
+              inputProps={{ 'aria-label': 'search' }}
+              value={keyword}
+              onChange={(e) => setKeyword(e.target.value)}
+              onKeyDown={(e) => {
+                console.log('e.key', e.key);
+                if (e.key === 'Enter') {
+                  getShots(keyword);
+                  setKeyword('');
+                }
+              }}
+            />
+          </div>
           <div className={classes.buttons}>
-            <Link to='/user' className={classes.links}>
-              <Button style={{ marginRight: '2rem' }}>user</Button>
-            </Link>
-            <Link to='/shots/1' className={classes.links}>
-              <Button style={{ marginRight: '2rem' }}>Shot</Button>
-            </Link>
-            <Link to='/upload' className={classes.links}>
-              <Button style={{ marginRight: '2rem' }}>upload</Button>
-            </Link>
-            <Link to='/collections' className={classes.links}>
-              <Button style={{ marginRight: '2rem' }}>collection</Button>
-            </Link>
-
             <Link to='/signin' className={classes.links}>
               <Button style={{ marginRight: '2rem' }}>Sign In</Button>
             </Link>
@@ -101,3 +129,6 @@ export default function Appbar() {
     </div>
   );
 }
+export default connect(null, (dispatch) => ({
+  getShots: (keyword) => dispatch(fetchShotsWithKeywordAction(keyword)),
+}))(SignoutBar);

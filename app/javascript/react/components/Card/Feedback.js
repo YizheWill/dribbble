@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     float: 'right',
     padding: 20,
-    maxWidth: 300,
+    maxWidth: 400,
   },
   topButtons: {
     display: 'flex',
@@ -106,7 +106,7 @@ const CommentItem = ({ comment }) => {
           >
             about <TimeAgo date={comment.createdAt} />
           </Typography>
-          <Typography
+          {/* <Typography
             className={classes.textButton}
             style={{ marginRight: '1rem' }}
             variant='caption'
@@ -115,7 +115,7 @@ const CommentItem = ({ comment }) => {
           </Typography>
           <Typography variant='caption' className={classes.textButton}>
             reply
-          </Typography>
+          </Typography> */}
         </div>
       </div>
     </div>
@@ -164,9 +164,10 @@ function Feedback({
             <Favorite className={classes.iconButton} />
           </Button>
         </div>
-        <Button style={{ transform: 'scale(0.7)' }} variant='outlined'>
+        {/* TODO */}
+        {/* <Button style={{ transform: 'scale(0.7)' }} variant='outlined'>
           <Info className={classes.iconButton} /> details
-        </Button>
+        </Button> */}
       </div>
       <div className={classes.feedback}>
         <label>
@@ -217,9 +218,10 @@ function Feedback({
 }
 
 export default connect(
-  (state) => ({
+  (state, ownProps) => ({
     comments: state.entities.shotcomments,
     userId: state.user.id,
+    toggleDrawer: ownProps.toggleDrawer,
   }),
   (dispatch) => ({
     fetchCurrentUser: (sessionToken) => dispatch(getCurrentUserInfo(sessionToken)),

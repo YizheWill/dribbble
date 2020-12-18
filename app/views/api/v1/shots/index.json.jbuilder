@@ -5,5 +5,8 @@
     json.artistName shot.user.name
     json.avatarUrl shot.user.avatar_url
     json.artistId shot.user.id
+    json.commentCount shot.comments.length
+    json.likeCount shot.shotlikes.length
+    json.likers shot.shotlikes.pluck(:user_id)
   end
 end

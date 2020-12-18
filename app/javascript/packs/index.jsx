@@ -6,14 +6,15 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from '../react/App';
 import store from '../react/store';
-import './index.css';
 import { Provider } from 'react-redux';
+import { CssBaseline } from '@material-ui/core';
 
 document.addEventListener('DOMContentLoaded', () => {
   window.store = store;
   ReactDOM.render(
     <Provider store={store}>
-      <App />
+      <CssBaseline />
+      <App style={{ scroll: 'none' }} />
     </Provider>,
     document.body.appendChild(document.createElement('div'))
   );

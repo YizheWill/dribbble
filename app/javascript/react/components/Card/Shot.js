@@ -1,10 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Avatar, Typography, Grid, Paper, Drawer } from '@material-ui/core';
+import { serialize } from 'object-to-formdata';
+import {
+  Button,
+  Avatar,
+  Typography,
+  Grid,
+  Paper,
+  Drawer,
+  useTheme,
+  useMediaQuery,
+} from '@material-ui/core';
 import { connect } from 'react-redux';
 import { Link, useParams, useHistory } from 'react-router-dom';
 import Cards from './Cards';
 import { makeStyles } from '@material-ui/core/styles';
-import { Favorite, Mail, Sms } from '@material-ui/icons';
+import { Favorite, Mail, Sms, CreateNewFolder } from '@material-ui/icons';
 import Feedback from '../Card/Feedback';
 // TODO remove navbar and put it into router
 import Navbar from '../NavBar/Navbar';
@@ -16,39 +26,74 @@ const useStyles = makeStyles((theme) => ({
     margin: '0 auto',
     paddingTop: 30,
     // backgroundColor: 'gray',
-    maxWidth: '60%',
+    maxWidth: '50%',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'space-between',
   },
   image: {
-    borderRadius: '1rem',
     paddingTop: '1%',
     margin: '0 auto',
-    width: '100%',
+    maxWidth: '100%',
   },
   showHeader: {
     display: 'flex',
-    padding: '20px 5%',
+    padding: '20px 0',
     justifyContent: 'space-between',
     alignItems: 'center',
+    minWidth: 300,
   },
   info: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'flex-start',
-    maxWidth: '70%',
+    maxWidth: '80%',
   },
   avatar: {
     marginRight: '13px',
-    width: theme.spacing(7),
-    height: theme.spacing(7),
+    width: 50,
+    height: 50,
+    [theme.breakpoints.up('sm')]: {
+      width: theme.spacing(10),
+      height: theme.spacing(10),
+    },
   },
   buttons: {
-    display: 'flex',
+    display: 'block',
+    marginLeft: 10,
     alignItems: 'center',
-    paddingRight: 30,
+    [theme.breakpoints.up('sm')]: {
+      display: 'flex',
+    },
+  },
+  username: {
+    margin: '0 0.4em',
+    fontWeight: 400,
+    fontSize: 18,
+    [theme.breakpoints.up('sm')]: {
+      fontWeight: 700,
+      fontSize: 20,
+    },
+  },
+  bio: {
+    display: 'none',
+    marginLeft: '1rem',
+    marginTop: '1rem',
+    fontWeight: 100,
+    [theme.breakpoints.up('md')]: {
+      display: 'block',
+      fontSize: 18,
+    },
   },
   button: {
     fontSize: '12px',
-    marginRight: 15,
+    marginTop: 10,
+    backgroundColor: 'transparent',
+    [theme.breakpoints.up('sm')]: {
+      marginRight: 15,
+      backgroundColor: '#e2e2e2',
+    },
   },
   details: {
     margin: '0 auto',
@@ -79,6 +124,23 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'center',
     maxWidth: '65%',
   },
+  title: {
+    fontSize: 20,
+    marginBottom: '1rem',
+    [theme.breakpoints.up('sm')]: {
+      fontSize: 30,
+      marginBottm: '2rem',
+    },
+  },
+  description: {
+    fontSize: 16,
+    fontWeight: 100,
+    marginBottom: '1rem',
+    [theme.breakpoints.up('sm')]: {
+      fontSize: 20,
+      marginBottom: '2rem',
+    },
+  },
 }));
 
 function Shot({
@@ -92,12 +154,13 @@ function Shot({
   allowComment,
   price,
   fetchShot,
+  currentUserId,
 }) {
   const { shotId } = useParams();
   const [user, setUser] = useState({});
   useEffect(() => {
     fetchShot(shotId);
-  }, []);
+  }, [useParams()]);
   useEffect(() => {
     console.log('shot', shot);
     console.log('artist', artist);
@@ -107,6 +170,11 @@ function Shot({
     console.log('aritst shots', artist?.artistShots);
     setUser(shot.artist);
   }, [shot]);
+  const [likable, setLikable] = useState(null);
+  useEffect(() => {
+    setLikable(shot.likers?.includes(currentUserId));
+  }, [user]);
+  console.log('likable of the shot', likable);
 
   const [fb, setFb] = useState({ right: false });
   const classes = useStyles();
@@ -115,6 +183,31 @@ function Shot({
       return;
     }
     setFb({ right: bool });
+  };
+  const BackendToggleLike = (likable) => {
+    const url = '/api/v1/shotlikes';
+    const formData = serialize({ shotlike: { user_id: currentUserId, shot_id: shotId } });
+    fetch(url, {
+      method: likable ? 'POST' : 'DELETE',
+      header: {
+        'Content-Type': 'application/json',
+      },
+      body: formData,
+    })
+      .then((res) => res.json())
+      .then((data) => console.log('data', data));
+  };
+  const toggleLike = () => {
+    let id = shot.likers.indexOf(currentUserId);
+    if (id >= 0) {
+      shot.likers.splice(id, 1);
+      BackendToggleLike(false);
+      setLikable(!likable);
+    } else {
+      shot.likers.push(currentUserId);
+      BackendToggleLike(true);
+      setLikable(!likable);
+    }
   };
 
   return (
@@ -130,6 +223,7 @@ function Shot({
             flexDirection: 'column',
             justifyContent: 'center',
             alignItems: 'center',
+            zIndex: 19,
           }}
         >
           <div style={{ backgroundColor: 'pink', height: 20, width: 1 }}></div>
@@ -140,6 +234,7 @@ function Shot({
               width: 40,
               border: '1px solid pink',
               borderRadius: 999,
+              backgroundColor: 'white',
               color: 'pink',
             }}
           >
@@ -153,7 +248,7 @@ function Shot({
           open={fb.right}
           onClose={toggleDrawer(false)}
         >
-          <Feedback />
+          <Feedback toggleDrawer={toggleDrawer} toggleLike={toggleLike} />
         </Drawer>
       </React.Fragment>
       <div className={classes.showMain}>
@@ -168,18 +263,13 @@ function Shot({
                 }
               />
             </Link>
-            <div className={classes.username}>
+            <div>
               <Link
                 to={`/users/${artist?.artistId}`}
                 style={{ textDecoration: 'none', color: 'black' }}
               >
-                <Typography variant='subtitle2' style={{ fontWeight: 'bold' }}>
-                  {artist?.artistName}
-                </Typography>
-                <Typography
-                  variant='body2'
-                  style={{ fontWeight: 'light', lineHeight: '2rem' }}
-                >
+                <Typography className={classes.username}>{artist?.artistName}</Typography>
+                <Typography className={classes.bio} variant='body2'>
                   {artist?.bio.slice(0, 45)}
                 </Typography>
               </Link>
@@ -187,11 +277,18 @@ function Shot({
           </div>
           <div className={classes.buttons}>
             <Button className={classes.button} variant='contained' disableElevation>
-              Save
+              <CreateNewFolder />
             </Button>
-            <Button className={classes.button} variant='contained' disableElevation>
-              <Favorite color='secondary' fontSize='small' style={{ marginRight: 3 }} />
-              Like
+            <Button
+              onClick={() => toggleLike()}
+              className={classes.button}
+              variant='contained'
+              disableElevation
+            >
+              <Favorite
+                color={likable ? 'secondary' : 'inherit'}
+                style={{ marginRight: 3 }}
+              />
             </Button>
           </div>
         </div>
@@ -212,14 +309,16 @@ function Shot({
       </div>
 
       <div className={classes.details}>
-        <Typography variant='h4'>{title}</Typography>
-        <br />
-        <br />
-        <Typography variant='h5'>{description}</Typography>
-        <br />
-        <br />
+        <Typography className={classes.title}>{title}</Typography>
+        <Typography className={classes.description}>{description}</Typography>
         <Typography>
-          <Link to={`/users/${artist?.artistId}`}>by {artist?.artistName}</Link>
+          By{' '}
+          <Link
+            to={`/users/${artist?.artistId}`}
+            style={{ fontWeight: 400, color: '#d5547f', textDecoration: 'none' }}
+          >
+            {artist?.artistName}
+          </Link>
         </Typography>
       </div>
       <div className={classes.logoContainer}>
@@ -237,7 +336,11 @@ function Shot({
       </div>
       <div className={classes.studioInfo}>
         <Typography variant='h4'>{artist?.artistName} Studio</Typography>
-        <Typography style={{ marginTop: 10, marginBottom: 10 }}>{artist?.bio}</Typography>
+        <Typography
+          style={{ marginTop: 10, marginBottom: '2rem', fontSize: 20, fontWeight: 100 }}
+        >
+          {artist?.bio}
+        </Typography>
         <Button variant='contained' color='secondary'>
           <Mail style={{ margin: '3px 7px 3px 0px' }} />
           Hire Us
@@ -245,8 +348,17 @@ function Shot({
       </div>
 
       <div className={classes.studio}>
-        <Typography variant='h6' style={{ marginLeft: '7%', marginBottom: '-1rem' }}>
-          More by {artist?.artistName}
+        <Typography
+          variant='h6'
+          style={{ marginLeft: '7%', marginBottom: '-1rem', fontWeight: 100 }}
+        >
+          More by{' '}
+          <Link
+            to={`/users/${artist?.artistId}`}
+            style={{ fontWeight: 400, color: '#d5547f', textDecoration: 'none' }}
+          >
+            {artist?.artistName}
+          </Link>
         </Typography>
         <Cards urls={artist?.artistShots} />
       </div>
@@ -255,6 +367,7 @@ function Shot({
 }
 export default connect(
   (state) => ({
+    currentUserId: state.user.id,
     shot: state.entities.shot,
     artist: state.entities.shot.artist,
     title: state.entities.shot.title,

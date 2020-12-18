@@ -6,4 +6,6 @@ json.comment do
   json.shotId @comment.shot.id
   json.commenterAvatarUrl @comment.user.avatar_url
   json.createdAt @comment.created_at
+  json.shotTitle @comment.shot.title
+  json.imageOrVideo @comment.shot.image_or_video
 end
