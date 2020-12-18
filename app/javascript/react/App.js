@@ -15,6 +15,7 @@ import ProtectedRoute from './PrivateRoute';
 import Notifications from './components/User/Notifications';
 import AuthRoute from './AuthRoute';
 import About from './components/User/About';
+import Followed from './components/User/Followed';
 
 class ScrollToTop extends Component {
   componentDidUpdate(prevProps) {
@@ -60,6 +61,7 @@ const Routes = () => (
         ></ProtectedRoute>
         <ProtectedRoute path='/edit' component={EditUserForm} />
         <ProtectedRoute path='/notifications' component={Notifications} />
+        <ProtectedRoute path='/followings' component={Followed} />
       </Switch>
     </Scroll>
   </Router>

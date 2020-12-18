@@ -153,7 +153,7 @@ function Appbar({
       <MenuItem onClick={editUser}>edit profile</MenuItem>
       <Divider />
       <MenuItem onClick={() => history.push('/upload')}>Upload</MenuItem>
-      <MenuItem onClick={handleMenuClose}>Followed</MenuItem>
+      <MenuItem onClick={() => history.push('/followings')}>Followed</MenuItem>
       <Divider />
       <MenuItem onClick={() => handleSignOut()}>
         <Typography color='secondary'>Sign Out</Typography>

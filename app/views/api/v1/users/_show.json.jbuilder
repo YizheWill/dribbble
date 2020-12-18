@@ -1,5 +1,14 @@
 json.extract! user, :id, :username, :session_token, :name, :bio, :avatar_url, :email, :personal_url, :portfolio_url, :portfolio_password, :twitter, :facebook, :github, :available, :location, :created_at, :tier
 json.followers user.followers.pluck(:follower_id)
+json.followings user.following do |u|
+  json.userShot u.shots.first
+  json.avatarUrl u.avatar_url
+  json.name u.name
+  json.id u.id
+  json.createdAt u.created_at
+  json.bio u.bio
+  json.email u.email
+end
 json.shotComments user.shot_comments do |c|
   # json.partial! 'show', shot: s
   json.id c.id
