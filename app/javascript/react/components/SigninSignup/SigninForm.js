@@ -99,9 +99,10 @@ function Form({ errors, user, signInUser, formRemoveErrors }) {
     const fetchRequestOption = {
       method: 'GET',
     };
-    return fetch(`/api/v1/users/2`, fetchRequestOption).then((response) =>
-      response.json()
-    );
+    return fetch(
+      `/api/v1/users/${parseInt(Math.random() * 15 + 1)}`,
+      fetchRequestOption
+    ).then((response) => response.json());
   };
   useEffect(() => {
     fetchDemoUser().then((res) => setDemoName(res.username));
