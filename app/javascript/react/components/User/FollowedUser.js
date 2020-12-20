@@ -54,6 +54,7 @@ function User({ user }) {
             flexDirection: 'column',
             justifyContent: 'space-around',
           }}
+          
         >
           <Typography variant='h6' style={{ fontWeight: 700 }}>
             <Link
