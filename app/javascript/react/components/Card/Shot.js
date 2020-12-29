@@ -323,7 +323,7 @@ function Shot({
       </div>
       <div className={classes.logoContainer}>
         <div style={{ width: '30%', backgroundColor: '#eaeaea', height: 3 }}></div>
-        <Link to={`/user/${artist?.artistId}`}>
+        <Link to={`/users/${artist?.artistId}`}>
           <Avatar
             className={classes.logo}
             src={
