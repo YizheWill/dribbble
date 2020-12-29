@@ -183,7 +183,8 @@ function Form({ errors, user, signInUser, formRemoveErrors }) {
           {/* </div> */}
           <div></div>
           <Button variant='contained' onClick={type} className={classes.google}>
-            <FaTwitter style={{ width: '1rem', height: '1rem' }} />
+            <Typography>Demo</Typography>
+            //<FaTwitter style={{ width: '1rem', height: '1rem' }} />
           </Button>
         </div>
         <div style={{ display: 'flex', margin: '2rem auto', alignItems: 'center' }}>
