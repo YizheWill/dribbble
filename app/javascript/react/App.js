@@ -17,6 +17,7 @@ import AuthRoute from './AuthRoute';
 import About from './components/User/About';
 import Followed from './components/User/Followed';
 import ScrollHelper from './ScrollHelper';
+import Footer from './components/Home/Footer';
 
 const Routes = () => (
   <Router>
@@ -45,6 +46,7 @@ const Routes = () => (
       <ProtectedRoute path='/notifications' component={Notifications} />
       <ProtectedRoute path='/followings' component={Followed} />
     </Switch>
+    <Footer />
   </Router>
 );
 
