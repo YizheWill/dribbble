@@ -1,15 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { serialize } from 'object-to-formdata';
-import {
-  Button,
-  Avatar,
-  Typography,
-  Grid,
-  Paper,
-  Drawer,
-  useTheme,
-  useMediaQuery,
-} from '@material-ui/core';
+import { Button, Avatar, Typography, Drawer } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { Link, useParams, useHistory } from 'react-router-dom';
 import Cards from './Cards';

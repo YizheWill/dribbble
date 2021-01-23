@@ -16,6 +16,7 @@ import Notifications from './components/User/Notifications';
 import AuthRoute from './AuthRoute';
 import About from './components/User/About';
 import Followed from './components/User/Followed';
+import ScrollHelper from './ScrollHelper';
 
 const Routes = () => (
   <Router>
@@ -49,9 +50,9 @@ const Routes = () => (
 
 function App() {
   return (
-    <div>
+    <ScrollHelper>
       <Routes />
-    </div>
+    </ScrollHelper>
   );
 }
 export default App;

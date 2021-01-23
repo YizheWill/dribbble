@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { serialize } from 'object-to-formdata';
 import { connect } from 'react-redux';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, Redirect, useHistory } from 'react-router-dom';
 import Box from '@material-ui/core/Box';
 import ShotImage from '../../assets/imgs/shot.png';
 import IconButton from '@material-ui/core/IconButton';
@@ -60,10 +60,8 @@ function CardUI({ src, currentUserId }) {
     likeCount,
     likers,
   } = src;
-  const [likable, setLikable] = useState(likers?.includes(currentUserId));
-  useEffect(() => {
-    setLikable(likers?.includes(currentUserId));
-  }, [likers]);
+  const likable = likers?.includes(currentUserId);
+
   const BackendLikeShot = () => {
     let formData = serialize({ shotlike: { user_id: currentUserId, shot_id: id } });
     fetch('/api/v1/shotlikes', {
@@ -116,9 +114,8 @@ function CardUI({ src, currentUserId }) {
                 position: 'relative',
                 cursor: 'pointer',
               }}
-              onClick={() => history.push('/shots/' + id)}
             >
-              <Link to={`/shots/${id}`}>
+              <Link to={'/shots/' + id}>
                 <video
                   style={{
                     width: '100%',
@@ -167,7 +164,7 @@ function CardUI({ src, currentUserId }) {
           )}
         </div>
       </Box>
-      <div className={`text-dark ${classes.cardtext}`} style={{ marginTop: '0.3rem' }}>
+      <div className={`text-dark ${classes.cardtext}`} style={{ marginTop: '-0.5rem' }}>
         <Grid container className={classes.grid}>
           <Grid item xs={11} sm={11} md={11}>
             <Link

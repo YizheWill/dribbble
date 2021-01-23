@@ -183,6 +183,7 @@ function Upload({ uploadedShot, errors, user_id, createShot }) {
   };
   const [del, setDel] = useState('none');
   const [opa, setOpa] = useState('1.0');
+  const [error, setError] = useState('');
   const handleAddTag = (e) => {
     setTag(tag + e.target.innerHTML + ', ');
   };
@@ -471,6 +472,9 @@ function Upload({ uploadedShot, errors, user_id, createShot }) {
                   onChange={(e) => setDescription(e.target.value)}
                 />
               </label>
+              <Typography variant='body2' style={{ color: 'red' }}>
+                {error}
+              </Typography>
             </form>
           </div>
         </Grid>
@@ -486,9 +490,20 @@ function Upload({ uploadedShot, errors, user_id, createShot }) {
         <BottomNavigationAction
           icon={
             <div
-              onClick={handleCreate}
+              onClick={() => {
+                if (title && description && imageUrl) handleCreate();
+                else {
+                  setError(
+                    'you will need to upload a image, title it and write a short description'
+                  );
+                }
+              }}
               className={classes.createButton}
-              color='secondary'
+              style={{
+                backgroundColor: title && description && imageUrl ? 'red' : 'gray',
+                // backgroundColor: 'blue',
+              }}
+              disabled={!!(title && description && imageUrl)}
             >
               <Typography>Create</Typography>
             </div>

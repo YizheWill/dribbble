@@ -18,6 +18,7 @@ const useStyles = makeStyles((theme) => ({
   profile: {
     marginTop: 40,
     display: 'flex',
+    // padding: '0 100px',
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
@@ -94,6 +95,7 @@ function UserProfile({
   useEffect(() => {
     getArtist(artistId);
     getCollections(artistId);
+    window.scrollTo(0, 0);
   }, [artistId]);
 
   const toRender = (state) => {
@@ -124,7 +126,12 @@ function UserProfile({
 
             <Typography
               variant='h5'
-              style={{ color: 'light-gray', marginTop: '1rem', fontWeight: 100 }}
+              style={{
+                color: 'light-gray',
+                marginTop: '1rem',
+                fontWeight: 100,
+                width: 800,
+              }}
             >
               {artist?.bio}
             </Typography>
