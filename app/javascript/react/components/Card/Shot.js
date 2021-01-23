@@ -160,6 +160,7 @@ function Shot({
   const [user, setUser] = useState({});
   useEffect(() => {
     fetchShot(shotId);
+    window.scrollTo(0, 0);
   }, [useParams()]);
   useEffect(() => {
     console.log('shot', shot);
@@ -173,7 +174,9 @@ function Shot({
   const [likable, setLikable] = useState(null);
   useEffect(() => {
     setLikable(shot.likers?.includes(currentUserId));
-  }, [user]);
+    console.log('shot.likers', shot.likers);
+    console.log('currentUserId', currentUserId);
+  }, [user, shot.likers, currentUserId]);
   console.log('likable of the shot', likable);
 
   const [fb, setFb] = useState({ right: false });
@@ -209,7 +212,6 @@ function Shot({
       setLikable(!likable);
     }
   };
-
   return (
     <div>
       <Navbar />

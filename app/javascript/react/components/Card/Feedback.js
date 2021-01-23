@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     float: 'right',
     padding: 20,
-    maxWidth: 400,
+    width: 400,
   },
   topButtons: {
     display: 'flex',

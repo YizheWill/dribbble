@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { serialize } from 'object-to-formdata';
 import { connect } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
@@ -60,7 +60,10 @@ function CardUI({ src, currentUserId }) {
     likeCount,
     likers,
   } = src;
-  const likable = likers?.includes(currentUserId);
+  const [likable, setLikable] = useState(likers?.includes(currentUserId));
+  useEffect(() => {
+    setLikable(likers?.includes(currentUserId));
+  }, [likers]);
   const BackendLikeShot = () => {
     let formData = serialize({ shotlike: { user_id: currentUserId, shot_id: id } });
     fetch('/api/v1/shotlikes', {
