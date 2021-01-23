@@ -20,7 +20,7 @@ export default function Cards({ urls }) {
     <Grid container className={classes.container} style={{ marginBottom: '5rem' }}>
       {urls?.map((url) => (
         <Grid className={classes.shots} item xs={12} sm={6} md={3} key={url.id}>
-          <Card src={url} style={{ height: '100%' }} />
+          <Card src={url} style={{ width: 320, height: 240 }} />
         </Grid>
       ))}
     </Grid>

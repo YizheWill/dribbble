@@ -8,13 +8,16 @@ import App from '../react/App';
 import store from '../react/store';
 import { Provider } from 'react-redux';
 import { CssBaseline } from '@material-ui/core';
+import ScrollHelper from '../react/ScrollHelper';
 
 document.addEventListener('DOMContentLoaded', () => {
   window.store = store;
   ReactDOM.render(
     <Provider store={store}>
-      <CssBaseline />
-      <App style={{ scroll: 'none' }} />
+      <ScrollHelper>
+        <CssBaseline />
+        <App />
+      </ScrollHelper>
     </Provider>,
     document.body.appendChild(document.createElement('div'))
   );

@@ -17,53 +17,33 @@ import AuthRoute from './AuthRoute';
 import About from './components/User/About';
 import Followed from './components/User/Followed';
 
-class ScrollToTop extends Component {
-  componentDidUpdate(prevProps) {
-    if (this.props.location !== prevProps.location) {
-      window.scrollTo(0, 0);
-    }
-  }
-
-  render() {
-    return this.props.children;
-  }
-}
-
-const Scroll = withRouter(ScrollToTop);
-
 const Routes = () => (
   <Router>
-    <Scroll>
-      <Switch>
-        <Route exact path='/'>
-          <Home />
-        </Route>
-        <AuthRoute path='/signin' component={Signin} />
-        <AuthRoute path='/signup' component={Signup} />
-        <ProtectedRoute path='/cards' component={Cards}></ProtectedRoute>
-        <ProtectedRoute exact path='/shots/:shotId' component={Shot}></ProtectedRoute>
-        <ProtectedRoute
-          exact
-          path='/users/:artistId'
-          component={UserProfile}
-        ></ProtectedRoute>
-        <ProtectedRoute path='/shots/:shotId/feedback' component={Feedback} />
-        <ProtectedRoute path='/upload' component={Upload}></ProtectedRoute>
-        <ProtectedRoute
-          exact
-          path='/collections'
-          component={Collections}
-        ></ProtectedRoute>
-        <ProtectedRoute path='/about' component={About}></ProtectedRoute>
-        <ProtectedRoute
-          path='/collections/:collectionId'
-          component={Collection}
-        ></ProtectedRoute>
-        <ProtectedRoute path='/edit' component={EditUserForm} />
-        <ProtectedRoute path='/notifications' component={Notifications} />
-        <ProtectedRoute path='/followings' component={Followed} />
-      </Switch>
-    </Scroll>
+    <Switch>
+      <Route exact path='/'>
+        <Home />
+      </Route>
+      <AuthRoute path='/signin' component={Signin} />
+      <AuthRoute path='/signup' component={Signup} />
+      <ProtectedRoute path='/cards' component={Cards}></ProtectedRoute>
+      <ProtectedRoute exact path='/shots/:shotId' component={Shot}></ProtectedRoute>
+      <ProtectedRoute
+        exact
+        path='/users/:artistId'
+        component={UserProfile}
+      ></ProtectedRoute>
+      <ProtectedRoute path='/shots/:shotId/feedback' component={Feedback} />
+      <ProtectedRoute path='/upload' component={Upload}></ProtectedRoute>
+      <ProtectedRoute exact path='/collections' component={Collections}></ProtectedRoute>
+      <ProtectedRoute path='/about' component={About}></ProtectedRoute>
+      <ProtectedRoute
+        path='/collections/:collectionId'
+        component={Collection}
+      ></ProtectedRoute>
+      <ProtectedRoute path='/edit' component={EditUserForm} />
+      <ProtectedRoute path='/notifications' component={Notifications} />
+      <ProtectedRoute path='/followings' component={Followed} />
+    </Switch>
   </Router>
 );
 

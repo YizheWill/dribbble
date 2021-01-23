@@ -17,13 +17,9 @@ const useStyles = makeStyles((theme) => ({
   border: {
     borderRadius: 10,
     minWidth: 200,
-    height: '100%',
+    // height: '100%',
   },
-  image: {
-    height: '100%',
-    width: '100%',
-    borderRadius: 6,
-  },
+
   imgbutton: {
     display: 'flex',
     justifyContent: 'flex-end',
@@ -95,7 +91,7 @@ function CardUI({ src, currentUserId }) {
   };
   return (
     <div style={{ height: '100%' }}>
-      <Box className={`card text-center ${classes.border}`} style={{}}>
+      <Box className={`card text-center ${classes.border}`} style={{ height: '100%' }}>
         <div
           className='overflow'
           style={{
@@ -106,9 +102,32 @@ function CardUI({ src, currentUserId }) {
           }}
         >
           {['mp4'].includes(imageUrl?.split('.')?.slice(-1)[0]) ? (
-            <div style={{ position: 'relative' }}>
+            <div
+              style={{
+                // position: 'relative',
+                borderRadius: 6,
+                width: 320,
+                height: '100%',
+                height: 240,
+                minHeight: 150,
+                position: 'relative',
+                cursor: 'pointer',
+              }}
+              onClick={() => history.push('/shots/' + id)}
+            >
               <Link to={`/shots/${id}`}>
                 <video
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    // zIndex: -1,
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    borderRadius: 6,
+                    backgroundColor: '#efe3dc',
+                  }}
+                  muted
                   className={classes.image}
                   onMouseOver={playMovie}
                   onMouseOut={pauseMovie}
@@ -123,22 +142,29 @@ function CardUI({ src, currentUserId }) {
               </Link>
             </div>
           ) : (
-            <div style={{ position: 'relative' }}>
-              <Link to={`/shots/${id}`}>
-                <img
-                  className={classes.image}
-                  src={imageUrl || ShotImage}
-                  alt='image 1'
-                ></img>
-                <InsertPhotoIcon
-                  style={{ position: 'absolute', right: 10, top: 10, color: 'white' }}
-                />
-              </Link>
+            <div
+              style={{
+                borderRadius: 6,
+                width: 320,
+                height: 240,
+                position: 'relative',
+                backgroundImage: `url(${imageUrl || ShotImage})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                backgroundRepeat: 'no-repeat',
+                cursor: 'pointer',
+              }}
+              onClick={() => history.push(`/shots/${id}`)}
+            >
+              <InsertPhotoIcon
+                style={{ position: 'absolute', right: 10, top: 10, color: 'white' }}
+              />
+              {/* </Link> */}
             </div>
           )}
         </div>
       </Box>
-      <div className={`text-dark ${classes.cardtext}`} style={{ marginTop: '-1rem' }}>
+      <div className={`text-dark ${classes.cardtext}`} style={{ marginTop: '0.3rem' }}>
         <Grid container className={classes.grid}>
           <Grid item xs={11} sm={11} md={11}>
             <Link
