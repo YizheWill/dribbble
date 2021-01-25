@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Collection({ collection, fetchCollection }) {
+function Collection({ collection, fetchCollection, avatarUrl }) {
   const { collectionId } = useParams();
   useEffect(() => {
     fetchCollection(collectionId);
@@ -59,7 +59,11 @@ function Collection({ collection, fetchCollection }) {
       <Navbar />
       <Grid className={classes.top} container>
         <Grid className={classes.topLeft} item>
-          <Typography className={classes.topLeftItem} variant='h4' fontWeight={900}>
+          <Typography
+            className={classes.topLeftItem}
+            variant='h4'
+            fontWeight={900}
+          >
             {collection?.title}
           </Typography>
           <Typography
@@ -67,7 +71,8 @@ function Collection({ collection, fetchCollection }) {
             variant='body2'
             style={{ fontWeight: 100 }}
           >
-            {collection?.shots?.length} Shots | {collection?.artistCount} Designers
+            {collection?.shots?.length} Shots | {collection?.artistCount}{' '}
+            Designers
           </Typography>
           <Link
             style={{ textDecoration: 'none', color: '#4f4f4f' }}
@@ -77,18 +82,28 @@ function Collection({ collection, fetchCollection }) {
             <div className={classes.user}>
               <Avatar
                 style={{ marginRight: 10, width: 30, height: 30 }}
-                src='https://s3-us-west-2.amazonaws.com/aa-progress-tracker/students/avatars/000/005/525/medium/Yizhe_Wang.jpg?1602196612'
+                src={avatarUrl}
               />
-              <Typography variant='subtitle1'>{collection?.username}</Typography>
+              <Typography variant='subtitle1'>
+                {collection?.username}
+              </Typography>
             </div>
           </Link>
         </Grid>
         <Grid className={classes.right} item>
-          <Button disableElevation variant='contained' className={classes.button}>
+          <Button
+            disableElevation
+            variant='contained'
+            className={classes.button}
+          >
             <Facebook className={classes.icons} color='primary' />
             Share
           </Button>
-          <Button disableElevation variant='contained' className={classes.button}>
+          <Button
+            disableElevation
+            variant='contained'
+            className={classes.button}
+          >
             <Twitter className={classes.icons} style={{ color: 'blue' }} />
             Tweet
           </Button>
@@ -96,7 +111,11 @@ function Collection({ collection, fetchCollection }) {
             href='https://www.facebook.com/'
             style={{ textDecoration: 'none', color: 'black' }}
           >
-            <Button disableElevation variant='contained' className={classes.button}>
+            <Button
+              disableElevation
+              variant='contained'
+              className={classes.button}
+            >
               <InsertLink className={classes.icons} />
               Copy
             </Button>
@@ -111,6 +130,7 @@ function Collection({ collection, fetchCollection }) {
 export default connect(
   (state) => ({
     collection: state.entities.collection,
+    avatarUrl: state.user?.avatarUrl,
   }),
   (dispatch) => ({
     fetchCollection: (id) => dispatch(fetchCollectionAction(id)),

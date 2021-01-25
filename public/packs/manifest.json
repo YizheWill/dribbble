@@ -20,17 +20,17 @@
     },
     "index": {
       "js": [
-        "/packs/js/index-30c7fd0297d6655462e1.js"
+        "/packs/js/index-c153b2d8a22df63a2200.js"
       ],
       "js.map": [
-        "/packs/js/index-30c7fd0297d6655462e1.js.map"
+        "/packs/js/index-c153b2d8a22df63a2200.js.map"
       ]
     }
   },
   "hello_react.js": "/packs/js/hello_react-098b74c077c61ee7b1d0.js",
   "hello_react.js.map": "/packs/js/hello_react-098b74c077c61ee7b1d0.js.map",
-  "index.js": "/packs/js/index-30c7fd0297d6655462e1.js",
-  "index.js.map": "/packs/js/index-30c7fd0297d6655462e1.js.map",
+  "index.js": "/packs/js/index-c153b2d8a22df63a2200.js",
+  "index.js.map": "/packs/js/index-c153b2d8a22df63a2200.js.map",
   "media/react/assets/imgs/landing.png": "/packs/media/react/assets/imgs/landing-9d1a6199423979b5a1603e15ffffb36f.png",
   "media/react/assets/imgs/noinfo.png": "/packs/media/react/assets/imgs/noinfo-00e4febc18e70b2ea6c3f8b855fbe7ad.png",
   "media/react/assets/imgs/notfollowing.png": "/packs/media/react/assets/imgs/notfollowing-5b405d60bc74cbc79640ad8e172993ea.png",

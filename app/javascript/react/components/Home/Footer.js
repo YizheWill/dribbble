@@ -1,6 +1,12 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
-import { Grid, makeStyles, Typography, Avatar, IconButton } from '@material-ui/core';
+import {
+  Grid,
+  makeStyles,
+  Typography,
+  Avatar,
+  IconButton,
+} from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 
 const Footer = () => {
@@ -100,10 +106,15 @@ const Footer = () => {
   }));
   const classes = useStyles();
   const history = useHistory();
+  const location = useLocation();
+  if (location.pathname === '/signup' || location.pathname === '/signin')
+    return null;
   return (
     <div className={classes.root}>
       <div className={classes.footerContainer}>
-        <div style={{ width: '50%', backgroundColor: '#eaeaea', height: 3 }}></div>
+        <div
+          style={{ width: '50%', backgroundColor: '#eaeaea', height: 3 }}
+        ></div>
         <div
           style={{
             margin: '3rem 2rem',
@@ -123,11 +134,13 @@ const Footer = () => {
             onClick={() => history.push('/')}
           />
         </div>
-        <div style={{ width: '50%', backgroundColor: '#eaeaea', height: 3 }}></div>
+        <div
+          style={{ width: '50%', backgroundColor: '#eaeaea', height: 3 }}
+        ></div>
       </div>
       <div className={classes.footerContent}>
         <div className={classes.footerLeft}>
-          <Typography className={classes.rightCon}>
+          <div className={classes.rightCon}>
             Designed and made with <span style={{ color: 'red' }}>♥</span> in
             <br />
             California by{' '}
@@ -153,10 +166,12 @@ const Footer = () => {
                 WillWang
               </a>
             </div>
-          </Typography>
+          </div>
         </div>
         <div className={classes.footerMid}>
-          <Typography style={{ color: 'dark-blue', fontWeight: 900 }}>CONTACT</Typography>
+          <Typography style={{ color: 'dark-blue', fontWeight: 900 }}>
+            CONTACT
+          </Typography>
           <Grid
             container
             className={classes.midAvatars}
@@ -176,7 +191,10 @@ const Footer = () => {
             </Grid>
 
             <Grid item className={classes.avatarContainer}>
-              <IconButton href='https://www.facebook.com/EWizeros' target='_blank'>
+              <IconButton
+                href='https://www.facebook.com/EWizeros'
+                target='_blank'
+              >
                 <Avatar
                   // className={classes.avatars}
                   src='https://cdn.worldvectorlogo.com/logos/facebook-3.svg'
@@ -185,7 +203,10 @@ const Footer = () => {
               <Typography className={classes.name}>facebook</Typography>
             </Grid>
             <Grid item className={classes.avatarContainer}>
-              <IconButton href='https://www.github.com/yizhewill' target='_blank'>
+              <IconButton
+                href='https://www.github.com/yizhewill'
+                target='_blank'
+              >
                 <Avatar
                   // className={classes.avatars}
                   src='https://cdn.worldvectorlogo.com/logos/github-icon-1.svg'
@@ -198,19 +219,19 @@ const Footer = () => {
         <div className={classes.footerRight}>
           <Typography className={classes.textLogo}>WillWill</Typography>
           <Typography className={classes.rightCon}>
-            WillWill is the home to the best designers of the world. We are here to share
-            inspirations and create wonderful artworks.
+            WillWill is the home to the best designers of the world. We are here
+            to share inspirations and create wonderful artworks.
           </Typography>
         </div>
       </div>
       <div className={classes.footer}>
         <Typography className={classes.footerText}>
-          <span style={{ color: 'dark-blue', fontWeight: 800 }}>©</span> 2021 willwang.
-          All rights reserved.
+          <span style={{ color: 'dark-blue', fontWeight: 800 }}>©</span> 2021
+          willwang. All rights reserved.
         </Typography>
         <Typography className={classes.footerText}>
-          <span style={{ color: 'dark-blue', fontWeight: 800 }}>{38}</span> projects on
-          devHUB now
+          <span style={{ color: 'dark-blue', fontWeight: 800 }}>{38}</span>{' '}
+          projects on willwill now
         </Typography>
       </div>
     </div>
