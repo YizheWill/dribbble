@@ -13,6 +13,7 @@ const Footer = () => {
   const useStyles = makeStyles((theme) => ({
     root: {
       backgroundColor: '#F8F8F8',
+      marginTop: '2rem',
     },
     footer: {
       maginTop: '2rem',
@@ -175,7 +176,7 @@ const Footer = () => {
           <Grid
             container
             className={classes.midAvatars}
-            style={{ display: 'flex', justifyContent: 'center' }}
+            style={{ display: 'flex', justifyContent: 'center', marginTop: 20 }}
           >
             <Grid item className={classes.avatarContainer}>
               <IconButton
@@ -194,6 +195,7 @@ const Footer = () => {
               <IconButton
                 href='https://www.facebook.com/EWizeros'
                 target='_blank'
+                style={{ marginLeft: 10, marginRight: 10 }}
               >
                 <Avatar
                   // className={classes.avatars}

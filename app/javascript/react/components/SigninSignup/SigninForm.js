@@ -176,18 +176,25 @@ function Form({ errors, user, signInUser, formRemoveErrors }) {
               width: '280%',
             }}
           > */}
-          <Button variant='contained' color='primary' className={classes.google}>
-            <FaGoogle style={{ width: '1rem', height: '1rem', marginRight: '1rem' }} />
+          <Button
+            variant='contained'
+            color='primary'
+            className={classes.google}
+          >
+            <FaGoogle
+              style={{ width: '1rem', height: '1rem', marginRight: '1rem' }}
+            />
             Sign in with Google
           </Button>
           {/* </div> */}
           <div></div>
-          <Button variant='contained' onClick={type} className={classes.google}>
+          <Button variant='outlined' onClick={type} className={classes.google}>
             <Typography
               style={{
                 fontSize: 17,
                 fontWeight: 100,
                 color: 'black',
+                fontFamily: 'Grand hotel, cursive',
               }}
             >
               Demo
@@ -195,10 +202,16 @@ function Form({ errors, user, signInUser, formRemoveErrors }) {
             {/* <FaTwitter style={{ width: '1rem', height: '1rem' }} /> */}
           </Button>
         </div>
-        <div style={{ display: 'flex', margin: '2rem auto', alignItems: 'center' }}>
-          <div style={{ backgroundColor: '#eaeaea', height: 2, width: '50%' }}></div>
+        <div
+          style={{ display: 'flex', margin: '2rem auto', alignItems: 'center' }}
+        >
+          <div
+            style={{ backgroundColor: '#eaeaea', height: 2, width: '50%' }}
+          ></div>
           <div style={{ margin: '0 10px' }}>Or</div>
-          <div style={{ backgroundColor: '#eaeaea', height: 2, width: '50%' }}></div>
+          <div
+            style={{ backgroundColor: '#eaeaea', height: 2, width: '50%' }}
+          ></div>
         </div>
         <form className={classes.form} noValidate>
           <Typography>Username or Email Address</Typography>
