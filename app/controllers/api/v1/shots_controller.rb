@@ -6,6 +6,7 @@ class Api::V1::ShotsController < ApplicationController
     if (params[:key_word])
       to_search = "#{params[:key_word]}"
       @shots = Shot.where("title LIKE '% #{to_search} %'").or(Shot.where("description LIKE '%#{to_search}%'"))
+      @shotCount = Shot.all.length
     else
       @shots = Shot.all
     end

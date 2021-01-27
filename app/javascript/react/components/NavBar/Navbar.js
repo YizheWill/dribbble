@@ -150,7 +150,7 @@ function Appbar({
       </MenuItem>
       <Divider />
 
-      <MenuItem onClick={editUser}>edit profile</MenuItem>
+      <MenuItem onClick={editUser}>Edit Profile</MenuItem>
       <Divider />
       <MenuItem onClick={() => history.push('/upload')}>Upload</MenuItem>
       <MenuItem onClick={() => history.push('/followings')}>Followed</MenuItem>
@@ -236,7 +236,11 @@ function Appbar({
             </Link>
           </Typography>
           <div className={classes.grow} style={{ textAlign: 'center' }}>
-            <Typography color='secondary' variant='h5' style={{ fontWeight: 800 }}>
+            <Typography
+              color='secondary'
+              variant='h5'
+              style={{ fontWeight: 800 }}
+            >
               {content}
             </Typography>
           </div>
@@ -300,7 +304,11 @@ function Appbar({
             </IconButton>
             <Link
               to='/upload'
-              style={{ textDecoration: 'none', marginLeft: '3rem', marginRight: '-2rem' }}
+              style={{
+                textDecoration: 'none',
+                marginLeft: '3rem',
+                marginRight: '-2rem',
+              }}
             >
               <Button
                 variant='contained'
