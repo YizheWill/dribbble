@@ -108,7 +108,11 @@ const Footer = () => {
   const classes = useStyles();
   const history = useHistory();
   const location = useLocation();
-  if (location.pathname === '/signup' || location.pathname === '/signin')
+  if (
+    location.pathname === '/signup' ||
+    location.pathname === '/signin' ||
+    location.pathname === '/upload'
+  )
     return null;
   return (
     <div className={classes.root}>

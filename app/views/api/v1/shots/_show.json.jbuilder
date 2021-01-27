@@ -6,6 +6,7 @@ json.shot do
     json.artistName shot.user.name
     json.avatarUrl shot.user.avatar_url
     json.bio shot.user.bio
+    json.email shot.user.email
     json.artistShots shot.user.shots do |s|
       json.imageUrl s.image_url
       json.id s.id

@@ -13,7 +13,8 @@ import Navbar from '../NavBar/Navbar';
 import { Button, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
-import { Add, MoreHoriz } from '@material-ui/icons';
+import { Add } from '@material-ui/icons';
+import HireMe from '../Card/HireMe';
 const useStyles = makeStyles((theme) => ({
   profile: {
     marginTop: 40,
@@ -37,6 +38,8 @@ const useStyles = makeStyles((theme) => ({
   buttons: {
     marginTop: 30,
     marginBottom: 40,
+    display: 'flex',
+    alignItems: 'center',
   },
   selection: {
     display: 'flex',
@@ -44,6 +47,9 @@ const useStyles = makeStyles((theme) => ({
   },
   tags: {
     margin: '0 10px',
+  },
+  shots: {
+    marginTop: '1rem',
   },
 }));
 
@@ -87,7 +93,9 @@ function UserProfile({
       .then((data) => console.log('data', data));
   };
 
-  const isMe = () => artist.sessionToken === localStorage.getItem('sessionToken');
+  const [isMe, setIsMe] = useState(
+    artist.sessionToken === localStorage.getItem('sessionToken')
+  );
   const classes = useStyles();
   const [selection, setSelection] = useState(0);
   const { artistId } = useParams();
@@ -97,6 +105,9 @@ function UserProfile({
     getCollections(artistId);
     window.scrollTo(0, 0);
   }, [artistId]);
+  useEffect(() => {
+    setIsMe(artist.sessionToken === localStorage.getItem('sessionToken'));
+  }, [artist]);
 
   const toRender = (state) => {
     switch (state) {
@@ -135,29 +146,38 @@ function UserProfile({
             >
               {artist?.bio}
             </Typography>
-            <div className={classes.buttons}>
-              <Button
-                variant='contained'
-                disableElevation
-                style={{
-                  height: '3rem',
-                  marginRight: '1rem',
-                  display: isMe() ? 'none' : '',
-                }}
-                onClick={toggleFollow}
-              >
-                {artist.followers?.includes(userId) ? (
-                  'Followed'
-                ) : (
-                  <div style={{ display: 'flex', alignItems: 'center' }}>
-                    <Typography>Follow</Typography> <Add style={{ paddingRight: 4 }} />
-                  </div>
-                )}
-              </Button>
-              <Button variant='outlined' disableElevation style={{ height: '3rem' }}>
-                <MoreHoriz style={{ paddingRight: 4 }} />
-              </Button>
-            </div>
+
+            {isMe ? (
+              <div></div>
+            ) : (
+              <div className={classes.buttons}>
+                <Button
+                  variant='contained'
+                  disableElevation
+                  style={{
+                    height: '2.3rem',
+                    marginRight: '1rem',
+                    display: isMe ? 'none' : '',
+                  }}
+                  onClick={toggleFollow}
+                >
+                  {artist.followers?.includes(userId) ? (
+                    'Followed'
+                  ) : (
+                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                      <Typography>Follow</Typography>{' '}
+                      <Add style={{ paddingRight: 4 }} />
+                    </div>
+                  )}
+                </Button>
+                <HireMe
+                  user={artist}
+                  style={{
+                    paddingRight: 4,
+                  }}
+                />
+              </div>
+            )}
           </div>
         </div>
       </div>

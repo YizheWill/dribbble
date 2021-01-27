@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Typography, Avatar, Grid, Button } from '@material-ui/core';
+import {
+  Typography,
+  Avatar,
+  Grid,
+  Button,
+  IconButton,
+} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import clsx from 'clsx';
@@ -96,7 +102,9 @@ function About({ user }) {
   const [edit, setEdit] = useState('none');
   useEffect(() => {
     setEdit(
-      user.sessionToken === localStorage.getItem('sessionToken') ? 'block' : 'none'
+      user.sessionToken === localStorage.getItem('sessionToken')
+        ? 'block'
+        : 'none'
     );
   }, [user]);
   console.log('edit', edit);
@@ -121,7 +129,13 @@ function About({ user }) {
   console.log('timeString', timeString);
   let memberSince = months[parseInt(timeString[1] - 1)] + ' ' + timeString[0];
 
-  const skills = ['graphic design', 'icon design', 'illustration', 'mobile', 'ui'];
+  const skills = [
+    'graphic design',
+    'icon design',
+    'illustration',
+    'mobile',
+    'ui',
+  ];
   const [followerCount, followingCount, tagCount] = [100, 100, 10];
   const classes = useStyles();
   return (
@@ -134,7 +148,12 @@ function About({ user }) {
         <Button
           variant='contained'
           color='secondary'
-          style={{ display: edit, position: 'absolute', top: '-1.6rem', right: '-10%' }}
+          style={{
+            display: edit,
+            position: 'absolute',
+            top: '-1.6rem',
+            right: '-10%',
+          }}
         >
           EDIT PROFILE
         </Button>
@@ -145,7 +164,9 @@ function About({ user }) {
             Biography
           </Typography>
 
-          <Typography style={{ marginTop: '1rem', fontSize: '0.9rem', fontWeight: 300 }}>
+          <Typography
+            style={{ marginTop: '1rem', fontSize: '0.9rem', fontWeight: 300 }}
+          >
             {bio}
           </Typography>
         </div>
@@ -165,8 +186,12 @@ function About({ user }) {
           </div>
         </div>
         <div className={classes.leftBottom}>
-          <div className={classes.leftBottomItem}>{followerCount} followers</div>
-          <div className={classes.leftBottomItem}>{followingCount} following</div>
+          <div className={classes.leftBottomItem}>
+            {followerCount} followers
+          </div>
+          <div className={classes.leftBottomItem}>
+            {followingCount} following
+          </div>
           <div className={classes.leftBottomItem}>{tagCount} tags</div>
         </div>
       </Grid>
@@ -193,7 +218,11 @@ function About({ user }) {
           </div>
         </div>
         <div className={classes.rightSub}>
-          <Typography variant='subtitle1' fontWeight={700} style={{ marginBottom: 20 }}>
+          <Typography
+            variant='subtitle1'
+            fontWeight={700}
+            style={{ marginBottom: 20 }}
+          >
             Members
           </Typography>
           <Avatar src={user.avatarUrl} style={{ height: 70, width: 70 }} />
@@ -204,24 +233,28 @@ function About({ user }) {
             Social
           </Typography>
           <div className={classes.links}>
-            <Link className={classes.link} to='https://www.google.com/'>
+            <a className={classes.link} href={user.facebook} target='_blank'>
               <div className={classes.linkdiv}>
                 <Facebook className={classes.icons} />
                 <Typography variant='body2'>facebook</Typography>
               </div>
-            </Link>
-            <Link className={classes.link} to='https://www.google.com/'>
+            </a>
+            <a className={classes.link} href={user.twitter} target='_blank'>
               <div className={classes.linkdiv}>
                 <Twitter className={classes.icons} />
                 <Typography variant='body2'>Twitter</Typography>
               </div>
-            </Link>
-            <Link className={classes.link} to='https://www.google.com/'>
+            </a>
+            <a
+              className={classes.link}
+              href={user.portfolioUrl}
+              target='_blank'
+            >
               <div className={classes.linkdiv}>
                 <Language className={classes.icons} />
                 <Typography variant='body2'>portforlio</Typography>
               </div>
-            </Link>
+            </a>
           </div>
         </div>
       </Grid>

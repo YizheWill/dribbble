@@ -9,6 +9,7 @@ import { Favorite, Mail, Sms, CreateNewFolder } from '@material-ui/icons';
 import Feedback from '../Card/Feedback';
 // TODO remove navbar and put it into router
 import Navbar from '../NavBar/Navbar';
+import AlertDialog from './HireMe';
 
 import { fetchShotAction } from '../../Actions/ShotActions';
 
@@ -173,14 +174,19 @@ function Shot({
   const [fb, setFb] = useState({ right: false });
   const classes = useStyles();
   const toggleDrawer = (bool) => (event) => {
-    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+    if (
+      event.type === 'keydown' &&
+      (event.key === 'Tab' || event.key === 'Shift')
+    ) {
       return;
     }
     setFb({ right: bool });
   };
   const BackendToggleLike = (likable) => {
     const url = '/api/v1/shotlikes';
-    const formData = serialize({ shotlike: { user_id: currentUserId, shot_id: shotId } });
+    const formData = serialize({
+      shotlike: { user_id: currentUserId, shot_id: shotId },
+    });
     fetch(url, {
       method: likable ? 'POST' : 'DELETE',
       header: {
@@ -261,7 +267,9 @@ function Shot({
                 to={`/users/${artist?.artistId}`}
                 style={{ textDecoration: 'none', color: 'black' }}
               >
-                <Typography className={classes.username}>{artist?.artistName}</Typography>
+                <Typography className={classes.username}>
+                  {artist?.artistName}
+                </Typography>
                 <Typography className={classes.bio} variant='body2'>
                   {artist?.bio.slice(0, 45)}
                 </Typography>
@@ -269,7 +277,11 @@ function Shot({
             </div>
           </div>
           <div className={classes.buttons}>
-            <Button className={classes.button} variant='contained' disableElevation>
+            <Button
+              className={classes.button}
+              variant='contained'
+              disableElevation
+            >
               <CreateNewFolder />
             </Button>
             <Button
@@ -308,14 +320,20 @@ function Shot({
           By{' '}
           <Link
             to={`/users/${artist?.artistId}`}
-            style={{ fontWeight: 400, color: '#d5547f', textDecoration: 'none' }}
+            style={{
+              fontWeight: 400,
+              color: '#d5547f',
+              textDecoration: 'none',
+            }}
           >
             {artist?.artistName}
           </Link>
         </Typography>
       </div>
       <div className={classes.logoContainer}>
-        <div style={{ width: '30%', backgroundColor: '#eaeaea', height: 3 }}></div>
+        <div
+          style={{ width: '30%', backgroundColor: '#eaeaea', height: 3 }}
+        ></div>
         <Link to={`/users/${artist?.artistId}`}>
           <Avatar
             className={classes.logo}
@@ -325,19 +343,27 @@ function Shot({
             }
           />
         </Link>
-        <div style={{ width: '30%', backgroundColor: '#eaeaea', height: 3 }}></div>
+        <div
+          style={{ width: '30%', backgroundColor: '#eaeaea', height: 3 }}
+        ></div>
       </div>
       <div className={classes.studioInfo}>
         <Typography variant='h4'>{artist?.artistName} Studio</Typography>
         <Typography
-          style={{ marginTop: 10, marginBottom: '2rem', fontSize: 20, fontWeight: 100 }}
+          style={{
+            marginTop: 10,
+            marginBottom: '2rem',
+            fontSize: 20,
+            fontWeight: 100,
+          }}
         >
           {artist?.bio}
         </Typography>
-        <Button variant='contained' color='secondary'>
+        {/* <Button variant='contained' color='secondary'>
           <Mail style={{ margin: '3px 7px 3px 0px' }} />
           Hire Us
-        </Button>
+        </Button> */}
+        <AlertDialog user={artist} />
       </div>
 
       <div className={classes.studio}>
@@ -348,7 +374,11 @@ function Shot({
           More by{' '}
           <Link
             to={`/users/${artist?.artistId}`}
-            style={{ fontWeight: 400, color: '#d5547f', textDecoration: 'none' }}
+            style={{
+              fontWeight: 400,
+              color: '#d5547f',
+              textDecoration: 'none',
+            }}
           >
             {artist?.artistName}
           </Link>

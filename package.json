@@ -23,6 +23,7 @@
     "object-to-formdata": "^4.1.0",
     "prop-types": "^15.7.2",
     "react": "^17.0.1",
+    "react-copy-to-clipboard": "^5.0.3",
     "react-dom": "^17.0.1",
     "react-dropzone": "^11.2.4",
     "react-icons": "^4.1.0",

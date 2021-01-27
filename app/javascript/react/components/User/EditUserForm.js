@@ -293,6 +293,30 @@ function EditUserForm({ user, fetchUser, updateUser, state }) {
               />
             </label>
             <Typography className={classes.endnote}>Only if needed.</Typography>
+            <label className={classes.labels}>
+              <Typography>facebook</Typography>
+              <InputBase
+                className={classes.baseInput}
+                value={facebook || ''}
+                onChange={(e) => setFacebook(e.target.value)}
+              />
+            </label>
+            <label className={classes.labels}>
+              <Typography>twitter</Typography>
+              <InputBase
+                className={classes.baseInput}
+                value={twitter || ''}
+                onChange={(e) => setTwitter(e.target.value)}
+              />
+            </label>
+            <label className={classes.labels}>
+              <Typography>github</Typography>
+              <InputBase
+                className={classes.baseInput}
+                value={github || ''}
+                onChange={(e) => setGithub(e.target.value)}
+              />
+            </label>
           </div>
         </div>
       </div>
@@ -313,7 +337,11 @@ function EditUserForm({ user, fetchUser, updateUser, state }) {
             component='label'
           >
             Upload new picture
-            <input type='file' hidden onChange={(e) => handleAvatar(e.target.files[0])} />
+            <input
+              type='file'
+              hidden
+              onChange={(e) => handleAvatar(e.target.files[0])}
+            />
           </Button>
           <Button
             className={classes.buttons}
@@ -356,6 +384,10 @@ function EditUserForm({ user, fetchUser, updateUser, state }) {
   };
   // }
   const history = useHistory();
+  const handleUrls = (url) => {
+    if (url.slice(0, 8) === 'https://') return url;
+    return 'https://' + url;
+  };
 
   const handleSubmit = () => {
     console.log('user', bio);
@@ -369,14 +401,14 @@ function EditUserForm({ user, fetchUser, updateUser, state }) {
       password,
       avatar_url: avatarUrl,
       bio,
-      portfolio_url: portfolioUrl,
+      portfolio_url: handleUrls(portfolioUrl),
       portfolio_password: portfolioPassword,
+      facebook: handleUrls(facebook),
+      twitter: handleUrls(twitter),
       available,
-      personal_url: personalUrl,
+      personal_url: handleUrls(personalUrl),
       tier,
-      twitter,
-      facebook,
-      github,
+      github: handleUrls(github),
     };
     updateUser(userinfo);
     history.push(`/users/${user.id}`);
@@ -388,7 +420,10 @@ function EditUserForm({ user, fetchUser, updateUser, state }) {
       {/* {errors} */}
       <div className={classes.root}>
         <div className={classes.title}>
-          <Avatar src={avatarUrl} style={{ marginRight: 10, width: 100, height: 100 }} />
+          <Avatar
+            src={avatarUrl}
+            style={{ marginRight: 10, width: 100, height: 100 }}
+          />
           <div className={classes.wordTitle}>
             <Typography variant='h4' style={{ marginBottom: '1rem' }}>
               {user?.name} / Edit Profile

@@ -63,7 +63,9 @@ function CardUI({ src, currentUserId }) {
   const likable = likers?.includes(currentUserId);
 
   const BackendLikeShot = () => {
-    let formData = serialize({ shotlike: { user_id: currentUserId, shot_id: id } });
+    let formData = serialize({
+      shotlike: { user_id: currentUserId, shot_id: id },
+    });
     fetch('/api/v1/shotlikes', {
       method: 'POST',
       header: {
@@ -92,7 +94,10 @@ function CardUI({ src, currentUserId }) {
   };
   return (
     <div style={{ height: '100%' }}>
-      <Box className={`card text-center ${classes.border}`} style={{ height: '100%' }}>
+      <Box
+        className={`card text-center ${classes.border}`}
+        style={{ height: '100%' }}
+      >
         <div
           className='overflow'
           style={{
@@ -157,14 +162,25 @@ function CardUI({ src, currentUserId }) {
               onClick={() => history.push(`/shots/${id}`)}
             >
               <InsertPhotoIcon
-                style={{ position: 'absolute', right: 10, top: 10, color: 'white' }}
+                style={{
+                  position: 'absolute',
+                  right: 10,
+                  top: 10,
+                  color: 'white',
+                }}
               />
               {/* </Link> */}
             </div>
           )}
         </div>
       </Box>
-      <div className={`text-dark ${classes.cardtext}`} style={{ marginTop: '-0.5rem' }}>
+      <div
+        className={`text-dark ${classes.cardtext}`}
+        style={{
+          maxWidth: 320,
+          margin: '-0.5rem auto 0 auto',
+        }}
+      >
         <Grid container className={classes.grid}>
           <Grid item xs={11} sm={11} md={11}>
             <Link

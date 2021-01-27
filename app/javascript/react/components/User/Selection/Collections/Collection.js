@@ -2,11 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography, Avatar, Button, Grid } from '@material-ui/core';
 import { Facebook, Twitter, InsertLink } from '@material-ui/icons';
-import { Link, useHistory, useParams } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 import Cards from '../../../Card/Cards';
 import Navbar from '../../../NavBar/Navbar';
 import { connect } from 'react-redux';
 import { fetchCollectionAction } from '../../../../Actions/CollectionActions';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 const useStyles = makeStyles((theme) => ({
   top: {
     display: 'flex',
@@ -49,6 +50,7 @@ const useStyles = makeStyles((theme) => ({
 
 function Collection({ collection, fetchCollection, avatarUrl }) {
   const { collectionId } = useParams();
+  const [copylink, setCopylink] = useState('copy');
   useEffect(() => {
     fetchCollection(collectionId);
   }, []);
@@ -91,35 +93,46 @@ function Collection({ collection, fetchCollection, avatarUrl }) {
           </Link>
         </Grid>
         <Grid className={classes.right} item>
-          <Button
-            disableElevation
-            variant='contained'
-            className={classes.button}
-          >
-            <Facebook className={classes.icons} color='primary' />
-            Share
-          </Button>
-          <Button
-            disableElevation
-            variant='contained'
-            className={classes.button}
-          >
-            <Twitter className={classes.icons} style={{ color: 'blue' }} />
-            Tweet
-          </Button>
           <a
             href='https://www.facebook.com/'
             style={{ textDecoration: 'none', color: 'black' }}
+            target='_blank'
           >
             <Button
               disableElevation
               variant='contained'
               className={classes.button}
             >
-              <InsertLink className={classes.icons} />
-              Copy
+              <Facebook className={classes.icons} color='primary' />
+              Share
             </Button>
           </a>
+
+          <a
+            href='https://www.twitter.com/'
+            style={{ textDecoration: 'none', color: 'black' }}
+            target='_blank'
+          >
+            <Button
+              disableElevation
+              variant='contained'
+              className={classes.button}
+            >
+              <Twitter className={classes.icons} style={{ color: 'blue' }} />
+              Tweet
+            </Button>
+          </a>
+          <CopyToClipboard text={window.location.href}>
+            <Button
+              disableElevation
+              variant='contained'
+              className={classes.button}
+              onClick={() => setCopylink('copied')}
+            >
+              <InsertLink className={classes.icons} />
+              {copylink}
+            </Button>
+          </CopyToClipboard>
         </Grid>
       </Grid>
       <Cards urls={collection?.shots} />
@@ -130,7 +143,7 @@ function Collection({ collection, fetchCollection, avatarUrl }) {
 export default connect(
   (state) => ({
     collection: state.entities.collection,
-    avatarUrl: state.user?.avatarUrl,
+    avatarUrl: state.entities.collection.avatarUrl,
   }),
   (dispatch) => ({
     fetchCollection: (id) => dispatch(fetchCollectionAction(id)),
