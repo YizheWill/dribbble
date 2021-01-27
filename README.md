@@ -1,9 +1,9 @@
 # Welcome to my dribbble clone!
 
 ***
-* [demo](https://www.google.com)
+* [demo](willwang.org)
 
-****Dribbble is one of the most popular websites for graphic designers to share their artworks and looking for inspirations.****
+****WillWill is a clone for dribbble, which is a professional networking site for graphic designers, empowering them to showcase their artworks, connect with other designers, and be scouted for professional opportunities. This project Build by Yizhe Wang.****
 
 
 ***
