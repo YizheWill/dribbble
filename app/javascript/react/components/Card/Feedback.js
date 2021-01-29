@@ -16,7 +16,13 @@ import {
 } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { useParams, Link, useHistory } from 'react-router-dom';
-import { Reply, CreateNewFolder, Favorite, Info, Clear } from '@material-ui/icons';
+import {
+  Reply,
+  CreateNewFolder,
+  Favorite,
+  Info,
+  Clear,
+} from '@material-ui/icons';
 const useStyles = makeStyles((theme) => ({
   root: {
     float: 'right',
@@ -75,8 +81,20 @@ const BootstrapInput = withStyles((theme) => ({
   },
 }))(InputBase);
 
-const CommentItem = ({ comment }) => {
+const CommentItem = ({ comment,  }) => {
+  const [newComment, setNewComment] = useState('');
   const classes = useStyles();
+  const [height, setHeight] = useState(1);
+  const updateComment = () => {
+    console.log('userId', userId);
+    const commentBody = {
+      user_id: userId,
+      shot_id: shotId,
+      body: newComment,
+    };
+    setNewComment('');
+    createShotComment(commentBody);
+  };
   return (
     <div className={classes.commentBox}>
       <Avatar
@@ -87,12 +105,54 @@ const CommentItem = ({ comment }) => {
         style={{ marginRight: '1rem' }}
       />
       <div>
-        <Typography variant='body2' style={{ fontWeight: 400 }}>
-          {comment.commenter}
-        </Typography>
-        <Typography variant='body2' style={{ fontWeight: 100 }}>
-          {comment.body}
-        </Typography>
+        <div>
+          <Typography variant='body2' style={{ fontWeight: 400 }}>
+            {comment.commenter}
+          </Typography>
+          <Typography variant='body2' style={{ fontWeight: 100 }}>
+            {comment.body}
+          </Typography>
+          <Button>edit</Button>
+        </div>
+        <div className={classes.feedback}>
+          <label>
+            <Typography variant='h6' style={{ marginBottom: 20 }}>
+              Feedback
+            </Typography>
+            <div style={{ position: 'relative' }}>
+              <BootstrapInput
+                placeholder='share your thoughts'
+                style={{ fontWeight: '100' }}
+                className={classes.inputField}
+                multiline
+                rows={height}
+                rowsMax={5}
+                value={newComment}
+                onChange={(e) => setNewComment(e.target.value)}
+                onFocus={() => setHeight(5)}
+                onBlur={() => setHeight(1)}
+              />
+              <Button
+                onMouseDown={submitComment}
+                variant='contained'
+                color='secondary'
+                disabled={!newComment}
+                style={{
+                  zIndex: 999,
+                  display: height === 1 ? 'none' : '',
+                  position: 'absolute',
+                  bottom: 30,
+                  left: 15,
+                  fontSize: 7,
+                  height: 20,
+                  width: 10,
+                }}
+              >
+                Post
+              </Button>
+            </div>
+          </label>
+        </div>
         <div
           style={{
             display: 'flex',
@@ -155,7 +215,10 @@ function Feedback({
       <div className={classes.topButtons}>
         <div className={classes.topLeftButtons}>
           <Button variant='outlined' className={classes.button}>
-            <Reply className={classes.iconButton} style={{ transform: 'scaleX(-1)' }} />
+            <Reply
+              className={classes.iconButton}
+              style={{ transform: 'scaleX(-1)' }}
+            />
           </Button>
           <Button variant='outlined' className={classes.button}>
             <CreateNewFolder className={classes.iconButton} />
@@ -224,7 +287,8 @@ export default connect(
     toggleDrawer: ownProps.toggleDrawer,
   }),
   (dispatch) => ({
-    fetchCurrentUser: (sessionToken) => dispatch(getCurrentUserInfo(sessionToken)),
+    fetchCurrentUser: (sessionToken) =>
+      dispatch(getCurrentUserInfo(sessionToken)),
     fetchShotComments: (shotId) => dispatch(fetchShotCommentsAction(shotId)),
     createShotComment: (comment) => dispatch(createShotCommentAction(comment)),
   })

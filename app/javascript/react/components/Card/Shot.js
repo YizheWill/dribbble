@@ -5,13 +5,14 @@ import { connect } from 'react-redux';
 import { Link, useParams, useHistory } from 'react-router-dom';
 import Cards from './Cards';
 import { makeStyles } from '@material-ui/core/styles';
-import { Favorite, Mail, Sms, CreateNewFolder } from '@material-ui/icons';
+import { Favorite, Mail, Sms, DeleteOutline, Edit } from '@material-ui/icons';
 import Feedback from '../Card/Feedback';
 // TODO remove navbar and put it into router
 import Navbar from '../NavBar/Navbar';
 import AlertDialog from './HireMe';
+import DeleteAlert from './DeleteAlert';
 
-import { fetchShotAction } from '../../Actions/ShotActions';
+import { fetchShotAction, deleteShotAction } from '../../Actions/ShotActions';
 
 const useStyles = makeStyles((theme) => ({
   showMain: {
@@ -147,7 +148,9 @@ function Shot({
   price,
   fetchShot,
   currentUserId,
+  deleteShot,
 }) {
+  const history = useHistory();
   const { shotId } = useParams();
   const [user, setUser] = useState({});
   useEffect(() => {
@@ -208,6 +211,9 @@ function Shot({
       BackendToggleLike(true);
       setLikable(!likable);
     }
+  };
+  const delShot = () => {
+    deleteShot(shot.id);
   };
   return (
     <div>
@@ -277,13 +283,23 @@ function Shot({
             </div>
           </div>
           <div className={classes.buttons}>
-            <Button
-              className={classes.button}
-              variant='contained'
-              disableElevation
-            >
-              <CreateNewFolder />
-            </Button>
+            {artist?.artistId === currentUserId ? (
+              <Button
+                onClick={() => history.push(`/shots/${shot.id}/edit`)}
+                className={classes.button}
+                variant='contained'
+                disableElevation
+              >
+                <Edit />
+              </Button>
+            ) : (
+              <div></div>
+            )}
+            {artist?.artistId === currentUserId ? (
+              <DeleteAlert deleteShot={delShot} />
+            ) : (
+              <div></div>
+            )}
             <Button
               onClick={() => toggleLike()}
               className={classes.button}
@@ -401,5 +417,8 @@ export default connect(
     imageOrVideo: state.entities.shot.imageOrVideo,
     price: state.entities.shot.price,
   }),
-  (dispatch) => ({ fetchShot: (id) => dispatch(fetchShotAction(id)) })
+  (dispatch) => ({
+    fetchShot: (id) => dispatch(fetchShotAction(id)),
+    deleteShot: (id) => dispatch(deleteShotAction(id)),
+  })
 )(Shot);

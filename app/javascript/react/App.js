@@ -24,7 +24,7 @@ import About from './components/User/About';
 import Followed from './components/User/Followed';
 import ScrollHelper from './ScrollHelper';
 import Footer from './components/Home/Footer';
-
+import EditShot from './components/Card/EditShot';
 const Routes = () => {
   // const location = useLocation();
   // console.log('location', location);
@@ -59,6 +59,12 @@ const Routes = () => {
           path='/collections/:collectionId'
           component={Collection}
         ></ProtectedRoute>
+        <ProtectedRoute
+          exact
+          path='/shots/:shotId/edit'
+          component={EditShot}
+        ></ProtectedRoute>
+
         <ProtectedRoute path='/edit' component={EditUserForm} />
         <ProtectedRoute path='/notifications' component={Notifications} />
         <ProtectedRoute path='/followings' component={Followed} />

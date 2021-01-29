@@ -109,6 +109,8 @@ function Form({ errors, user, signInUser, formRemoveErrors }) {
   }, []);
 
   const type = () => {
+    setUsernameEmail('');
+    setPassword('');
     const email = document.getElementById('usernameoremail');
     const data = demoName.split('');
     let index = 0;

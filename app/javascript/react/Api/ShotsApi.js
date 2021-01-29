@@ -20,9 +20,9 @@ export const BackendDeleteShot = (shotId) => {
   }).then((res) => res.json());
 };
 
-export const BackendEditShot = (shot) => {
+export const BackendEditShot = ({ shot }) => {
   const url = `/api/v1/shots/${shot.id}`;
-  let formData = serialize(shot);
+  let formData = serialize({ shot: shot });
   const fetchRequestOption = {
     method: 'PATCH',
     header: {
@@ -30,7 +30,7 @@ export const BackendEditShot = (shot) => {
     },
     body: formData,
   };
-  return fetch(url, fetchRequestOption).then((res) => res.json);
+  return fetch(url, fetchRequestOption).then((res) => res.json());
 };
 
 export const BackendCreateShot = (shot) => {
