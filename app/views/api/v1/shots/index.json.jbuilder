@@ -8,5 +8,6 @@
     json.commentCount shot.comments.length
     json.likeCount shot.shotlikes.length
     json.likers shot.shotlikes.pluck(:user_id)
+    json.shotCount @shotCount
   end
 end

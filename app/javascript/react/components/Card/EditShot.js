@@ -201,7 +201,7 @@ function Upload({ uploadedShot, errors, user_id, editShot, shot, fetchShot }) {
 
   return (
     <div>
-      <Navbar content='Publish You Shot' />
+      <Navbar content='EDIT' />
       {renderError()}
       <Grid className={classes.main} container elevation={0}>
         {imageUrl ? (

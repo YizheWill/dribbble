@@ -50,7 +50,7 @@ export default function LandingPage() {
         </Typography>
         <Typography className={classes.list} component='h3' variatn='h5'>
           Willwill is the leading destination to find & showcase creative work and home to
-          the world's best desin professionals.
+          the world's best design professionals.
         </Typography>
         {isSignedIn() ? (
           ''

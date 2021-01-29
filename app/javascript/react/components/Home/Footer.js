@@ -1,5 +1,7 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
+import { connect } from 'react-redux';
+
 import {
   Grid,
   makeStyles,
@@ -9,7 +11,8 @@ import {
 } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 
-const Footer = () => {
+const Footer = ({ shotCount }) => {
+  console.log('shotCount', shotCount);
   const useStyles = makeStyles((theme) => ({
     root: {
       backgroundColor: '#F8F8F8',
@@ -111,7 +114,8 @@ const Footer = () => {
   if (
     location.pathname === '/signup' ||
     location.pathname === '/signin' ||
-    location.pathname === '/upload'
+    location.pathname === '/upload' ||
+    location.pathname.slice(-4) === 'edit'
   )
     return null;
   return (
@@ -236,7 +240,9 @@ const Footer = () => {
           willwang. All rights reserved.
         </Typography>
         <Typography className={classes.footerText}>
-          <span style={{ color: 'dark-blue', fontWeight: 800 }}>{38}</span>{' '}
+          <span style={{ color: 'dark-blue', fontWeight: 800 }}>
+            {shotCount}
+          </span>{' '}
           projects on willwill now
         </Typography>
       </div>
@@ -244,4 +250,6 @@ const Footer = () => {
   );
 };
 
-export default Footer;
+export default connect((state) => ({
+  shotCount: Object.values(state.entities.shots)[0]?.shotCount,
+}))(Footer);

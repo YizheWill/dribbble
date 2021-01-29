@@ -9,6 +9,7 @@ class Api::V1::ShotsController < ApplicationController
       @shotCount = Shot.all.length
     else
       @shots = Shot.all
+      @shotCount = @shots.length
     end
   end
 
