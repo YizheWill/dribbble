@@ -116,6 +116,7 @@ const CommentItem = ({
       transformOrigin={{ vertical: 'top', horizontal: 'right' }}
       open={isMenuOpen}
       onClose={handleMenuClose}
+      style={{ marginTop: '1rem' }}
     >
       <MenuItem
         onClick={() => {
@@ -170,7 +171,7 @@ const CommentItem = ({
             >
               <BootstrapInput
                 placeholder='share your thoughts'
-                style={{ fontWeight: '100' }}
+                style={{ fontWeight: 100 }}
                 className={classes.inputField}
                 multiline
                 rows={height}
@@ -208,7 +209,7 @@ const CommentItem = ({
               display: showEdit === 'none' ? 'flex' : 'none',
               position: 'relative',
               flexWrap: 'wrap',
-              fontWeight: 900,
+              fontWeight: 100,
               wordBreak: 'break-all',
               width: 200,
             }}
