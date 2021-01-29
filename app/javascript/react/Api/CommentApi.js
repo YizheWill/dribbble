@@ -21,3 +21,26 @@ export const BackendCreateShotComment = (comment) => {
   };
   return fetch(url, fetchRequestOption).then((res) => res.json());
 };
+
+export const BackendUpdateShotComment = (comment) => {
+  const url = '/api/v1/comments/' + comment.id;
+  let formData = serialize({ comment });
+  const fetchRequestOption = {
+    method: 'PATCH',
+    header: {
+      'Content-Type': 'application/json',
+    },
+    body: formData,
+  };
+  return fetch(url, fetchRequestOption).then((res) => res.json());
+};
+export const BackendDeleteShotComment = (commentId) => {
+  const url = '/api/v1/comments/' + commentId;
+  const fetchRequestOption = {
+    method: 'DELETE',
+    header: {
+      'Content-Type': 'application/json',
+    },
+  };
+  return fetch(url, fetchRequestOption).then((res) => res.json());
+};

@@ -2,11 +2,14 @@ import {
   BackendFetchUserComments,
   BackendFetchShotComments,
   BackendCreateShotComment,
+  BackendUpdateShotComment,
+  BackendDeleteShotComment,
 } from '../Api/CommentApi';
 
 export const RECEIVE_USER_COMMENTS = 'RECEIVE_USER_COMMENTS';
 export const RECEIVE_SHOT_COMMENT = 'RECEIVE_SHOT_COMMENT';
 export const RECEIVE_SHOT_COMMENTS = 'RECEIVE_SHOT_COMMENTS';
+export const REMOVE_SHOT_COMMENT = 'REMOVE_SHOT_COMMENT';
 export const REMOVE_COMMENT = 'REMOVE_COMMENT';
 
 export const receiveShotComment = (comment) => ({
@@ -46,12 +49,20 @@ export const fetchUserCommentsAction = (userId) => (dispatch) =>
     }
   });
 export const removeShotCommentAction = (commentId) => (dispatch) =>
-  BackendRemoveShotComment(commentId).then(() => {
+  BackendDeleteShotComment(commentId).then(() => {
     return dispatch(removeShotComment(commentId));
   });
 
 export const createShotCommentAction = (comment) => (dispatch) =>
   BackendCreateShotComment(comment).then((res) => {
+    if (res.error) {
+      console.log('error creating comments, in comments action');
+    } else {
+      return dispatch(receiveShotComment(res));
+    }
+  });
+export const updateShotCommentAction = (comment) => (dispatch) =>
+  BackendUpdateShotComment(comment).then((res) => {
     if (res.error) {
       console.log('error creating comments, in comments action');
     } else {

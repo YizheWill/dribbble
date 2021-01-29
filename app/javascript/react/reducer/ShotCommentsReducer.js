@@ -1,4 +1,8 @@
-import { RECEIVE_SHOT_COMMENTS, RECEIVE_SHOT_COMMENT } from '../Actions/CommentActions';
+import {
+  RECEIVE_SHOT_COMMENTS,
+  RECEIVE_SHOT_COMMENT,
+  REMOVE_SHOT_COMMENT,
+} from '../Actions/CommentActions';
 
 const _initState = {};
 export default (preState = _initState, action) => {
@@ -13,6 +17,12 @@ export default (preState = _initState, action) => {
         [action.payload.comment.id]: action.payload.comment,
       };
       return newState;
+    case REMOVE_SHOT_COMMENT:
+      const newStates = {
+        ...preState,
+      };
+      delete newStates[action.payload.commentId];
+      return newStates;
     default:
       return preState;
   }

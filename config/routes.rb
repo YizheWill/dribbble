@@ -20,6 +20,7 @@ Rails.application.routes.draw do
       resources :follows, only: %i(create destroy)
       delete '/follows', to: 'follows#destroy'
       delete '/shotlikes', to: 'shotlikes#destroy'
+      resources :comments, only: %i(update)
     end
   end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

@@ -22,6 +22,15 @@ class Api::V1::CommentsController < ApplicationController
     end
   end
 
+  def update
+    @comment = Comment.find_by(id: params[:id])
+    if @comment.update(comment_params)
+      render :show
+    else
+      render json: { error: 'error updating the comment' }.to_json, status: 422
+    end
+  end
+
   def destroy
     @comment = Comment.find_by(id: params[:id])
     @comment.destroy

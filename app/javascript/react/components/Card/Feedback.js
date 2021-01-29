@@ -3,6 +3,8 @@ import TimeAgo from 'react-timeago';
 import {
   fetchShotCommentsAction,
   createShotCommentAction,
+  removeShotCommentAction,
+  updateShotCommentAction,
 } from '../../Actions/CommentActions';
 import { getCurrentUserInfo } from '../../Actions/UserActions';
 import {
@@ -13,7 +15,10 @@ import {
   Avatar,
   Typography,
   Button,
+  Menu,
+  MenuItem,
 } from '@material-ui/core';
+import { MoreHoriz } from '@material-ui/icons';
 import { connect } from 'react-redux';
 import { useParams, Link, useHistory } from 'react-router-dom';
 import {
@@ -54,6 +59,7 @@ const useStyles = makeStyles((theme) => ({
   commentBox: {
     display: 'flex',
     marginBottom: '1.3rem',
+    position: 'relative',
   },
   textButton: {
     cursor: 'pointer',
@@ -81,10 +87,55 @@ const BootstrapInput = withStyles((theme) => ({
   },
 }))(InputBase);
 
-const CommentItem = ({ comment,  }) => {
-  const [newComment, setNewComment] = useState('');
+const CommentItem = ({
+  comment,
+  updateShotComment,
+  removeShotComment,
+  userId,
+}) => {
+  const [anchorEl, setAnchorEl] = useState(null);
+  const isMenuOpen = Boolean(anchorEl);
+  const [newComment, setNewComment] = useState(comment.body);
+  const [showEdit, setShowEdit] = useState('none');
   const classes = useStyles();
   const [height, setHeight] = useState(1);
+
+  const handleMenuOpen = (e) => {
+    setAnchorEl(e.currentTarget);
+  };
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
+  const mid = 'comment-box-menu';
+  const renderMenu = (
+    <Menu
+      anchorEl={anchorEl}
+      anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
+      id={mid}
+      keepMounted
+      transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+      open={isMenuOpen}
+      onClose={handleMenuClose}
+    >
+      <MenuItem
+        onClick={() => {
+          setShowEdit('block');
+          handleMenuClose();
+        }}
+      >
+        Edit
+      </MenuItem>
+      <MenuItem
+        onClick={() => {
+          removeShotComment(comment.id);
+          handleMenuClose();
+        }}
+      >
+        Delete
+      </MenuItem>
+    </Menu>
+  );
+
   const updateComment = () => {
     console.log('userId', userId);
     const commentBody = {
@@ -93,7 +144,7 @@ const CommentItem = ({ comment,  }) => {
       body: newComment,
     };
     setNewComment('');
-    createShotComment(commentBody);
+    updateComment(commentBody);
   };
   return (
     <div className={classes.commentBox}>
@@ -109,17 +160,14 @@ const CommentItem = ({ comment,  }) => {
           <Typography variant='body2' style={{ fontWeight: 400 }}>
             {comment.commenter}
           </Typography>
-          <Typography variant='body2' style={{ fontWeight: 100 }}>
-            {comment.body}
-          </Typography>
-          <Button>edit</Button>
-        </div>
-        <div className={classes.feedback}>
           <label>
-            <Typography variant='h6' style={{ marginBottom: 20 }}>
-              Feedback
-            </Typography>
-            <div style={{ position: 'relative' }}>
+            <div
+              style={{
+                position: 'relative',
+                display: showEdit,
+                marginTop: '1rem',
+              }}
+            >
               <BootstrapInput
                 placeholder='share your thoughts'
                 style={{ fontWeight: '100' }}
@@ -133,7 +181,10 @@ const CommentItem = ({ comment,  }) => {
                 onBlur={() => setHeight(1)}
               />
               <Button
-                onMouseDown={submitComment}
+                onMouseDown={() => {
+                  updateShotComment({ ...comment, body: newComment });
+                  setShowEdit('none');
+                }}
                 variant='contained'
                 color='secondary'
                 disabled={!newComment}
@@ -152,7 +203,20 @@ const CommentItem = ({ comment,  }) => {
               </Button>
             </div>
           </label>
+          <div
+            style={{
+              display: showEdit === 'none' ? 'flex' : 'none',
+              position: 'relative',
+              flexWrap: 'wrap',
+              fontWeight: 900,
+              wordBreak: 'break-all',
+              width: 200,
+            }}
+          >
+            {comment.body}
+          </div>
         </div>
+
         <div
           style={{
             display: 'flex',
@@ -177,6 +241,20 @@ const CommentItem = ({ comment,  }) => {
             reply
           </Typography> */}
         </div>
+        {userId === comment.commenterId ? (
+          <MoreHoriz
+            onClick={handleMenuOpen}
+            style={{
+              cursor: 'pointer',
+              position: 'absolute',
+              right: 0,
+              top: 0,
+            }}
+          />
+        ) : (
+          <div></div>
+        )}
+        {renderMenu}
       </div>
     </div>
   );
@@ -188,6 +266,8 @@ function Feedback({
   fetchShotComments,
   createShotComment,
   fetchCurrentUser,
+  updateShotComment,
+  removeShotComment,
 }) {
   const { shotId } = useParams();
   console.log('shotId', shotId);
@@ -273,7 +353,13 @@ function Feedback({
       </div>
       <div className={classes.comments}>
         {Object.values(comments)?.map((comment) => (
-          <CommentItem key={comment.id} comment={comment} />
+          <CommentItem
+            key={comment.id}
+            comment={comment}
+            updateShotComment={updateShotComment}
+            removeShotComment={removeShotComment}
+            userId={userId}
+          />
         ))}
       </div>
     </div>
@@ -291,5 +377,8 @@ export default connect(
       dispatch(getCurrentUserInfo(sessionToken)),
     fetchShotComments: (shotId) => dispatch(fetchShotCommentsAction(shotId)),
     createShotComment: (comment) => dispatch(createShotCommentAction(comment)),
+    removeShotComment: (commentId) =>
+      dispatch(removeShotCommentAction(commentId)),
+    updateShotComment: (comment) => dispatch(updateShotCommentAction(comment)),
   })
 )(Feedback);

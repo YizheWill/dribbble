@@ -82,7 +82,7 @@ export default function DeleteAlert({ deleteShot }) {
                 onClick={() => {
                   deleteShot();
                   setTimeout(() => {
-                    history.goBack(-1);
+                    history.push('/');
                   }, 300);
                 }}
                 variant='contained'
