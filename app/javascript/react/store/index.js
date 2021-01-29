@@ -9,4 +9,4 @@ const preloadedState = {
   ui: {},
   errors: {},
 };
-export default createStore(RootReducer, preloadedState, applyMiddleware(thunk, logger));
+export default createStore(RootReducer, preloadedState, applyMiddleware(thunk));

@@ -88,9 +88,8 @@ function UserProfile({
         'Content-Type': 'application/json',
       },
       body: formData,
-    })
-      .then((res) => res.json())
-      .then((data) => console.log('data', data));
+    }).then((res) => res.json());
+    // .then((data) => console.log('data', data));
   };
 
   const [isMe, setIsMe] = useState(
@@ -99,7 +98,7 @@ function UserProfile({
   const classes = useStyles();
   const [selection, setSelection] = useState(0);
   const { artistId } = useParams();
-  console.log('userid', artistId);
+  // console.log('userid', artistId);
   useEffect(() => {
     getArtist(artistId);
     getCollections(artistId);
@@ -112,7 +111,7 @@ function UserProfile({
   const toRender = (state) => {
     switch (state) {
       case 0:
-        console.log('shots here', shots);
+        // console.log('shots here', shots);
         return <Cards urls={shots} />;
       case 1:
         return <Collections collections={Object.values(collections)} />;

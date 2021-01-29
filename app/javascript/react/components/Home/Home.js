@@ -20,7 +20,7 @@ const Home = ({ user, fetchAndSetUser, fetchShots, shots }) => {
     setUrls(shots);
   }, [shots]);
   // shots !== {} && setUrls(urlsAndNamesToRender);
-  console.log('shots', shots);
+  // console.log('shots', shots);
   return (
     <div>
       {user.id ? <Navbar withSearch={true} /> : <SignedOutNavBar withSearch={true} />}

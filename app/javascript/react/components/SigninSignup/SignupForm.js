@@ -128,14 +128,14 @@ function Form({ signUpUser, errors, user }) {
         res.push(errors[key]);
         delete errors[key];
       }
-      console.log('removing errors');
+      // console.log('removing errors');
       return res.map((e, i) => (
         <li key={i} className={classes.errorMessage}>
           {e}
         </li>
       ));
     }
-    console.log('downhere');
+    // console.log('downhere');
     return <li className={classes.errorMessage}>{errors}</li>;
   };
   return (
@@ -162,8 +162,14 @@ function Form({ signUpUser, errors, user }) {
           </Link>
         </Typography>
         <div className={classes.buttons}>
-          <Button variant='contained' color='primary' className={classes.google}>
-            <FaGoogle style={{ width: '1rem', height: '1rem', marginRight: '1rem' }} />
+          <Button
+            variant='contained'
+            color='primary'
+            className={classes.google}
+          >
+            <FaGoogle
+              style={{ width: '1rem', height: '1rem', marginRight: '1rem' }}
+            />
             Sign up with Google
           </Button>
           <div></div>
@@ -171,10 +177,16 @@ function Form({ signUpUser, errors, user }) {
             <FaTwitter style={{ width: '1rem', height: '1rem' }} />
           </Button>
         </div>
-        <div style={{ display: 'flex', margin: '2rem auto', alignItems: 'center' }}>
-          <div style={{ backgroundColor: '#eaeaea', height: 2, width: '50%' }}></div>
+        <div
+          style={{ display: 'flex', margin: '2rem auto', alignItems: 'center' }}
+        >
+          <div
+            style={{ backgroundColor: '#eaeaea', height: 2, width: '50%' }}
+          ></div>
           <div style={{ margin: '0 10px' }}>Or</div>
-          <div style={{ backgroundColor: '#eaeaea', height: 2, width: '50%' }}></div>
+          <div
+            style={{ backgroundColor: '#eaeaea', height: 2, width: '50%' }}
+          ></div>
         </div>
         <form className={classes.form} noValidate>
           <div className={classes.namebox}>
@@ -185,7 +197,10 @@ function Form({ signUpUser, errors, user }) {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               />
-              <Typography color='secondary' style={{ fontSize: 10, fontWeight: 100 }}>
+              <Typography
+                color='secondary'
+                style={{ fontSize: 10, fontWeight: 100 }}
+              >
                 {nameError}
               </Typography>
             </div>
@@ -197,7 +212,10 @@ function Form({ signUpUser, errors, user }) {
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
               />
-              <Typography color='secondary' style={{ fontSize: 10, fontWeight: 100 }}>
+              <Typography
+                color='secondary'
+                style={{ fontSize: 10, fontWeight: 100 }}
+              >
                 {usernameError}
               </Typography>
             </div>
@@ -208,7 +226,10 @@ function Form({ signUpUser, errors, user }) {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
-          <Typography color='secondary' style={{ fontSize: 10, fontWeight: 100 }}>
+          <Typography
+            color='secondary'
+            style={{ fontSize: 10, fontWeight: 100 }}
+          >
             {emailErrors}
           </Typography>
           <Typography>Password</Typography>
@@ -218,7 +239,10 @@ function Form({ signUpUser, errors, user }) {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <Typography color='secondary' style={{ fontSize: 10, fontWeight: 100 }}>
+          <Typography
+            color='secondary'
+            style={{ fontSize: 10, fontWeight: 100 }}
+          >
             {passwordErrors}
           </Typography>
           <Button

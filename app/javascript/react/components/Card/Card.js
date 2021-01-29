@@ -76,7 +76,7 @@ function CardUI({ src, currentUserId }) {
       .then((res) => res.json())
       .then((data) => console.log('data', data));
   };
-  console.log('likable', likable);
+  // console.log('likable', likable);
   const likeShot = () => {
     if (isSignedIn) {
       BackendLikeShot();
@@ -209,7 +209,7 @@ function CardUI({ src, currentUserId }) {
               </div>
             </Link>
           </Grid>
-          <Grid item xs={1} sm={1} md={1} style={{ justifyItems: 'end' }}>
+          <Grid item xs={1} sm={1} md={1} style={{ justifyItems: 'flex-end' }}>
             <div className={classes.imgbutton}>
               <Typography style={{ marginLeft: 4, color: 'gray' }}>
                 {likeCount}{' '}

@@ -15,9 +15,13 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Cards({ urls }) {
   const classes = useStyles();
-  console.log('urls', urls);
+  // console.log('urls', urls);
   return (
-    <Grid container className={classes.container} style={{ marginBottom: '5rem' }}>
+    <Grid
+      container
+      className={classes.container}
+      style={{ marginBottom: '5rem' }}
+    >
       {urls?.map((url) => (
         <Grid className={classes.shots} item xs={12} sm={6} md={3} key={url.id}>
           <Card src={url} style={{ width: 320, height: 240 }} />

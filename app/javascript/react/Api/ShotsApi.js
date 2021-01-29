@@ -3,7 +3,7 @@ import { serialize } from 'object-to-formdata';
 export const BackendFetchAllShots = (pageNumber) => {
   const url = `/api/v1/shots`;
   return fetch(url).then((res) => {
-    console.log(res);
+    // console.log(res);
     return res.json();
   });
 };

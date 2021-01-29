@@ -81,7 +81,7 @@ function Form({ errors, user, signInUser, formRemoveErrors }) {
   const history = useHistory();
   const handleSubmit = () => {
     signInUser({ username: usernameEmail, email: usernameEmail, password });
-    console.log(window.localStorage.getItem('sessionToken'));
+    // console.log(window.localStorage.getItem('sessionToken'));
   };
   useEffect(() => {
     if (user.sessionToken) history.push('/');
@@ -142,10 +142,10 @@ function Form({ errors, user, signInUser, formRemoveErrors }) {
   };
   // work as component will unmount
   const renderErrors = () => {
-    console.log('downhere');
+    // console.log('downhere');
     return <li className={classes.errorMessage}>{err}</li>;
   };
-  console.log('demoName', demoName);
+  // console.log('demoName', demoName);
 
   return (
     <Grid item xs={12} sm={12} md={8} component={Paper} square>

@@ -336,7 +336,7 @@ function EditUserForm({ user, fetchUser, updateUser, state }) {
             color='secondary'
             component='label'
           >
-            Upload new picture
+            Upload Avatar
             <input
               type='file'
               hidden

@@ -50,11 +50,11 @@ export default function Collection({ collection }) {
   const classes = useStyles();
   const history = useHistory();
   const shotscount = shots?.length;
-  console.log('id', id);
-  console.log('userId', userId);
-  console.log('shots', shots);
-  console.log('title', title);
-  console.log('artistCount', artistCount);
+  // console.log('id', id);
+  // console.log('userId', userId);
+  // console.log('shots', shots);
+  // console.log('title', title);
+  // console.log('artistCount', artistCount);
   const pauseMovie = (e) => {
     e.currentTarget.pause();
   };

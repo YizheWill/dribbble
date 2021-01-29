@@ -6,7 +6,7 @@ import NotFollowing from '../../assets/imgs/notfollowing';
 import FollowedUser from './FollowedUser';
 
 function Users({ userImFollowing }) {
-  console.log('userImFollowing', userImFollowing);
+  // console.log('userImFollowing', userImFollowing);
   // debugger;
   const history = useHistory();
   const renderUsers = () => {

@@ -9,7 +9,7 @@ export default (preState = _initState, action) => {
   Object.freeze(preState);
   switch (action.type) {
     case RECEIVE_SHOT_COMMENTS:
-      console.log('action payload', action.payload);
+      // console.log('action payload', action.payload);
       return action.payload;
     case RECEIVE_SHOT_COMMENT:
       const newState = {

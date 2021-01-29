@@ -94,11 +94,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function About({ user }) {
-  console.log('user', user);
-  console.log(
-    "localStorage.getItem('sessionToken')",
-    localStorage.getItem('sessionToken')
-  );
+  // console.log('user', user);
+  // console.log(
+  //   "localStorage.getItem('sessionToken')",
+  //   localStorage.getItem('sessionToken')
+  // );
   const [edit, setEdit] = useState('none');
   useEffect(() => {
     setEdit(
@@ -107,7 +107,7 @@ function About({ user }) {
         : 'none'
     );
   }, [user]);
-  console.log('edit', edit);
+  // console.log('edit', edit);
   const { bio, location, tier, createdAt } = user;
   const tierLevels = ['Designer', 'PRO', 'Team'];
   const tierLevel = tierLevels[tier];
@@ -126,7 +126,7 @@ function About({ user }) {
     'December',
   ];
   let timeString = createdAt.split('-').slice(0, 2);
-  console.log('timeString', timeString);
+  // console.log('timeString', timeString);
   let memberSince = months[parseInt(timeString[1] - 1)] + ' ' + timeString[0];
 
   const skills = [

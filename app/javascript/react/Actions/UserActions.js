@@ -32,7 +32,7 @@ export const signInUserAction = (usr) => (dispatch) => {
   BackendSignInUser(usr).then((res) => {
     if (res.error) {
       window.localStorage.clear();
-      console.log('cleaned storage');
+      // console.log('cleaned storage');
       return dispatch(receiveErrors(res.error));
     } else {
       signIn(res.sessionToken);
@@ -67,10 +67,10 @@ export const signUpUserAction = (user) => (dispatch) => {
 };
 
 export const getCurrentUserInfo = (sessionToken) => (dispatch) => {
-  console.log(sessionToken);
+  // console.log(sessionToken);
   BackendGetCurrentUserInfo(sessionToken).then((res) => {
     if (res.error) {
-      console.log('signing out');
+      // console.log('signing out');
       signOut();
     } else {
       dispatch(receiveUser(res));
@@ -79,9 +79,9 @@ export const getCurrentUserInfo = (sessionToken) => (dispatch) => {
 };
 
 export const getUserInfo = (id) => (dispatch) => {
-  console.log('getUserInfo', id);
+  // console.log('getUserInfo', id);
   BackendGetUserInfo(id).then((user) => {
-    console.log('backend user', user);
+    // console.log('backend user', user);
     dispatch(receiveUser(user));
   });
 };

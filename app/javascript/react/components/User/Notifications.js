@@ -9,7 +9,7 @@ import { Typography } from '@material-ui/core';
 
 function Notifications({ userId, comments, fetchUserComments }) {
   const history = useHistory();
-  console.log('userId', userId);
+  // console.log('userId', userId);
   useEffect(() => {
     fetchUserComments(userId);
   }, []);

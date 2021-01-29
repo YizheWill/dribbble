@@ -54,7 +54,7 @@ function Collection({ collection, fetchCollection, avatarUrl }) {
   useEffect(() => {
     fetchCollection(collectionId);
   }, []);
-  console.log('collection', collection);
+  // console.log('collection', collection);
   const classes = useStyles();
   return (
     <div>

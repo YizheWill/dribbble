@@ -5,10 +5,10 @@ import { getUserInfo } from './Actions/UserActions';
 import { Avatar } from '@material-ui/core';
 function UserApi({ usr, getUser }) {
   const params = useParams();
-  console.log(params);
+  // console.log(params);
   const [user, setUser] = useState(null);
   useEffect(() => {
-    console.log('here');
+    // console.log('here');
     getUser(params.userId);
   }, []);
 
@@ -17,7 +17,7 @@ function UserApi({ usr, getUser }) {
     lis.push(<Avatar key={1} src={usr?.avatarUrl} />);
     lis.push(<li key={2}>username: {usr?.username}</li>);
     const { shots } = usr;
-    console.log('shots', shots);
+    // console.log('shots', shots);
     shots?.forEach((shot) => {
       // console.log(shot.title);
       // console.log(shot.imageUrl);

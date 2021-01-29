@@ -138,7 +138,7 @@ const CommentItem = ({
   );
 
   const updateComment = () => {
-    console.log('userId', userId);
+    // console.log('userId', userId);
     const commentBody = {
       user_id: userId,
       shot_id: shotId,
@@ -271,18 +271,18 @@ function Feedback({
   removeShotComment,
 }) {
   const { shotId } = useParams();
-  console.log('shotId', shotId);
+  // console.log('shotId', shotId);
   useEffect(() => {
     fetchShotComments(shotId);
     fetchCurrentUser(window.localStorage.getItem('sessionToken'));
   }, []);
-  console.log('comments', comments);
+  // console.log('comments', comments);
   const classes = useStyles();
   const [height, setHeight] = useState(1);
   const [newComment, setNewComment] = useState('');
-  console.log('userId', userId);
+  // console.log('userId', userId);
   const submitComment = () => {
-    console.log('userId', userId);
+    // console.log('userId', userId);
     const commentBody = {
       user_id: userId,
       shot_id: shotId,

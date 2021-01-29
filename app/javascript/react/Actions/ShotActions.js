@@ -25,7 +25,7 @@ export const removeShot = (shotId) => ({
 export const createShotAction = (shot) => (dispatch) =>
   BackendCreateShot(shot).then((res) => {
     if (res.error) {
-      console.log(res.error);
+      // console.log(res.error);
       return dispatch(receiveShotErrors(res.error));
     } else {
       return dispatch(receiveShot(res));
@@ -35,7 +35,7 @@ export const createShotAction = (shot) => (dispatch) =>
 export const fetchShotAction = (shotId) => (dispatch) =>
   BackendFetchShot(shotId).then((res) => {
     if (res.error) {
-      console.log(res.error);
+      // console.log(res.error);
       return dispatch(receiveShotErrors(res.error));
     } else {
       return dispatch(receiveShot(res));
@@ -45,7 +45,7 @@ export const fetchShotAction = (shotId) => (dispatch) =>
 export const editShotAction = (shot) => (dispatch) =>
   BackendEditShot(shot).then((res) => {
     if (res.error) {
-      console.log(res.error);
+      // console.log(res.error);
       return dispatch(receiveShotErrors(res.error));
     } else {
       return dispatch(receiveShot(res));
@@ -55,7 +55,7 @@ export const editShotAction = (shot) => (dispatch) =>
 export const deleteShotAction = (shotId) => (dispatch) =>
   BackendDeleteShot(shotId).then((res) => {
     if (res.error) {
-      console.log(res.error);
+      // console.log(res.error);
       return dispatch(receiveShotErrors(res.error));
     } else {
       return dispatch(removeShot(shotId));

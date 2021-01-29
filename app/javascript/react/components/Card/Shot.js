@@ -158,21 +158,21 @@ function Shot({
     window.scrollTo(0, 0);
   }, [useParams()]);
   useEffect(() => {
-    console.log('shot', shot);
-    console.log('artist', artist);
-    console.log('title', title);
-    console.log('description', description);
-    console.log('imageUrl', imageUrl);
-    console.log('aritst shots', artist?.artistShots);
+    // console.log('shot', shot);
+    // console.log('artist', artist);
+    // console.log('title', title);
+    // console.log('description', description);
+    // console.log('imageUrl', imageUrl);
+    // console.log('aritst shots', artist?.artistShots);
     setUser(shot.artist);
   }, [shot]);
   const [likable, setLikable] = useState(null);
   useEffect(() => {
     setLikable(shot.likers?.includes(currentUserId));
-    console.log('shot.likers', shot.likers);
-    console.log('currentUserId', currentUserId);
+    // console.log('shot.likers', shot.likers);
+    // console.log('currentUserId', currentUserId);
   }, [user, shot.likers, currentUserId]);
-  console.log('likable of the shot', likable);
+  // console.log('likable of the shot', likable);
 
   const [fb, setFb] = useState({ right: false });
   const classes = useStyles();

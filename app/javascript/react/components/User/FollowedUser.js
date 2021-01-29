@@ -34,8 +34,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function User({ user }) {
-  console.log('user', user);
-  console.log('user.userShot.image_url', user.userShot.image_url);
+  // console.log('user', user);
+  // console.log('user.userShot.image_url', user.userShot.image_url);
   // debugger;
   const pauseMovie = (e) => {
     e.currentTarget.pause();
@@ -54,7 +54,6 @@ function User({ user }) {
             flexDirection: 'column',
             justifyContent: 'space-around',
           }}
-          
         >
           <Typography variant='h6' style={{ fontWeight: 700 }}>
             <Link
@@ -75,7 +74,9 @@ function User({ user }) {
           <Typography style={{ fontWeight: 100 }}>"{user.bio}"</Typography>
         </div>
       </div>
-      {['mp4', 'mov'].includes(user.userShot.image_url.split('.').slice(-1)[0]) ? (
+      {['mp4', 'mov'].includes(
+        user.userShot.image_url.split('.').slice(-1)[0]
+      ) ? (
         <video
           className={classes.images}
           onMouseOver={playMovie}
@@ -85,7 +86,11 @@ function User({ user }) {
           loop
         />
       ) : (
-        <img className={classes.images} src={user.userShot.image_url} alt='image 1'></img>
+        <img
+          className={classes.images}
+          src={user.userShot.image_url}
+          alt='image 1'
+        ></img>
       )}
     </div>
   );

@@ -89,7 +89,7 @@ function Appbar({
   withSearch,
 }) {
   useEffect(() => {
-    console.log('getting the data from backend');
+    // console.log('getting the data from backend');
     getCurrentUserInfo(localStorage.getItem('sessionToken'));
   }, []);
   const history = useHistory();
@@ -207,9 +207,9 @@ function Appbar({
   );
 
   const handleKeyPress = (e) => {
-    console.log('e.keyCode', e.keyCode);
+    // console.log('e.keyCode', e.keyCode);
     if (e.keyCode === 13) {
-      console.log('here submited');
+      // console.log('here submited');
     }
   };
 
@@ -256,7 +256,7 @@ function Appbar({
               value={keyword}
               onChange={(e) => setKeyword(e.target.value)}
               onKeyDown={(e) => {
-                console.log('e.key', e.key);
+                // console.log('e.key', e.key);
                 if (e.key === 'Enter') {
                   getShots(keyword);
                   setKeyword('');
