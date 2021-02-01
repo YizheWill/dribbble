@@ -52,7 +52,7 @@
 
 ---
 
-- #### users can also leave comment on each other's artworks. All comments can be edited or deleted by the orignal commenter.
+- #### users can also leave comments or likes on each other's artworks. All comments can be edited or deleted by the orignal commenter.
   ![dribbble landing page](https://res.cloudinary.com/willwang/image/upload/v1612146700/Screen_Shot_2021-01-31_at_6.28.13_PM_bdzcvg.png)
 
 ---
