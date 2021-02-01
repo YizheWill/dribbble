@@ -8,7 +8,7 @@
 
 ---
 
-[dribbble landing page](https://res.cloudinary.com/willwang/image/upload/v1611789398/gifFront_nqptom.gif)
+![dribbble landing page](https://res.cloudinary.com/willwang/image/upload/v1611789398/gifFront_nqptom.gif)
 
 ---
 
